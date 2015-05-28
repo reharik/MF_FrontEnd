@@ -12,7 +12,8 @@ module.exports = {
     out: {
       build_info: root + "/build-info.json",
       build_js: root + "/build",
-      public: root + "/../MethodFitness_Api/public"
+      public_js: root + "/../MF_BuildFiles/CDN/public/js",
+      public_css: root + "/../MF_BuildFiles/CDN/public/css"
     }
   }
 };

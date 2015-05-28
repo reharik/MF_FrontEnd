@@ -60,7 +60,7 @@ function bundle() {
 
     bundler.bundle()
         .pipe(source("app.js"))
-        .pipe(gulp.dest(paths.out.public));
+        .pipe(gulp.dest(paths.out.public_js));
 }
 
 bundler.on('update', function(){ console.log('update event'); bundle();}); // on any dep update, runs the bundler
@@ -79,30 +79,14 @@ gulp.task("less-compile", function () {
     .pipe(concat("app.css"))
     .pipe(minifyCSS())
     .pipe(gulpif(DEBUG, sourcemaps.write()))
-    .pipe(gulp.dest(paths.out.public));
+    .pipe(gulp.dest(paths.out.public_css));
 });
 
-gulp.task("write-build-info", function (cb) {
-  var buildInfos = {
-    version : packagejson.version
-  };
-  require("git-rev").short(function (str) {
-    buildInfos.commit = str;
-    fs.writeFile(paths.out.build_info, JSON.stringify(buildInfos, null, 2), cb);
-  });
-});
-
-gulp.task("install", ["app-compile", "less-compile", "write-build-info" ]);
+gulp.task("install", ["app-compile", "less-compile"]);
 
 /**
  * Global tasks
  */
 gulp.task("dev", ["install"]);
-
-gulp.task("production", ["install"], function () {
-  return gulp.src(paths.out.public + "/*.js")
-       .pipe(uglify())
-       .pipe(gulp.dest(paths.out.public));
-});
 
 gulp.task("default", ["install"]);
