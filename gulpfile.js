@@ -32,6 +32,10 @@ var DEBUG = process.env.NODE_ENV === "development";
  * Sub-Tasks
  */
 
+gulp.task("clean", function(){
+    del(paths.out.deploy+"/public", {force:true});
+});
+
 gulp.task("jsx-compile", function () {
   return gulp.src(paths.in.jsx)
   .pipe(react())
@@ -45,6 +49,11 @@ gulp.task("jsx-compile", function () {
 gulp.task("copy-js", function () {
   return gulp.src(paths.in.js)
   .pipe(gulp.dest(paths.out.build_js));
+});
+
+gulp.task("copy-dockerFile", function () {
+    return gulp.src(paths.in.dockerfile)
+        .pipe(gulp.dest(paths.out.deploy));
 });
 
 var bundler = watchify(browserify({
@@ -82,7 +91,7 @@ gulp.task("less-compile", function () {
     .pipe(gulp.dest(paths.out.public_css));
 });
 
-gulp.task("install", ["app-compile", "less-compile"]);
+gulp.task("install", ["clean", "copy-dockerfile", "app-compile", "less-compile"]);
 
 /**
  * Global tasks

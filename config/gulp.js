@@ -7,13 +7,15 @@ module.exports = {
       less: root + "/src/client/less/*.less",
       jsx: root + "/src/client/**/*.jsx",
       js: root + "/src/client/**/*.js",
-      app: root + "/build/app"
+      app: root + "/build/app",
+      dockerfile: root + "/Dockerfile"
     },
     out: {
       build_info: root + "/build-info.json",
       build_js: root + "/build",
       public_js: root + "/../MF_BuildFiles/CDN/public/js",
-      public_css: root + "/../MF_BuildFiles/CDN/public/css"
+      public_css: root + "/../MF_BuildFiles/CDN/public/css",
+      deploy: root + "/../MF_BuildFiles/CDN"
     }
   }
 };
