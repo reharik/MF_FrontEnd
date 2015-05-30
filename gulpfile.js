@@ -20,6 +20,7 @@ var envify = require("envify");
 var shim = require("browserify-shim");
 var babelify = require("babelify");
 var watchify = require("watchify");
+var del = require("del");
 
 // Config
 var packagejson =  require("./package");
@@ -51,7 +52,7 @@ gulp.task("copy-js", function () {
   .pipe(gulp.dest(paths.out.build_js));
 });
 
-gulp.task("copy-dockerFile", function () {
+gulp.task("copy-dockerfile", function () {
     return gulp.src(paths.in.dockerfile)
         .pipe(gulp.dest(paths.out.deploy));
 });
