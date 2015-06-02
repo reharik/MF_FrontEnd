@@ -16,21 +16,21 @@ var _ = require("lodash");
 
 //require("./less/main.less");
 
-var stores = {
-  authStore: new AuthStore(),//,
-  trainerStore: new TrainerStore(),
-  clientSummaryStore: new ClientSummaryStore()
-};
-var allActions = _.merge(authActions,clientActions,trainerActions);
-var flux = new Luxxor.Flux(stores,allActions);
+//var stores = {
+//  authStore: new AuthStore(),//,
+//  trainerStore: new TrainerStore(),
+//  clientSummaryStore: new ClientSummaryStore()
+//};
+//var allActions = _.merge(authActions,clientActions,trainerActions);
+//var flux = new Luxxor.Flux(stores,allActions);
 //flux.addAction(actions.authActions);
 //flux.addAction(actions.clientActions);
-window.flux = flux;
-flux.on("dispatch", function(type, payload) {
-  if (console && console.log) {
-    console.log("[Dispatch]", type, payload);
-  }
-});
+//window.flux = flux;
+//flux.on("dispatch", function(type, payload) {
+//  if (console && console.log) {
+//    console.log("[Dispatch]", type, payload);
+//  }
+//});
 
 var container = document.getElementById("content");
 
@@ -43,7 +43,7 @@ Router.run(routes, (Handler, State) => {
     }
   });
   React.render(
-    <Handler flux={flux} />,
+    //<Handler flux={flux} />,
     container
   );
 });

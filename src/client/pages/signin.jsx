@@ -10,25 +10,27 @@ var Button = require("react-bootstrap").Button;
 
 var RHInput = require('./../components/formConcerns/RHInput');
 var validators = require('./../components/formConcerns/validatorEnum');
+var authStore = require('../stores/authStore');
+var authActions = require('../actions/authActions');
 
-var Luxxor = require("./../services/luxxor");
+//var Luxxor = require("./../services/luxxor");
 
 var SignIn = React.createClass({
   displayName: "SignInPage",
-  mixins: [Luxxor.FluxMixin, Luxxor.StoreWatchMixin("authStore") ],
+  //mixins: [Luxxor.FluxMixin, Luxxor.StoreWatchMixin("authStore") ],
+  mixins: [authStore.mixin],
   contextTypes: { router: React.PropTypes.func.isRequired },
 
   statics: {
     attemptedTransition: null
   },
-  getStateFromFlux: function(){
-    var store = this.getFlux().store("authStore");
-    if(store.isLoggedIn()){
+  getStateFromStores: function(){
+    if(authStore.isLoggedIn()){
       this.retryTransition();
     }
     return {
-      loading: store.getLoading(),
-      error: store.getError()
+      loading: authStore.getLoading(),
+      error: authStore.getError()
     };
   },
 
@@ -40,7 +42,7 @@ var SignIn = React.createClass({
 
           var username = this.refs.username.getValue();
           var password = this.refs.password.getValue();
-          this.getFlux().actions[Luxxor.constants.AUTH.SIGN_IN](username, password);
+          authActions.signInAC(username, password);
       }
   },
 

@@ -7,21 +7,21 @@ const ImmutableStore = require('fluxthis').ObjectOrientedStore;
 //const ACTION_TYPES = require('constants/ActionTypes');
 
 export default new ObjectOrientedStore({
-    displayName: 'authStore',
+    displayName: 'trainerStore',
     init() {
         this.loading = false;
         this.error = null;
-        this.clientSummaries = [];
+        this.trainerSummaries = [];
 
-        this.bindActions({
-            'LOAD_CLIENT_SUMMARIES_PENDING':onLoadClientSummariesPending,
-            'LOAD_CLIENT_SUMMARIES_SUCCESS':onLoadClientSummariesSuccess,
-            'LOAD_CLIENT_SUMMARIES_FAILURE':onLoadClientSummariesFailure
-        });
+        this.bindActions(
+            'TRAINERS.LOAD_TRAINER_SUMMARIES_PENDING':onLoadTrainerSummariesPending,
+            'TRAINERS.LOAD_TRAINER_SUMMARIES_SUCCESS':onLoadTrainerSummariesSuccess,
+            'TRAINERS.LOAD_TRAINER_SUMMARIES_FAILURE':onLoadTrainerSummariesFailure
+        )
     },
     public: {
-        getClientSummaries(){
-        return this.clientSummaries;
+        getTrainerSummaries(){
+            return this.trainerSummaries;
         },
         getLoading(){
             return this.loading;
@@ -31,19 +31,20 @@ export default new ObjectOrientedStore({
         }
     },
     private: {
-        onLoadClientSummariesPending: function() {
+        onLoadTrainerSummariesPending() {
             this.loading = true;
             this.error = null;
-            this.clientSummaries = payload.clientSummaries;
         },
-        onLoadClientSummariesSuccess: function(payload) {
+        onLoadTrainerSummariesSuccess(payload) {
             this.loading = false;
             this.error = null;
-            this.clientSummaries = payload.clientSummaries;
+
+            this.trainerSummaries = payload.trainerSummaries;
         },
-        onLoadClientSummariesFailure: function(payload) {
+        onLoadTrainerSummariesFailure(payload) {
             this.loading = false;
             this.error = payload;
         }
+
     }
 });

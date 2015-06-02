@@ -64,8 +64,6 @@ var bundler = watchify(browserify({
 
 function bundle() {
     bundler.require("react");
-    bundler.transform(shim);
-    bundler.transform(envify);
     bundler.transform(babelify);
 
     bundler.bundle()

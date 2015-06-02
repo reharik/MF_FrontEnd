@@ -27,6 +27,7 @@
     "bluebird": "^2.9.24",
     "co": "4.4.x",
     "curlrequest": "~0.5.1",
+    "fluxthis": "^2.1.0",
     "fluxxor": "^1.5.2",
     "griddle-react": "^0.2.4",
     "lodash": "^3.6.0",

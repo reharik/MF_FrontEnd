@@ -1,16 +1,17 @@
 /**
  * Created by reharik on 5/31/15.
  */
+
 var APIActionCreator = require('fluxthis').APIActionCreator;
 
-var loadTrainerSummariesAC = new APIActionCreator({
-    displayName: 'loadTrainerSummaries',
+var loadClientSummariesAC = new APIActionCreator({
+    displayName: 'loadClientSummariesAction',
     fetchUser: {
-        route: '/trainers',
+        route: '/clients',
         method: 'GET',
-        pending: 'LOAD_TRAINER_SUMMARIES_PENDING',
-        success: 'LOAD_TRAINER_SUMMARIES_SUCCESS',
-        failure: 'LOAD_TRAINER_SUMMARIES_FAILURE',
+        pending: 'LOAD_CLIENT_SUMMARIES_PENDING',
+        success: 'LOAD_CLIENT_SUMMARIES_SUCCESS',
+        failure: 'LOAD_CLIENT_SUMMARIES_FAILURE',
         successTest(response) {
             return response &&
                 response.status &&

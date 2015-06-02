@@ -1,69 +1,89 @@
-"use strict";
+'use strict';
 
-var Luxxor = require("./../services/luxxor");
+const ImmutableStore = require('fluxthis').ObjectOrientedStore;
+//const ACTION_TYPES = require('constants/ActionTypes');
 
-var AuthStore = Luxxor.createStore({
-  initialize: function () {
-    this.loading = false;
-    this.error = null;
-    this._user = null;
+export default new ObjectOrientedStore({
+    displayName: 'authStore',
+    init() {
+        this.loading = false;
+        this.error = null;
+        this._user = null;
 
-    this.bindActions2({
-        servicesActions: [
-            Luxxor.constants.AUTH.FETCH_USER,
-            Luxxor.constants.AUTH.SIGN_IN,
-            Luxxor.constants.AUTH.SIGN_OUT,
-            Luxxor.constants.AUTH.SIGN_UP
-        ],
-        directActions: {}
-    });
-  },
+        this.bindActions(
+            'FETCH_USER_PENDING', this.onFetchUserPending,
+            'FETCH_USER_SUCCESS', this.onFetchUserSuccess,
+            'FETCH_USER_FAILURE', this.onFetchUserFailure,
+            //
+            'SIGN_IN_PENDING', this.onSignInPending,
+            'SIGN_IN_SUCCESS', this.onSignInSuccess,
+            'SIGN_IN_FAILURE', this.onSignInFailure,
+            //
+            'SIGN_OUT_PENDOUTG', this.onSignOutPendOUTg,
+            'SIGN_OUT_SUCCESS', this.onSignOutSuccess,
+            'SIGN_OUT_FAILURE', this.onSignOutFailure
 
-  onFetchUserSuccess: function (payload) {
-    this.loading = false;
-    this.error = null;
+        );
+    },
+    public: {
+        isLoggedIn() {
+            return this._user !== null && this._user !== {} ;
+        },
+        getUser() {
+            return this._user;
+        },
+        getLoading() {
+            return this.loading;
+        },
+        getError() {
+            return this.error;
+        }
+    },
+    private: {
+        onFetchUserPending() {
+            this.loading = true;
+            this.error = null;
+        },
+        onFetchUserSuccess(payload) {
+            this.loading = false;
+            this.error = null;
 
-    this._user = payload;
-    this.emit("change");
-  },
+            this._user = payload;
+        },
+        onFetchUserFailure(payload) {
+            this.loading = false;
+            this.error = payload;
+        },
+        onSignInPending() {
+            this.loading = true;
+            this.error = null;
+        },
+        onSignInSuccess(payload) {
+            this.loading = false;
+            this.error = null;
 
-  onSignInSuccess: function (payload) {
-    this.loading = false;
-    this.error = null;
+            this._user = payload;
+        },
+        onSignInFailure(payload) {
+            this.loading = false;
+            this.error = payload;
+        },
+        onSignOutPending() {
+            this.loading = true;
+            this.error = null;
+        },
+        onSignOutSuccess(payload) {
+            this.loading = false;
+            this.error = null;
 
-    this._user = payload;
-    this.emit("change");
-  },
+            this._user = null;
+        },
+        onSignOutFailure(payload) {
+            this.loading = false;
+            this.error = payload;
+        }
 
-  onSignOutSuccess: function (payload) {
-    this.loading = false;
-    this.error = null;
+    }
+})
 
-    this._user = null;
-    this.emit("change");
-  },
 
-  onSignUpSuccess: function (payload) {
-    this.loading = false;
-    this.error = "";
-
-    this._user = payload;
-    this.emit("change");
-  },
-
-  isLoggedIn: function () {
-    return this._user !== null && this._user !== {} ;
-  },
-  getUser: function () {
-    return this._user;
-  },
-  getLoading: function () {
-    return this.loading;
-  },
-  getError: function () {
-    return this.error;
-  }
-
-});//
-
-module.exports = AuthStore;
