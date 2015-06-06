@@ -8,7 +8,7 @@ module.exports = {
       jsx: root + "/src/client/**/*.jsx",
       js: root + "/src/client/**/*.js",
       app: root + "/build/app",
-      dockerfile: root + "/Dockerfile"
+      rootfiles: [root + "/Dockerfile", root + "/nginx.conf", root + "/Makefile"]
     },
     out: {
       build_info: root + "/build-info.json",

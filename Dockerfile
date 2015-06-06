@@ -1,13 +1,13 @@
-FROM ubuntu
+FROM nginx
 
 # Maintainer
 MAINTAINER Raif Harik <reharik@gmail.com>
 
-RUN mkdir /public && mkdir /public/js && mkdir /public/css
-#ADD ./public /public
+# set WORKDIR
+WORKDIR /opt/app/current
 
-EXPOSE 2990
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
-VOLUME /public/js
-VOLUME /public/css
+RUN mkdir /opt/app/current/js && mkdir /opt/app/current/css && mkdir /opt/app/current/images
 
+COPY ./public /opt/app/current

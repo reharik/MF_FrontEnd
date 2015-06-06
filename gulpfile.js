@@ -53,7 +53,7 @@ gulp.task("copy-js", function () {
 });
 
 gulp.task("copy-dockerfile", function () {
-    return gulp.src(paths.in.dockerfile)
+    return gulp.src(paths.in.rootfiles)
         .pipe(gulp.dest(paths.out.deploy));
 });
 
