@@ -5,13 +5,13 @@ var Router = require("react-router");
 
 var constants = require("./mfConstants");
 var routes = require("./routes");
-var authActions = require("./actions/authActions");
-var clientActions = require("./actions/clientActions");
-var trainerActions = require("./actions/trainerActions");
-
-var AuthStore = require("./stores/authStore");
-var TrainerStore = require("./stores/trainerStore");
-var ClientSummaryStore = require("./stores/clientSummaryStore");
+//var authActions = require("./actions/authActions");
+//var clientActions = require("./actions/clientActions");
+//var trainerActions = require("./actions/trainerActions");
+//
+//var AuthStore = require("./stores/authStore");
+//var TrainerStore = require("./stores/trainerStore");
+//var ClientSummaryStore = require("./stores/clientSummaryStore");
 var _ = require("lodash");
 
 //require("./less/main.less");

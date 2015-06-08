@@ -47,7 +47,7 @@
     "del": "^1.2.0",
     "envify": "3.2.x",
     "git-rev": "0.2.x",
-    "gulp": "3.8.x",
+    "gulp": "3.9.x",
     "gulp-concat": "2.5.x",
     "gulp-if": "^1.2.5",
     "gulp-less": "3.0.x",
