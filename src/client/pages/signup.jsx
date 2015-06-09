@@ -15,7 +15,7 @@ var SignUp = React.createClass({
     mixins: [authStore.mixin],
     contextTypes: { router: React.PropTypes.func.isRequired },
 
-    getStateFromStore: function(){
+    getStateFromStores: function(){
         if(authStore.isLoggedIn()){
             this.context.router.transitionTo("/");
         }

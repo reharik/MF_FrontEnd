@@ -3,21 +3,21 @@
  */
 'use strict';
 
-const ImmutableStore = require('fluxthis').ObjectOrientedStore;
+const ObjectOrientedStore = require('fluxthis').ObjectOrientedStore;
 //const ACTION_TYPES = require('constants/ActionTypes');
 
 export default new ObjectOrientedStore({
-    displayName: 'trainerStore',
+    displayName: 'trainerSummariesStore',
     init() {
         this.loading = false;
         this.error = null;
         this.trainerSummaries = [];
 
-        this.bindActions({
-            'TRAINERS.LOAD_TRAINER_SUMMARIES_PENDING': onLoadTrainerSummariesPending,
-            'TRAINERS.LOAD_TRAINER_SUMMARIES_SUCCESS': onLoadTrainerSummariesSuccess,
-            'TRAINERS.LOAD_TRAINER_SUMMARIES_FAILURE': onLoadTrainerSummariesFailure
-        })
+        this.bindActions(
+            'TRAINERS.LOAD_TRAINER_SUMMARIES_PENDING', this.onLoadTrainerSummariesPending,
+            'TRAINERS.LOAD_TRAINER_SUMMARIES_SUCCESS', this.onLoadTrainerSummariesSuccess,
+            'TRAINERS.LOAD_TRAINER_SUMMARIES_FAILURE', this.onLoadTrainerSummariesFailure
+        )
     },
     public: {
         getTrainerSummaries(){

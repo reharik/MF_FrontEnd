@@ -8,9 +8,6 @@ var SignOut = React.createClass({
     resolve: constants.AUTH.SIGN_OUT
   },
   contextTypes: { router: React.PropTypes.func.isRequired },
-  getInitialState: function() {
-    return {};
-  },
 
   render: function () {
     this.context.router.transitionTo("sign-in");

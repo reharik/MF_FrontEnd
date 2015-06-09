@@ -3,7 +3,7 @@
  */
 'use strict';
 
-const ImmutableStore = require('fluxthis').ObjectOrientedStore;
+const ObjectOrientedStore = require('fluxthis').ObjectOrientedStore;
 //const ACTION_TYPES = require('constants/ActionTypes');
 
 export default new ObjectOrientedStore({
@@ -16,7 +16,7 @@ export default new ObjectOrientedStore({
         this.bindActions(
             'TRAINER_GENERATED_CLIENT_SIGNED_UP_PENDING', this.onTrainerGeneratedClientSignedUpPending,
             'TRAINER_GENERATED_CLIENT_SIGNED_UP_SUCCESS', this.onTrainerGeneratedClientSignedUpSuccess,
-            'TRAINER_GENERATED_CLIENT_SIGNED_UP_FAILURE', this.onTrainerGeneratedClientSignedUpFalure
+            'TRAINER_GENERATED_CLIENT_SIGNED_UP_FAILURE', this.onTrainerGeneratedClientSignedUpFailure
         );
     },
     public:{

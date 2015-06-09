@@ -3,21 +3,21 @@
  */
 'use strict';
 
-const ImmutableStore = require('fluxthis').ObjectOrientedStore;
+const ObjectOrientedStore = require('fluxthis').ObjectOrientedStore;
 //const ACTION_TYPES = require('constants/ActionTypes');
 
 export default new ObjectOrientedStore({
-    displayName: 'authStore',
+    displayName: 'clientSummariesStore',
     init() {
         this.loading = false;
         this.error = null;
         this.clientSummaries = [];
 
-        this.bindActions({
-            'LOAD_CLIENT_SUMMARIES_PENDING': onLoadClientSummariesPending,
-            'LOAD_CLIENT_SUMMARIES_SUCCESS': onLoadClientSummariesSuccess,
-            'LOAD_CLIENT_SUMMARIES_FAILURE': onLoadClientSummariesFailure
-        });
+        this.bindActions(
+            'LOAD_CLIENT_SUMMARIES_PENDING', this.onLoadClientSummariesPending,
+            'LOAD_CLIENT_SUMMARIES_SUCCESS', this.onLoadClientSummariesSuccess,
+            'LOAD_CLIENT_SUMMARIES_FAILURE', this.onLoadClientSummariesFailure
+        );
     },
     public: {
         getClientSummaries(){

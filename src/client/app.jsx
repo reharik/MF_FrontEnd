@@ -34,16 +34,19 @@ var _ = require("lodash");
 
 var container = document.getElementById("content");
 
-Router.run(routes, (Handler, State) => {
-  _.each(State.routes, function(route) {
-    if (route.handler.resolve && flux.actions[route.handler.resolve]) {
-      flux.actions[route.handler.resolve]();
-    }else{
-        console.log("bad route: {0}", route.handler.resolve);
-    }
-  });
+Router.run(routes, Router.HashLocation, (Root) => {
+  React.render(<Root/>, document.body);
+});
+
+//Router.run(routes, (Handler, State) => {
+//  _.each(State.routes, function(route) {
+//    if (route.handler.resolve && flux.actions[route.handler.resolve]) {
+//      flux.actions[route.handler.resolve]();
+//    }else{
+//        console.log("bad route: {0}", route.handler.resolve);
+//    }
+//  });
   React.render(
     //<Handler flux={flux} />,
     container
   );
-});

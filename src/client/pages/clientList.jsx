@@ -6,7 +6,7 @@ var Authentication = require("../mixins/authentication");
 var _ = require("lodash");
 var Json = require("JSON");
 var GridLinkComponent = require('./../components/gridConcerns/GridLinkComponent');
-var clientSummaryStore = require('../stores/clientSummaryStore');
+var clientSummaryStore = require('../stores/clientSummariesStore');
 
 
 module.exports = React.createClass({

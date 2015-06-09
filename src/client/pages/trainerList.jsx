@@ -10,9 +10,6 @@ var trainerSummaryStore = require('../stores/trainerSummariesStore');
 module.exports = React.createClass({
   displayName: "Trainer List",
   mixins: [trainerSummaryStore.mixin, Authentication ],
-  statics: {
-    resolve: Luxxor.constants.TRAINERS.LOAD_TRAINER_SUMMARIES
-  },
 
   getStateFromStores: function(){
     console.log("summaries" + Json.stringify(trainerSummaryStore.getTrainerSummaries(), null, 2));
