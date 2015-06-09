@@ -13,11 +13,11 @@ export default new ObjectOrientedStore({
         this.error = null;
         this.trainerSummaries = [];
 
-        this.bindActions(
-            'TRAINERS.LOAD_TRAINER_SUMMARIES_PENDING':onLoadTrainerSummariesPending,
-            'TRAINERS.LOAD_TRAINER_SUMMARIES_SUCCESS':onLoadTrainerSummariesSuccess,
-            'TRAINERS.LOAD_TRAINER_SUMMARIES_FAILURE':onLoadTrainerSummariesFailure
-        )
+        this.bindActions({
+            'TRAINERS.LOAD_TRAINER_SUMMARIES_PENDING': onLoadTrainerSummariesPending,
+            'TRAINERS.LOAD_TRAINER_SUMMARIES_SUCCESS': onLoadTrainerSummariesSuccess,
+            'TRAINERS.LOAD_TRAINER_SUMMARIES_FAILURE': onLoadTrainerSummariesFailure
+        })
     },
     public: {
         getTrainerSummaries(){

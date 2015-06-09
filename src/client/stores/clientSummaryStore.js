@@ -14,9 +14,9 @@ export default new ObjectOrientedStore({
         this.clientSummaries = [];
 
         this.bindActions({
-            'LOAD_CLIENT_SUMMARIES_PENDING':onLoadClientSummariesPending,
-            'LOAD_CLIENT_SUMMARIES_SUCCESS':onLoadClientSummariesSuccess,
-            'LOAD_CLIENT_SUMMARIES_FAILURE':onLoadClientSummariesFailure
+            'LOAD_CLIENT_SUMMARIES_PENDING': onLoadClientSummariesPending,
+            'LOAD_CLIENT_SUMMARIES_SUCCESS': onLoadClientSummariesSuccess,
+            'LOAD_CLIENT_SUMMARIES_FAILURE': onLoadClientSummariesFailure
         });
     },
     public: {
