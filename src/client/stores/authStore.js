@@ -19,7 +19,7 @@ export default new ObjectOrientedStore({
             'SIGN_IN_SUCCESS', this.onSignInSuccess,
             'SIGN_IN_FAILURE', this.onSignInFailure,
             //
-            'SIGN_OUT_PENDOUTG', this.onSignOutPendOUTg,
+            'SIGN_OUT_PENDING', this.onSignOutPendingg,
             'SIGN_OUT_SUCCESS', this.onSignOutSuccess,
             'SIGN_OUT_FAILURE', this.onSignOutFailure
 
