@@ -6,21 +6,20 @@ var Authentication = require("../mixins/authentication");
 var _ = require("lodash");
 var Json = require("JSON");
 var GridLinkComponent = require('./../components/gridConcerns/GridLinkComponent');
+var clientSummaryStore = require('../stores/clientSummaryStore');
+
 
 module.exports = React.createClass({
   displayName: "Client List",
-  mixins: [Luxxor.FluxMixin, Luxxor.StoreWatchMixin("clientSummaryStore"),Authentication ],
-  statics: {
-    resolve: Luxxor.constants.CLIENTS.LOAD_CLIENT_SUMMARIES
-  },
+  mixins: [clientSummaryStore.mixin,Authentication ],
 
-  getStateFromFlux: function(){
-    var store = this.getFlux().store("clientSummaryStore");
-    console.log("summaries" + Json.stringify(store.getClientSummaries(), null, 2));
+
+  getStateFromStores: function(){
+    console.log("summaries" + Json.stringify(clientSummaryStore.getClientSummaries(), null, 2));
     return {
-        loading: store.getLoading(),
-        error: store.getError(),
-        clientSummaries: store.getClientSummaries()
+        loading: clientSummaryStore.getLoading(),
+        error: clientSummaryStore.getError(),
+        clientSummaries: clientSummaryStore.getClientSummaries()
     };
   },
   render: function() {

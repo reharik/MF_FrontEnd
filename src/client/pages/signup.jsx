@@ -6,23 +6,22 @@ var Input = require("react-bootstrap").Input;
 var Button = require("react-bootstrap").Button;
 var RHInput = require('./../components/formConcerns/RHInput');
 var validators = require('./../components/formConcerns/validatorEnum');
+var authStore = require('../stores/authStore');
 
 
-var luxxor = require("./../services/luxxor");
 
 var SignUp = React.createClass({
     displayName: "SignUp",
-    mixins: [luxxor.FluxMixin, luxxor.StoreWatchMixin("authStore")],
+    mixins: [authStore.mixin],
     contextTypes: { router: React.PropTypes.func.isRequired },
 
-    getStateFromFlux: function(){
-        var store = this.getFlux().store("authStore");
-        if(store.isLoggedIn()){
+    getStateFromStore: function(){
+        if(authStore.isLoggedIn()){
             this.context.router.transitionTo("/");
         }
         return {
-            loading: store.getLoading(),
-            error: store.getError()
+            loading: authStore.getLoading(),
+            error: authStore.getError()
         };
     },
 

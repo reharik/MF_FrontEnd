@@ -6,15 +6,14 @@ var Button = require("react-bootstrap").Button;
 var RHInput = require('./../components/formConcerns/RHInput');
 var validators = require('./../components/formConcerns/validatorEnum');
 var Authentication = require("../mixins/authentication");
-var luxxor = require("./../services/luxxor");
+var trainerStore = require("../stores/trainerStore");
 
 module.exports = React.createClass({
   displayName: "Add Trainer",
-  mixins: [Authentication, luxxor.FluxMixin, luxxor.StoreWatchMixin("trainerStore")],
+  mixins: [Authentication, trainerStore],
   contextTypes: { router: React.PropTypes.func.isRequired },
 
-  getStateFromFlux: function(){
-    var store = this.getFlux().store("trainerStore");
+  getStateFromStores: function(){
     return {
       loading: store.getLoading(),
       error: store.getError()

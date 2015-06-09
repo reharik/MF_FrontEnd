@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "JSON": "^1.0.0",
-    "babel": "^4.7.16",
+    "babel": "^5.x.x",
     "bluebird": "^2.9.24",
     "co": "4.4.x",
     "curlrequest": "~0.5.1",

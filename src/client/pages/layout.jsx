@@ -12,7 +12,6 @@ var DropdownButton = require("react-bootstrap").DropdownButton;
 var ReactRouterBootstrap = require('react-router-bootstrap');
 var ButtonLink = ReactRouterBootstrap.ButtonLink;
 
-//var Luxxor = require("./../services/luxxor");
 var authStore = require('../stores/authStore');
 
 var Layout = React.createClass({

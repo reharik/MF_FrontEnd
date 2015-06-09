@@ -11,26 +11,21 @@ var Glyphicon = require("react-bootstrap").Glyphicon;
 var ReactRouterBootstrap = require('react-router-bootstrap');
 var NavItemLink = ReactRouterBootstrap.NavItemLink;
 
-var Luxxor = require("./../services/luxxor");
 var Authentication = require("../mixins/authentication");
+var authStore = require('../stores/authStore');
 
 var AppNavbar = React.createClass({
   displayName: "AppNavbar",
   propTypes: {
     brand: PropTypes.string
   },
-  mixins: [Luxxor.FluxMixin, Luxxor.StoreWatchMixin("authStore"), Authentication],
+  mixins: [authStore.mixin, Authentication],
 
-  statics: {
-    resolve: Luxxor.constants.AUTH.FETCH_USER
-  },
-
-  getStateFromFlux: function(){
-    var store = this.getFlux().store("authStore");
+  getStateFromStores: function(){
     return {
-      loading: store.getLoading(),
-      error: store.getError(),
-      user: store.getUser()
+      loading: authStore.getLoading(),
+      error: authStore.getError(),
+      user: authStore.getUser()
     };
   },
 

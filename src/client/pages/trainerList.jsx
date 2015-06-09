@@ -1,33 +1,32 @@
 "use strict";
 var React = require("react");
-var Luxxor = require("./../services/luxxor");
 var Griddle = require('griddle-react');
 var Authentication = require("../mixins/authentication");
 var _ = require("lodash");
 var Json = require("JSON");
 var GridLinkComponent = require('./../components/gridConcerns/GridLinkComponent');
+var trainerSummaryStore = require('../stores/trainerSummariesStore');
 
 module.exports = React.createClass({
   displayName: "Trainer List",
-  mixins: [Luxxor.FluxMixin, Luxxor.StoreWatchMixin("trainerSummaryStore"),Authentication ],
+  mixins: [trainerSummaryStore.mixin, Authentication ],
   statics: {
     resolve: Luxxor.constants.TRAINERS.LOAD_TRAINER_SUMMARIES
   },
 
-  getStateFromFlux: function(){
-    var store = this.getFlux().store("trainerStore");
-    console.log("summaries" + Json.stringify(store.getTrainerSummaries(), null, 2));
+  getStateFromStores: function(){
+    console.log("summaries" + Json.stringify(trainerSummaryStore.getTrainerSummaries(), null, 2));
     return {
-        loading: store.getLoading(),
-        error: store.getError(),
-        clientSummaries: store.getTrainerSummaries()
+        loading: trainerSummaryStore.getLoading(),
+        error: trainerSummaryStore.getError(),
+        clientSummaries: trainerSummaryStore.getTrainerSummaries()
     };
   },
   render: function() {
       var columnDefs = [
           {
               'columnName': 'FirstName',
-              'displayName': 'First Name',
+              'displayName': 'First Name'
               //'customComponent': GridLinkComponent
           },
           {
