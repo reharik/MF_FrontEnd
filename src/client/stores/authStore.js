@@ -1,6 +1,6 @@
 'use strict';
 
-const ImmutableStore = require('fluxthis').ObjectOrientedStore;
+const ObjectOrientedStore = require('fluxthis').ObjectOrientedStore;
 //const ACTION_TYPES = require('constants/ActionTypes');
 
 export default new ObjectOrientedStore({
