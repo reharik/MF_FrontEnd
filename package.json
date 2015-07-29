@@ -15,7 +15,7 @@
   "main": "app.js",
   "scripts": {
     "start": "gulp dev",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --harmony --reporter spec ./test/test-*.js"
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --harmony --reporter spec ./unittest/*test.js"
   },
   "license": "MIT",
   "engines": {

@@ -10,4 +10,4 @@ COPY ./nginx.conf /etc/nginx/nginx.conf
 
 RUN mkdir /opt/app/current/js && mkdir /opt/app/current/css && mkdir /opt/app/current/images
 
-COPY ./public /opt/app/current
+VOLUME ./public:/opt/app/current
