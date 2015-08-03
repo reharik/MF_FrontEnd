@@ -26,13 +26,12 @@ var DEBUG = process.env.NODE_ENV === "development";
  * Sub-Tasks
  */
 
-gulp.task("clean", function(){
-    del(config.get("paths.out.build_js"), {force:true});
-    del(config.get("paths.out.output"), {force:true});
+gulp.task("clean", function(cb){
+   return del([config.get("paths.out.build_js"), config.get("paths.out.output")], {force:true});
 });
 
 gulp.task("clean-deploy", function(){
-    del(config.get("paths.out.deploy"), {force:true});
+    return del(config.get("paths.out.deploy"), {force:true});
 });
 
 gulp.task("jsx-compile", function () {
