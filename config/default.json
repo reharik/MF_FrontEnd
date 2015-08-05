@@ -18,7 +18,7 @@
       "build_js": "./build",
       "output_js": "./output/app/js",
       "output_css": "./output/app/css",
-      "deploy": "../MF_BuildFiles/FrontEnd"
+      "deploy": "../MF_BuildFiles/Frontend"
     }
   },
   "app": {

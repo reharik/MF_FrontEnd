@@ -107,7 +107,7 @@ var bundle = function() {
             this.emit('end');
         })
         // Use vinyl-source-stream to make the
-        // stream gulp compatible. Specifiy the
+        // stream gulp compatible. Specifiy thecat amke
         // desired output filename here.
         .pipe(source('app.js'))
         // Specify the output destination
