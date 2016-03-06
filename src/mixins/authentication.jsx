@@ -1,5 +1,5 @@
-var SignIn = require("../pages/signin");
-var authStore = require('../stores/authStore');
+var SignIn = require("./signin");
+var authStore = require('./authStore');
 //var AuthStore = require("../stores/authStore");
 
 var Authentication = {

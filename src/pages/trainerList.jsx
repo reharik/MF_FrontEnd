@@ -1,32 +1,29 @@
 "use strict";
 var React = require("react");
-var Luxxor = require("./../services/luxxor");
 var Griddle = require('griddle-react');
 var Authentication = require("../mixins/authentication");
 var _ = require("lodash");
 var Json = require("JSON");
 var GridLinkComponent = require('./../components/gridConcerns/GridLinkComponent');
-var clientSummaryStore = require('../stores/clientSummariesStore');
-
+var trainerSummaryStore = require('./trainerSummariesStore');
 
 module.exports = React.createClass({
-  displayName: "Client List",
-  mixins: [clientSummaryStore.mixin,Authentication ],
-
+  displayName: "Trainer List",
+  mixins: [trainerSummaryStore.mixin, Authentication ],
 
   getStateFromStores: function(){
-    console.log("summaries" + Json.stringify(clientSummaryStore.getClientSummaries(), null, 2));
+    console.log("summaries" + Json.stringify(trainerSummaryStore.getTrainerSummaries(), null, 2));
     return {
-        loading: clientSummaryStore.getLoading(),
-        error: clientSummaryStore.getError(),
-        clientSummaries: clientSummaryStore.getClientSummaries()
+        loading: trainerSummaryStore.getLoading(),
+        error: trainerSummaryStore.getError(),
+        clientSummaries: trainerSummaryStore.getTrainerSummaries()
     };
   },
   render: function() {
       var columnDefs = [
           {
               'columnName': 'FirstName',
-              'displayName': 'First Name',
+              'displayName': 'First Name'
               //'customComponent': GridLinkComponent
           },
           {
@@ -43,8 +40,8 @@ module.exports = React.createClass({
 
       return (
       <div>
-        <h2>Client List</h2>
-        <Griddle results={this.state.clientSummaries} columns={columns} columnMetadata={columnDefs} enableInfiniteScroll={true} resultsPerPage={5}/>
+        <h2>Trainer List</h2>
+        <Griddle results={this.state.trainerSummaries} columns={columns} columnMetadata={columnDefs} enableInfiniteScroll={true} resultsPerPage={5}/>
       </div>
     );
   }

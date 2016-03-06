@@ -11,8 +11,8 @@ var Glyphicon = require("react-bootstrap").Glyphicon;
 var ReactRouterBootstrap = require('react-router-bootstrap');
 var NavItemLink = ReactRouterBootstrap.NavItemLink;
 
-var Authentication = require("../mixins/authentication");
-var authStore = require('../stores/authStore');
+var Authentication = require("./authentication");
+var authStore = require('./authStore');
 
 var AppNavbar = React.createClass({
   displayName: "AppNavbar",

@@ -1,5 +1,5 @@
 var request = require("superagent");
-var requestPromise = require("./../services/promiseSuperAgent");
+var requestPromise = require("././promiseSuperAgent");
 
 var URLS = {
   AUTH: "/auth",

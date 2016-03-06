@@ -1,8 +1,8 @@
 "use strict";
 
 var React = require("react");
-var Navbar = require("./../components/navbar");
-var Layout = require("./../pages/layout");
+var Navbar = require("./components/slidingNav");
+//var Layout = require("./layout");
 
 var Root = React.createClass({
   displayName: "Root",

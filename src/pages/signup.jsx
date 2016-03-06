@@ -6,7 +6,7 @@ var Input = require("react-bootstrap").Input;
 var Button = require("react-bootstrap").Button;
 var RHInput = require('./../components/formConcerns/RHInput');
 var validators = require('./../components/formConcerns/validatorEnum');
-var authStore = require('../stores/authStore');
+var authStore = require('./authStore');
 
 
 

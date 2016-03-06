@@ -1,7 +1,7 @@
 /*jslint node: true */
 "use strict";
 var request = require("superagent");
-var requestPromise = require("./../services/promiseSuperAgent");
+var requestPromise = require("././promiseSuperAgent");
 
 var URLS = {
   CLIENTS: "/clients"

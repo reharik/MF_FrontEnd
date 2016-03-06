@@ -12,7 +12,7 @@ var DropdownButton = require("react-bootstrap").DropdownButton;
 var ReactRouterBootstrap = require('react-router-bootstrap');
 var ButtonLink = ReactRouterBootstrap.ButtonLink;
 
-var authStore = require('../stores/authStore');
+var authStore = require('./authStore');
 
 var Layout = React.createClass({
   mixins: [authStore.mixin],
