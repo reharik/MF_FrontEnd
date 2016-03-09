@@ -1,19 +1,12 @@
 "use strict";
 
-//var routes = require('./routes.jsx');
-var Browser = require('./components/slidingNav');
+var routes = require('./routes.jsx');
+var Browser = require('./components/slidingNav2');
 var ReactDOM = require('react-dom');
 var React = require('react');
+require('./less/slidingNav2.css');
 
-var reactRouter = require('react-router');
-var { Router, Route, hashHistory, IndexRoute } = reactRouter;
-var pages = require(__dirname + '/pages/index');
-
-React.render((<Router history={hashHistory}>
-    <Route path="/" component={pages.Root}>
-
-    </Route>
-</Router>), document.getElementById('root'));
+ReactDOM.render(routes, document.getElementById('root'));
 
 
 //require("babel/polyfill");

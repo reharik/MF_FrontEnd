@@ -1,8 +1,31 @@
 "use strict";
 
 var React = require("react");
-var Navbar = require("./components/slidingNav");
+var Browser = require("./../components/slidingNav2");
 //var Layout = require("./layout");
+
+const data = [
+  {name: 'Animal', children: [
+    {name: 'Land', children: [
+      {name: 'Cheetah'},
+      {name: 'Ant'}
+    ]},
+    {name: 'Air', children: [
+      {name: 'Eagle'}
+    ]},
+    {name: 'Water', children: [
+      {name: 'Nessy'}
+    ]}
+  ]},
+  {name: 'Vegetable', children: [
+    {name: 'Broccoli'},
+    {name: 'IE6'}
+  ]},
+  {name: 'Mineral', children: [
+    {name: 'Granite'},
+    {name: 'Uraninite'}
+  ]}
+];
 
 var Root = React.createClass({
   displayName: "Root",
@@ -14,8 +37,7 @@ var Root = React.createClass({
   render: function () {
     return (
       <div>
-        <Navbar brand="Method Fitness"  />
-        <Layout  />
+        <Browser items={data}  />
       </div>
     );
   }

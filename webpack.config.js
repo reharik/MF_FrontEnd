@@ -15,21 +15,15 @@ const config = {
     module   : {
         loaders: [
             {
-                test   : /\.js?$/,
+                test   : /\.jsx?$/,
                 exclude: /node_modules/,
-                loader : 'babel',
-                query: {
-                    presets: ['react','es2015']
-                }
+                loader : 'babel'
             },
             {
                 test  : /\.css$/,
                 loader: 'style!css'
             }
-        ],
-        resolve: {
-            extensions: ['', '.js', '.jsx', 'html']
-        }
+        ]
     },
     plugins: [
         new HtmlWebpackPlugin({

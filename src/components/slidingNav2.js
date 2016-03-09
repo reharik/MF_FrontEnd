@@ -49,37 +49,64 @@ const SlideTransition = React.createClass({
 const Browser = React.createClass({
     getInitialState() {
         return {
-            path: []
+            path      : [],
+            breadCrumbs: []
         }
     },
     navUp() {
-        this.setState({path: this.state.path.slice(0, -1)})
+        this.setState({path: this.state.path.slice(0, -1)});
+        this.setState({breadCrumbs: this.state.breadCrumbs.slice(0, -1)});
     },
     navDown(index) {
         var path = this.state.path.concat(index);
-        this.setState({path: path})
+        this.setState({path: path});
+    },
+    navTo(breadCrumb) {
+        this.setState({path: this.state.path.slice(0, breadCrumb.index)});
+        this.setState({breadCrumbs: this.state.breadCrumbs.slice(0, breadCrumb.index)});
+    },
+    goTo(item){
+        console.log(item.name);
     },
     render() {
-
-        const {path} = this.state;
-        const items = path.reduce(function(items, key) {
-            return items[key].children;
+        const options = this.props.options;
+        var {path, breadCrumbs} = this.state;
+        const items = path.reduce(function(items, key, index) {
+            var item = items[key];
+            var items2 = {
+                name : item.name,
+                index: index
+            };
+            console.log('==========item2=========');
+            console.log(items2);
+            console.log('==========ENDitem2=========');
+            breadCrumbs = breadCrumbs.concat(items2);
+            console.log('==========breadCrumbs=========');
+            console.log(breadCrumbs);
+            console.log('==========ENDbreadCrumbs=========');
+            return item.children;
         }, this.props.items);
-        return <div className="browser">
-            <h3>{path.length > 0 ? <a onClick={this.navUp}>← Back</a> : 'Home'}</h3>
 
+        var breadCrumbComp = <ul className="fg-menu-breadcrumb fg-menu-footer ui-widget-header ui-corner-all ui-helper-clearfix">
+                {breadCrumbs.map(function(item) {
+                   return <li class="fg-menu-breadcrumb-text"><a onClick={e=> this.navTo(item)}>{item.name}</a></li>;
+                }.bind(this))}
+        </ul>;
+
+
+        return<div class="mf_menuContainer ui-widget ui-widget-content ui-corner-all">
+            {path.length > 0 ? breadCrumbComp : null }
             <SlideTransition depth={path.length} className="items-container">
-                <ul>
+                <ul class="ui-corner-all ui-widget-content fg-menu-current" >
                     {items.map(function(item, index) {
                         if (item.children) {
-                            return <li className="item" ><a onClick={e => this.navDown(index)} key={item.name}>{item.name}</a></li>;
+                            return <li><a rel="calendar" class="ui-corner-all" onClick={e => this.navDown(index)}>{item.name}</a></li>;
                         } else {
-                            return <li className="item" ><div key={item.name}>{item.name}</div></li>;
+                            return <li><a rel="calendar" class="ui-corner-all" onClick={e => this.goTo(item)}>{item.name}</a></li>;
                         }
                     }.bind(this))}
                 </ul>
             </SlideTransition>
-
         </div>;
     }
 });
