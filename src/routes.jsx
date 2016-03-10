@@ -5,15 +5,14 @@
 
 var React = require("react");
 var reactRouter = require('react-router');
-var { Router, Route, hashHistory, IndexRoute } = reactRouter;
+var { Route, IndexRoute } = reactRouter;
 var pages = require(__dirname + '/pages/index');
 
 
-var routes = (<Router history={hashHistory}>
+var routes = (
         <Route path="/" component={pages.Root}>
 
-        </Route>
-    </Router>);
+        </Route>);
 
 module.exports = routes;
 

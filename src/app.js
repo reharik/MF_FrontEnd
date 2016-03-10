@@ -1,12 +1,37 @@
 "use strict";
 
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createStore, combineReducers } from 'redux'
+import { Provider } from 'react-redux'
+import { Router, browserHistory } from 'react-router'
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+
 var routes = require('./routes.jsx');
 var Browser = require('./components/slidingNav2');
-var ReactDOM = require('react-dom');
-var React = require('react');
 require('./less/slidingNav2.css');
 
-ReactDOM.render(routes, document.getElementById('root'));
+import * as reducers from './reducers'
+
+const reducer = combineReducers({
+    ...reducers,
+    routing: routerReducer
+});
+
+const store = createStore(reducer);
+const history = syncHistoryWithStore(browserHistory, store);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <div>
+            <Router history={history}>
+                {routes}
+            </Router>
+        </div>
+    </Provider>,
+    document.getElementById('root')
+);
+
 
 
 //require("babel/polyfill");

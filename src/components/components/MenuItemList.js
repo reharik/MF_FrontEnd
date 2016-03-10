@@ -6,10 +6,10 @@ import BreadCrumb from './NavBreadCrumb'
 import SlideTransition from './SlideTransition'
 import MenuItem from './MenuItem'
 
-const MenuItemList = ({ path, items }) => (
+const MenuItemList = ({ path, items, onMenuItemClick }) => (
     <div class="mf_menuContainer ui-widget ui-widget-content ui-corner-all">
         {path.length > 0 ? <breadCrumb /> : null }
-        <SlideTransition depth={path.length} className="items-container">
+        <SlideTransition  className="items-container", direction='right'>
             <ul class="ui-corner-all ui-widget-content fg-menu-current" >
                 {items.map((item, index) =>
                     <MenuItem key={index} {...item} onClick={() => onMenuItemClick(index, item)} />
