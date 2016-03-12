@@ -11,7 +11,7 @@ var Button = require("react-bootstrap").Button;
 var RHInput = require('./../components/formConcerns/RHInput');
 var validators = require('./../components/formConcerns/validatorEnum');
 var authStore = require('./authStore');
-var authActions = require('../actions/authActions');
+var authActions = require('./authActions');
 
 //var Luxxor = require("./../services/luxxor");
 

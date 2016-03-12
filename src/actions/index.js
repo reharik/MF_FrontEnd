@@ -2,11 +2,10 @@
  * Created by reharik on 3/8/16.
  */
 
-export const navDown = (index) => {
+export const menuItemClicked = (index) => {
     return {
         type: 'NAV_DOWN',
-        index,
-        item
+        index
     }
 };
 

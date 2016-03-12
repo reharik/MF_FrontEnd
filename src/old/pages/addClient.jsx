@@ -1,15 +1,15 @@
 "use strict";
 var React = require("react");
 
-var Authentication = require("../mixins/authentication");
+var Authentication = require("./authentication");
 
 module.exports = React.createClass({
-  displayName: "Add Trainer",
+  displayName: "Add Client",
   mixins: [Authentication],
   render: function() {
     return (
       <div>
-        <h2>Add Trainer</h2>
+        <h2>Add Client</h2>
       </div>
     );
   }

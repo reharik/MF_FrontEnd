@@ -1,6 +1,6 @@
 "use strict";
 
-var Root = require("./root.jsx");
+var Root = require("./../root.jsx");
 //var ClientList = require("./clientList.jsx");
 //var AddClient = require("./addClient.jsx");
 //

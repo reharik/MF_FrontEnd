@@ -1,7 +1,7 @@
 "use strict";
 var React = require("react");
 var Griddle = require('griddle-react');
-var Authentication = require("../mixins/authentication");
+var Authentication = require("./authentication");
 var _ = require("lodash");
 var Json = require("JSON");
 var GridLinkComponent = require('./../components/gridConcerns/GridLinkComponent');

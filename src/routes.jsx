@@ -6,11 +6,12 @@
 var React = require("react");
 var reactRouter = require('react-router');
 var { Route, IndexRoute } = reactRouter;
-var pages = require(__dirname + '/pages/index');
+import  AppContainer from './containers/AppContainer'
+//import { App, Home, Foo, Bar } from './components'
 
 
 var routes = (
-        <Route path="/" component={pages.Root}>
+        <Route path="/" component={AppContainer}>
 
         </Route>);
 
