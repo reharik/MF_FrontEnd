@@ -2,20 +2,49 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers,applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import thunk from 'redux-thunk';
+import api from './middleware/api';
+import reducer from './reducers/'
+import routes from './routes.jsx';
+import DevTools from './containers/DevTools.js'
 
-import reducer from './reducers'
-var routes = require('./routes.jsx');
-
-require('./less/slidingNav2.css');
+import './less/main.css';
+import './less/header.less';
+import './less/leftNav.less';
+import './less/menu.less';
+//require('./less/slidingNav2.css');
+import './less/CC.css';
+import './less/mf.css';
+//import './less/fg.menu.css';
 require('./less/bootstrap.css');
 
+var middlewares = [thunk, api];
 
+//if (process.env.NODE_ENV === `development`) {
+    const createLogger = require(`redux-logger`);
+    const logger = createLogger();
+    middlewares.push(logger);
+//}
 
-const store = createStore(reducer);
+const enhancer = compose(
+    // Middleware you want to use in development:
+    applyMiddleware(...middlewares),
+    // Required! Enable Redux DevTools with the monitors you chose
+    DevTools.instrument()
+);
+const store = createStore(reducer,enhancer);
+
+//if (module.hot) {
+//    module.hot.accept('../reducers', () =>
+//            store.replaceReducer(require('../reducers')/*.default if you use Babel 6+ */)
+//    );
+//}
+
+//const store = createStore(reducer);
 const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
@@ -24,6 +53,7 @@ ReactDOM.render(
             <Router history={history}>
                 {routes}
             </Router>
+            <DevTools />
         </div>
     </Provider>,
     document.getElementById('root')

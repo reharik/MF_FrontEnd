@@ -8,6 +8,6 @@ WORKDIR /opt/app/current
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
-RUN mkdir /opt/app/current/js && mkdir /opt/app/current/css && mkdir /opt/app/current/images
+RUN mkdir /opt/app/current/dist
 
-VOLUME ./public:/opt/app/current
+VOLUME ./dist:/opt/app/current/dist

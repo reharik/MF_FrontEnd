@@ -2,21 +2,15 @@
  * Created by reharik on 3/8/16.
  */
 
-export const menuItemClicked = (index) => {
-    return {
-        type: 'NAV_DOWN',
-        index
-    }
-};
+import {logoutUser, loginUser} from './authActions.js';
+import {menuItemClicked, navBreadCrumbClicked} from './menuActions.js';
+import { Reducers } from 'react-redux-grid';
+import { combineReducers } from 'redux';
 
-//menu:{
-//    items: [
-//        {
-//            name,
-//            path,
-//            children: array < items >
-//        }
-//    ],
-//        path : [] < index >
-//}
-//}
+export default combineReducers({
+    Reducers,
+    logoutUser,
+    loginUser,
+    menuItemClicked,
+    navBreadCrumbClicked
+    });

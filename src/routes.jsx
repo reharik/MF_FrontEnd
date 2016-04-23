@@ -7,14 +7,19 @@ var React = require("react");
 var reactRouter = require('react-router');
 var { Route, IndexRoute } = reactRouter;
 import  AppContainer from './containers/AppContainer'
+import ClientList from './components/ClientList';
+import TrainersList from './components/TrainersList';
+
 //import { App, Home, Foo, Bar } from './components'
 
 
 var routes = (
-        <Route path="/" component={AppContainer}>
-
-        </Route>);
-
+    <Route path="/" component={AppContainer}>
+            <Route>
+                    <Route path="/clients" component={ClientList}/>
+                    <Route path="/trainers" component={TrainersList}/>
+            </Route>
+    </Route>);
 module.exports = routes;
 
 
