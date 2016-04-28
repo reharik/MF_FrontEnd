@@ -6,11 +6,11 @@
  */
 import React, { PropTypes } from 'react'
 
-const NavBreadCrumbItem = ({ text, position, onClick }) => (
-    <li className={ position=='first' ? "fg-menu-all-lists" : position=='last' ? 'fg-menu-current-crumb' : ''}>
-        <a className='fg-menu-crumb'  onClick={position!='last' ? onClick : ''} >{text}</a>
-        {position!='last' ? <span className="ui-icon ui-icon-carat-1-e"></span>:''}
-    </li>
-);
-
-export default NavBreadCrumbItem
+const NavBreadCrumbItem = ({ text, position, onClick }) => {
+    if (position === 'last') {
+        return <li className="breadcrumb-last"><a className="breadcrumb-last">{text}</a></li>;
+    } else {
+        return <li><a onClick={onClick}>{text}</a><span className="ui-icon"></span></li>;
+    }
+};
+export default NavBreadCrumbItem;

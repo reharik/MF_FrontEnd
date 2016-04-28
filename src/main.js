@@ -12,15 +12,17 @@ import reducer from './reducers/'
 import routes from './routes.jsx';
 import DevTools from './containers/DevTools.js'
 
-import './less/main.css';
+// import './less/main.css';
+ import './less/main.less';
 import './less/header.less';
 import './less/leftNav.less';
 import './less/menu.less';
+import './less/content-header.less';
 //require('./less/slidingNav2.css');
 import './less/CC.css';
 import './less/mf.css';
 //import './less/fg.menu.css';
-require('./less/bootstrap.css');
+// require('./less/bootstrap.css');
 
 var middlewares = [thunk, api];
 
@@ -46,7 +48,6 @@ const store = createStore(reducer,enhancer);
 
 //const store = createStore(reducer);
 const history = syncHistoryWithStore(browserHistory, store);
-
 ReactDOM.render(
     <Provider store={store}>
         <div>

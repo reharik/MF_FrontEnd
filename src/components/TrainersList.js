@@ -144,14 +144,18 @@ const columns = [
         dataIndex: 'name',
         width: '10%',
         className: 'additional-class',
-        renderer: CellLink
+        renderer: function(x){
+            return x;
+        }
     },
     {
         name: 'Position',
         dataIndex: 'position',
         width: '35%',
         className: 'additional-class',
-        renderer: EmailLink
+        renderer: function(x){
+            return x;
+        }
     }
 ];
 
@@ -174,7 +178,7 @@ const grid =  (props, {store}) => {
                 <button style={{display:"none"}} className="return" title="Return"></button>
 
                 <span className="title-name">Trainers</span>
-                <img className="clear-search" src="/content/images/clear-search.png" />
+                <img className="clear-search" src="images/clear-search.png" />
             </div>
             <div className="form-scroll-inner" style={{height: "791px"}}>
                 <div id="contentArea" className="content-inner">

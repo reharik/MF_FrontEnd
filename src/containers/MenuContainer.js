@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { menuItemClicked, navBreadCrumbClicked } from './../actions'
+import { menuItemClicked, navBreadCrumbClicked } from '../actions/menuActions'
 import MenuItemList from '../components/layout/Menu/MenuItemList'
 
 function getCurrentItems(items, path){
@@ -16,8 +16,8 @@ function mapStateToProps(state){
         breadCrumbItems: state.menu.breadCrumbItems
     }
 }
-//
-//const mapDispatchToProps = (dispatch) => {
+
+// const mapDispatchToProps = (dispatch) => {
 //    return {
 //        menuItemClicked: (index, text) => {
 //            dispatch(menuItemClicked(index, text))
@@ -26,7 +26,7 @@ function mapStateToProps(state){
 //            dispatch(navBreadCrumbClicked(index))
 //        }
 //    }
-//}
+// }
 
 
 function mapDispatchToProps(dispatch) {

@@ -7,15 +7,16 @@ import Header from './../../containers/HeaderContainer';
 import SignInContainer from './../../containers/SignInContainer';
 
 const Layout = ({isAuthenticated, userName, children}) => {
+    console.log(isAuthenticated);
     if (!isAuthenticated) {
-        return <div id="signin"><SignInContainer /></div>
+        return (<div id="signin"><SignInContainer /></div>)
     }
-    return <div id='methodFitness'>
+    return (<div id='methodFitness'>
         <Header isLoggedIn={isAuthenticated} userName={userName}/>
 
         <div id="top-separator"></div>
         <div id="main-body">
-            <div id="left-navigation" className="mf_menuContainer">
+            <div id="left-navigation" >
                 <NavigationContainer />
             </div>
             <div id="main-content">
@@ -28,7 +29,7 @@ const Layout = ({isAuthenticated, userName, children}) => {
                 </div>
             </div>
         </div>
-    </div>
+    </div>)
 };
 
 export default Layout;

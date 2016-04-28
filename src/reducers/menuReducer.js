@@ -2,8 +2,9 @@
  * Created by reharik on 3/8/16.
  */
 
+const item = localStorage.getItem("menu_data");
 const data = {
-    menuItems: JSON.parse(localStorage.getItem("menu_data")).menuItems,
+    menuItems: item ? JSON.parse(item).menuItems:[],
     path:[],
     breadCrumbItems:['Home']
 };
