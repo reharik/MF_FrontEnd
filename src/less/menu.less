@@ -108,9 +108,14 @@
 
           &.ui-icon {
             float: right;
-            background: url("../images/button-v-right.png") no-repeat scroll 0 0 transparent;
+            background: url("../images/button-v-right.png");
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            background-position: 0 0;
+            background-color: transparent;
+            width: 17px;
+            height: 17px;
           }
-
         }
       }
 
@@ -121,6 +126,14 @@
         text-decoration: none;
         color: #FFFFFF;
       }
+    }
+
+    li.menuItem-Active {
+      background-color: #D7E6ED;
+    }
+
+    li:hover {
+      background-color: #D7E6ED;
     }
   }
 }

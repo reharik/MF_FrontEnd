@@ -19,8 +19,8 @@ import './less/leftNav.less';
 import './less/menu.less';
 import './less/content-header.less';
 //require('./less/slidingNav2.css');
-import './less/CC.css';
-import './less/mf.css';
+// import './less/CC.css';
+// import './less/mf.css';
 //import './less/fg.menu.css';
 // require('./less/bootstrap.css');
 

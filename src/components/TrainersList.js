@@ -1,7 +1,7 @@
 /**
  * Created by reharik on 4/9/16.
  */
-import { Grid } from 'react-redux-grid'
+import { Grid,Store } from 'react-redux-grid'
 import {plugins, pageSize, height} from './../utilities/gridDef.js'
 import React from 'react'
 import CellLink from './GridElements/CellLink.js'
@@ -10,43 +10,53 @@ import EmailLink from './GridElements/EmailLink.js'
 const data = [
     {
         name: 'Michael Jordan',
-        position: 'Shooting Guard'
+        position: 'Shooting Guard',
+        Id:1
     },
     {
         name: 'Charles Barkley',
-        position: 'Power Forward'
+        position: 'Power Forward',
+        Id:1
     },
     {
         name: 'Charles Barkley',
-        position: 'Power Forward'
+        position: 'Power Forward',
+        Id:1
     },
     {
         name: 'Charles Barkley',
-        position: 'Power Forward'
+        position: 'Power Forward',
+        Id:1
     },
     {
         name: 'Charles Barkley',
-        position: 'Power Forward'
+        position: 'Power Forward',
+        Id:1
     },
     {
         name: 'Charles Barkley',
-        position: 'Power Forward'
+        position: 'Power Forward',
+        Id:1
     },
     {
         name: 'Charles Barkley',
-        position: 'Power Forward'
+        position: 'Power Forward',
+        Id:1
     },
     {
         name: 'Charles Barkley',
-        position: 'Power Forward'
+        position: 'Power Forward',
+        Id:1
     },
     {
         name: 'Charles Barkley',
-        position: 'Power Forward'
+        position: 'Power Forward',
+        Id:1
     },
     {
         name: 'Charles Barkley',
-        position: 'Power Forward'
+        position: 'Power Forward',
+        Id:1
     },
     {
         name: 'Charles Barkley',
@@ -144,24 +154,26 @@ const columns = [
         dataIndex: 'name',
         width: '10%',
         className: 'additional-class',
-        renderer: function(x){
-            return x;
-        }
+        renderer: CellLink('trainer')
     },
     {
         name: 'Position',
         dataIndex: 'position',
         width: '35%',
         className: 'additional-class',
-        renderer: function(x){
-            return x;
-        }
+        renderer: EmailLink
+    },
+    {
+        name: 'id',
+        dataIndex: 'Id',
+        hidden : true
     }
 ];
 
 //var myPlugins = { CUSTOMER_MANANGER, LOADER, SELECTION_MODEL, ERROR_HANDELR, BULK_ACTION} = plugins;
 
 const gridData = {
+    // store:Store,
     columns,
     plugins,
     data
@@ -174,12 +186,12 @@ const grid =  (props, {store}) => {
             <div className="content-header">
                 <input className="search" style={{color: "rgb(204, 204, 204)"}} />
                 <button id="new" className="new" title="New"></button>
-                <button className="delete" title="Delete these items"></button>
-                <button style={{display:"none"}} className="return" title="Return"></button>
-
+                {//    <button className="delete" title="Delete these items"></button>
+                //<button style={{display:"none"}} className="return" title="Return"></button>
+                }
                 <span className="title-name">Trainers</span>
-                <img className="clear-search" src="images/clear-search.png" />
-            </div>
+                {//<img className="clear-search" src="images/clear-search.png" />
+                }</div>
             <div className="form-scroll-inner" style={{height: "791px"}}>
                 <div id="contentArea" className="content-inner">
                     <Grid { ...gridData } />

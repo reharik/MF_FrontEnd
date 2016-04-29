@@ -6,7 +6,8 @@ const item = localStorage.getItem("menu_data");
 const data = {
     menuItems: item ? JSON.parse(item).menuItems:[],
     path:[],
-    breadCrumbItems:['Home']
+    breadCrumbItems:['Home'],
+    currentItem:''
 };
 
 const menuItems = (state = data, action = null) => {
@@ -22,6 +23,10 @@ const menuItems = (state = data, action = null) => {
                     action.text
                 ]
 
+            });
+        case 'NAV_SELECT':
+            return Object.assign({}, state, {
+                currentItem: action.text
             });
         case 'NAV_TO':
             return Object.assign({}, state, {

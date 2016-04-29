@@ -13,7 +13,8 @@ function mapStateToProps(state){
     return {
         items: getCurrentItems(state.menu.menuItems, state.menu.path),
         path: state.menu.path,
-        breadCrumbItems: state.menu.breadCrumbItems
+        breadCrumbItems: state.menu.breadCrumbItems,
+        currentItem: state.menu.currentItem
     }
 }
 

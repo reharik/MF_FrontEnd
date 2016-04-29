@@ -4,7 +4,14 @@
 import {Link} from 'react-router';
 import React from 'react'
 
-export default  ({ column, value, row }) => (
-    <div>
-        <Link className='first' id='userSettings' to="profile">{value}</Link>
-    </div>);
+
+
+export default  (route) => {
+    return ({ column, value, row }) => {
+        const fullRoute = route +'/' + row['Id'];
+        return (
+            <div>
+                <Link to={fullRoute}>{value}</Link>
+            </div>);
+    }
+}

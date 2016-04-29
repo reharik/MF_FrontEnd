@@ -9,6 +9,7 @@ var { Route, IndexRoute } = reactRouter;
 import  AppContainer from './containers/AppContainer'
 import ClientList from './components/ClientList';
 import TrainersList from './components/TrainersList';
+import Trainer from './components/Trainer';
 
 //import { App, Home, Foo, Bar } from './components'
 
@@ -16,8 +17,9 @@ import TrainersList from './components/TrainersList';
 var routes = (
     <Route path="/" component={AppContainer}>
             <Route>
-                    <Route path="/clients" component={ClientList}/>
-                    <Route path="/trainers" component={TrainersList}/>
+                <Route path="clients" component={ClientList}/>
+                <Route path="trainers" component={TrainersList} />
+                <Route path="trainer/:trainerId" component={Trainer} />
             </Route>
     </Route>);
 module.exports = routes;
@@ -25,7 +27,7 @@ module.exports = routes;
 
 
 
-//<IndexRoute component={pages.Home}/>
+/*<IndexRoute component={pages.Home}/>
 //<Route path="/clients" component={pages.ClientList}>
 //<Route path="/clients/newclient" component={pages.AddClient}/>
 //<Route path="/clients/:clientid" component={pages.ViewClient}/>
@@ -38,3 +40,4 @@ module.exports = routes;
 //        <Route path="/profile/signin" component={pages.SignInPage}/>
 //        <Route path="/profile/signout" component={pages.SignOutPage}/>
 //    </Route>
+    */
