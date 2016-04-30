@@ -10,14 +10,15 @@ import {
 // we would also want a util to check if the token is expired.
 //function auth(state = {isAuthenticated:'true', userName:'raif harik'}
 
-function auth(state =  {isFetching: false, isAuthenticated:  localStorage.getItem('id_token') ? true : false }, action) {
-   switch (action.type) {
+function auth(state =  {userName: localStorage.getItem('userName') ? localStorage.getItem('userName') : '',
+    isFetching: false,
+    isAuthenticated:  localStorage.getItem('id_token') ? true : false }, action) {
+    switch (action.type) {
         case LOGIN_SUCCESS:
-
             return Object.assign({}, state.auth, {
-                userName       : action.userName,
+                userName: action.userName,
                 isAuthenticated: true,
-                errorMessage   : ''
+                errorMessage: ''
             });
         case LOGOUT_SUCCESS:
             return Object.assign({}, state, {

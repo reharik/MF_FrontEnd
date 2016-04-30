@@ -9,7 +9,7 @@ import SignInContainer from './../../containers/SignInContainer';
 const Layout = ({isAuthenticated, userName, children}) => {
     console.log(isAuthenticated);
     if (!isAuthenticated) {
-        return (<div id="signin"><SignInContainer /></div>)
+        return (<SignInContainer />)
     }
     return (<div id='methodFitness'>
         <Header isLoggedIn={isAuthenticated} userName={userName}/>

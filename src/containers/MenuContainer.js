@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { menuItemClicked, navBreadCrumbClicked } from '../actions/menuActions'
+import { menuItemClicked, navBreadCrumbClicked } from './../actions/index.js'
 import MenuItemList from '../components/layout/Menu/MenuItemList'
 
 function getCurrentItems(items, path){

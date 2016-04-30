@@ -3,7 +3,6 @@
  */
 var React = require("react");
 
-import {Nav, Glyphicon} from 'react-bootstrap';
 import {Link} from 'react-router';
 
 const UserProfileHeader = ({userName, logoutUser}) => (

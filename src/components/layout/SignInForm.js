@@ -31,10 +31,11 @@ var {fields, validate} = buildSchema(schema);
 
 
 var SignInForm =({fields: {userName, password}, resetForm, handleSubmit, submitting}) =>
-    (<div id="outer-wrapper">
-            <div className="content-outer" >
+    (
+        <div id="signin">
+            <div className="content-outer">
                 <div className="content-header"></div>
-                <div className="content-inner norequired">
+                <div className="content-inner">
                     <div id="messageContainer"></div>
                     <div className="signin">
                         <form className="form" onSubmit={handleSubmit}>

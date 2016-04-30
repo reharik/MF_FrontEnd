@@ -4,7 +4,6 @@
 "use strict";
 var React = require("react");
 
-import {LinkContainer} from 'react-router-bootstrap';
 
 const ClientList = ({userName}) => (
     <div  >

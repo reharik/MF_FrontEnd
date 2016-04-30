@@ -220,14 +220,14 @@ form hr {
     width: 100%;
 }
 
-.content-outer .content-inner {
-    min-height: 400px;
-    background: white;
-    padding-bottom: 3px;
-    position: relative;
-    overflow:hidden;
-    border: 1px solid #D9D9D9;
-}
+/*.content-outer .content-inner {*/
+    /*min-height: 400px;*/
+    /*background: white;*/
+    /*padding-bottom: 3px;*/
+    /*position: relative;*/
+    /*overflow:hidden;*/
+    /*border: 1px solid #D9D9D9;*/
+/*}*/
 
 .content-outer .content-footer {
     height: 17px;
@@ -529,45 +529,19 @@ form div.form-scroll-inner {
 
 
 /*******   SIGN-IN PAGE   *******/
-#signin {
-    background: url("../images/bg-signin.png") repeat scroll 0 0 #F6F6F6;
-    height: 100%;
-    width: 100%;
-    color: #666;
-}
 
-#signin #outer-wrapper {
-    height: 100%;
-    position: relative;
-}
 
-#signin .content-outer {
-    height: 420px;
-    margin: 0px auto auto;
-    position: relative;
-    top: 50%;
-    width: 385px;
-}
 
-#signin .content-inner {
-    /* height: 320px; */
-    min-height: 320px;
-}
 
-#signin .content-header {
-    background: url("../images/banner-short.jpg") no-repeat scroll 0 0
-    #8eb9ce;
-    height: 73px;
-}
+
+
 
 #signin input {
     width: 300px;
     height: 25px;
 }
 
-#signin .form{
-    padding: 10px 0 3px 40px !important;
-}
+
 
 #signin .big {
     display: block;
@@ -1013,13 +987,13 @@ div.ui-dialog {
 
 
 
-.content-outer .content-inner h3 {
-    font-size: 12px;
-    color: #666666;
-    font-weight: bold;
-    margin: 10px 0 10px 30px;
-    width: 690px;
-}
+/*.content-outer .content-inner h3 {*/
+    /*font-size: 12px;*/
+    /*color: #666666;*/
+    /*font-weight: bold;*/
+    /*margin: 10px 0 10px 30px;*/
+    /*width: 690px;*/
+/*}*/
 
 .close {
     background: url("../images/close-x.png") no-repeat scroll 0 0

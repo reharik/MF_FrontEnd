@@ -4,13 +4,12 @@
 
 import {logoutUser, loginUser} from './authActions.js';
 import {menuItemClicked, navBreadCrumbClicked} from './menuActions.js';
-import { Reducers } from 'react-redux-grid';
-import { combineReducers } from 'redux';
 
-export default combineReducers({
-    Reducers,
+const actions = {
     logoutUser,
     loginUser,
     menuItemClicked,
     navBreadCrumbClicked
-    });
+};
+
+module.exports = actions;

@@ -29,10 +29,11 @@ var menuData ={ menuItems: [
     ]}
 ]};
 
-function receiveLogin() {
+function receiveLogin(data) {
     return {
         type: LOGIN_SUCCESS,
-        isAuthenticated: true
+        isAuthenticated: true,
+        userName:data.userName
     }
 }
 
@@ -48,6 +49,7 @@ export function logoutUser(e) {
     e.preventDefault();
     return dispatch => {
         localStorage.removeItem('id_token');
+        localStorage.removeItem('userName');
         localStorage.removeItem('menu_data');
         dispatch(receiveLogout())
     }
@@ -60,9 +62,10 @@ export function loginUser(data, dispatch) {
         body: `username=${data.userName}&password=${data.password}`
     };
     localStorage.setItem('id_token', 'token');
+    localStorage.setItem('userName', data.userName);
     localStorage.setItem('menu_data', JSON.stringify(menuData));
 
-    dispatch(receiveLogin());
+    dispatch(receiveLogin(data));
     return Promise.resolve();
     //return fetch('login', config)
     //    .then(response =>
