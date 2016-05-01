@@ -170,10 +170,7 @@ const columns = [
     }
 ];
 
-//var myPlugins = { CUSTOMER_MANANGER, LOADER, SELECTION_MODEL, ERROR_HANDELR, BULK_ACTION} = plugins;
-
 const gridData = {
-    // store:Store,
     columns,
     plugins,
     data

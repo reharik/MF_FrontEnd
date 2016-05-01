@@ -15,12 +15,14 @@ import DevTools from './containers/DevTools.js'
 // import './less/main.css';
 require('./less/bootstrap.css');
 import './less/form.less';
-import './less/main.less';
 import './less/header.less';
 import './less/leftNav.less';
 import './less/menu.less';
 import './less/content-header.less';
 import './less/signIn.less';
+import './less/react-grid.less';
+import './less/main.less';
+
 //require('./less/slidingNav2.css');
 // import './less/CC.css';
 // import './less/mf.css';
