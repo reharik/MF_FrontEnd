@@ -9,7 +9,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import thunk from 'redux-thunk';
 import api from './middleware/api';
 import reducer from './reducers/'
-import routes from './routes.jsx';
+import routes from './routes.js';
 import DevTools from './containers/DevTools.js'
 
 // import './less/main.css';
