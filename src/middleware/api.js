@@ -33,7 +33,7 @@ function callApi(endpoint, authenticated) {
 export const CALL_API = Symbol('Call API');
 
 export default store => next => action => {
-
+console.log('API CALLED!!!!')
     const callAPI = action[CALL_API];
 
     // So the middleware doesn't get applied to every single action
@@ -41,9 +41,9 @@ export default store => next => action => {
         return next(action)
     }
 
-    let { endpoint, types, authenticated } = callAPI
+    let { endpoint, types, authenticated } = callAPI;
 
-    const [ requestType, successType, errorType ] = types
+    const [ requestType, successType, errorType ] = types;
 
     // Passing the authenticated boolean back in our data will let us distinguish between normal and secret quotes
     return callApi(endpoint, authenticated).then(

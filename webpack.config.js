@@ -11,14 +11,14 @@ const config = {
         this.module.noParse.push(new RegExp(path));
     },
     // Gives you sourcemaps without slowing down rebundling
-    devtool  : 'eval-source-map',
+    devtool  : 'cheap-module-eval-source-map',
     resolve: { alias: {} },
-    entry    : path.join(__dirname, 'src/main.js'),
+    entry    : path.join(__dirname, 'src/index.js'),
     output   : {
         path      : path.join(__dirname, '/dist/'),
         filename  : 'bundle.js',
         publicPath: '/'
-    },
+        },
     module   : {
         noParse:[],
         loaders: [

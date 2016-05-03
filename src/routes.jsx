@@ -3,9 +3,9 @@
  */
 "use strict";
 
-var React = require("react");
-var reactRouter = require('react-router');
-var { Route, IndexRoute } = reactRouter;
+import React from 'react'
+import { Route } from 'react-router'
+
 import  AppContainer from './containers/AppContainer'
 import ClientList from './components/ClientList';
 import TrainersList from './components/TrainersList';
@@ -16,11 +16,9 @@ import Trainer from './components/Trainer';
 
 var routes = (
     <Route path="/" component={AppContainer}>
-            <Route>
-                <Route path="clients" component={ClientList}/>
-                <Route path="trainers" component={TrainersList} />
-                <Route path="trainer/:trainerId" component={Trainer} />
-            </Route>
+        <Route path="clients" component={ClientList}/>
+        <Route path="trainers" component={TrainersList} />
+        <Route path="trainer/:trainerId" component={Trainer} />
     </Route>);
 module.exports = routes;
 

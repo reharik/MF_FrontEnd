@@ -7,7 +7,6 @@ import Header from './../../containers/HeaderContainer';
 import SignInContainer from './../../containers/SignInContainer';
 
 const Layout = ({isAuthenticated, userName, children}) => {
-    console.log(isAuthenticated);
     if (!isAuthenticated) {
         return (<SignInContainer />)
     }
@@ -16,9 +15,7 @@ const Layout = ({isAuthenticated, userName, children}) => {
 
         <div id="top-separator"></div>
         <div id="main-body">
-            <div id="left-navigation" >
-                <NavigationContainer />
-            </div>
+            <NavigationContainer />
             <div id="main-content">
                 <div className="content-outer">
                     <div id="messageContainer"></div>
