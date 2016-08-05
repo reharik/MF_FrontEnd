@@ -7,12 +7,12 @@ import propToLabel from './../../utilities/propToLabel';
 
 const _Input = ({property, type, label, placeholder, validation, dispatch}) => {
 
-  var _label = propToLabel(label || property.name);
-  var _placeholder = propToLabel(placeholder || _label);
-  var validationState = property.touched ? property.invalid ? {validationState: 'input__error'} : {validationState: 'input__success'} : null;
-  var style = "input__container__" + (type ? type : 'input');
-  var val = property.touched && property.error ? property.error : " ";
-  var valStyle = property.touched && property.error
+  let _label = propToLabel(label || property.name);
+  let _placeholder = propToLabel(placeholder || _label);
+  let validationState = property.touched ? property.invalid ? {validationState: 'input__error'} : {validationState: 'input__success'} : null;
+  let style = 'input__container__' + (type ? type : 'input');
+  let val = property.touched && property.error ? property.error : ' ';
+  let valStyle = property.touched && property.error
     ? 'input__container__validation__error'
     : 'input__container__validation__success';
 // var valy;
@@ -34,8 +34,8 @@ const _Input = ({property, type, label, placeholder, validation, dispatch}) => {
 
   return (<div className="input__container" {...validationState}>
     <label className="input__container__label" htmlFor={property.name}>{_label}</label>
-    <input className={style} type={type ? type :'text'} placeholder={_placeholder} {...property} />
-  </div>)
+    <input className={style} type={type ? type : 'text'} placeholder={_placeholder} {...property} />
+  </div>);
 };
 
 export default _Input;

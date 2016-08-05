@@ -1,7 +1,7 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import createLogger from 'redux-logger'
+import { createStore, applyMiddleware, compose } from 'redux';
+import createLogger from 'redux-logger';
 import { apiMiddleware } from 'redux-api-middleware';
-import rootReducer from '../reducers'
+import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools';
 import thunk from 'redux-thunk';
 
@@ -20,7 +20,7 @@ export default function configureStore(initialState) {
     module.hot.accept('../reducers', () => {
       const nextRootReducer = require('../reducers').default;
       store.replaceReducer(nextRootReducer);
-    })
+    });
   }
 
   return store;

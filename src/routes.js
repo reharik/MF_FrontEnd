@@ -1,12 +1,12 @@
 /**
  * Created by reharik on 3/5/16.
  */
-"use strict";
+'use strict';
 
-import React from 'react'
-import { Route } from 'react-router'
+import React from 'react';
+import { Route } from 'react-router';
 
-import  AppContainer from './containers/AppContainer'
+import AppContainer from './containers/AppContainer';
 import ClientList from './components/ClientList';
 import TrainersList from './components/TrainersList';
 import Trainer from './components/Trainer';
@@ -14,9 +14,9 @@ import Trainer from './components/Trainer';
 //import { App, Home, Foo, Bar } from './components'
 
 
-var routes = (
+let routes = (
     <Route path="/" component={AppContainer}>
-        <Route path="clients" component={ClientList}/>
+        <Route path="clients" component={ClientList} />
         <Route path="trainers" component={TrainersList} />
         <Route path="trainer/:trainerId" component={Trainer} />
     </Route>);

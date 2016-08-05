@@ -2,12 +2,12 @@
  * Created by rharik on 5/3/16.
  */
 
-import React from 'react'
-import { render } from 'react-dom'
-import { browserHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
-import Root from './containers/Root'
-import configureStore from './store/configureStore'
+import React from 'react';
+import { render } from 'react-dom';
+import { browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
+import Root from './containers/Root';
+import configureStore from './store/configureStore';
 //
 // import 'css/bootstrap.css';
 // import 'css/form.less';
@@ -23,7 +23,7 @@ import configureStore from './store/configureStore'
 // import './less/CC.css';
 // import './less/mf.css';
 //import './less/fg.menu.css';
- import './css/index.css';
+import './css/index.css';
 
 
 

@@ -1,13 +1,13 @@
 /**
  * Created by reharik on 3/11/16.
  */
-"use strict";
-var React = require("react");
+'use strict';
+let React = require('react');
 
 import UserProfileHeader from './UserProfileHeader';
 
 const Header = ({userName, logoutUser}) => (
-    <div id='main-header' >
+    <div id="main-header" >
         <UserProfileHeader userName={userName} logoutUser={logoutUser} />
     </div>
 );

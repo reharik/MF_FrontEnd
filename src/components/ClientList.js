@@ -1,12 +1,12 @@
 /**
  * Created by reharik on 4/4/16.
  */
-"use strict";
-var React = require("react");
+'use strict';
+let React = require('react');
 
 
 const ClientList = ({userName}) => (
-    <div  >
+    <div >
         <div>kill me</div>
     </div>
 );

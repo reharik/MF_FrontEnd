@@ -10,23 +10,23 @@ import {
 // we would also want a util to check if the token is expired.
 //function auth(state = {isAuthenticated:'true', userName:'raif harik'}
 
-function auth(state =  {userName: localStorage.getItem('userName') ? localStorage.getItem('userName') : '',
+function auth(state = {userName: localStorage.getItem('userName') ? localStorage.getItem('userName') : '',
     isFetching: false,
-    isAuthenticated:  localStorage.getItem('id_token') ? true : false }, action) {
-    switch (action.type) {
-        case LOGIN_SUCCESS:
-            return Object.assign({}, state.auth, {
-                userName: action.userName,
-                isAuthenticated: true,
-                errorMessage: ''
-            });
-        case LOGOUT_SUCCESS:
-            return Object.assign({}, state, {
-                isAuthenticated: false
-            });
-        default:
-            return state
-    }
+    isAuthenticated: localStorage.getItem('id_token') ? true : false }, action) {
+  switch (action.type) {
+    case LOGIN_SUCCESS:
+      return Object.assign({}, state.auth, {
+        userName: action.userName,
+        isAuthenticated: true,
+        errorMessage: ''
+      });
+    case LOGOUT_SUCCESS:
+      return Object.assign({}, state, {
+        isAuthenticated: false
+      });
+    default:
+      return state;
+  }
 }
 
 export default auth;

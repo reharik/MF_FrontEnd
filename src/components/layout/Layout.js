@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
 // import NavigationContainer from './../../containers/MenuContainer'
 // import Header from './../../containers/HeaderContainer';
 import SignInContainer from './../../containers/SignInContainer';
 
 const Layout = ({isAuthenticated, userName, children}) => {
     // if (!isAuthenticated) {
-        return (
+  return (
           <div className="app">
             <SignInContainer />
-          </div>)
+          </div>);
     // }
     // return (<div id='methodFitness'>
     //     <Header isLoggedIn={isAuthenticated} userName={userName}/>

@@ -2,15 +2,15 @@
  * Created by reharik on 3/11/16.
  */
 
-import { connect } from 'react-redux'
-import { navDown } from '../actions'
-import Layout from '../components/layout/Layout'
+import { connect } from 'react-redux';
+import { navDown } from '../actions';
+import Layout from '../components/layout/Layout';
 
 function mapStateToProps(state) {
-    return {
-        isAuthenticated: state.auth.isAuthenticated,
-        userName       : state.auth.userName
-    }
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    userName: state.auth.userName
+  };
 }
 
 export default connect(mapStateToProps)(Layout);

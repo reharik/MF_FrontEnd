@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-var Root = require("./../root.jsx");
+let Root = require('./../root.jsx');
 //var ClientList = require("./clientList.jsx");
 //var AddClient = require("./addClient.jsx");
 //
@@ -15,7 +15,7 @@ var Root = require("./../root.jsx");
 //var SignOut = require("./signout.jsx");
 
 module.exports = {
-    Root,
+  Root
     //ClientList,
     //AddClient,
     //TrainerList,

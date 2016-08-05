@@ -1,11 +1,11 @@
 /**
  * Created by reharik on 3/10/16.
  */
-var Promise = require('bluebird');
+let Promise = require('bluebird');
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
-var menuData ={ menuItems: [
+let menuData = { menuItems: [
     {text: 'Trainers', path: 'trainers'},
     {text: 'Animal', children: [
         {text: 'Land', children: [
@@ -30,43 +30,43 @@ var menuData ={ menuItems: [
 ]};
 
 function receiveLogin(data) {
-    return {
-        type: LOGIN_SUCCESS,
-        isAuthenticated: true,
-        userName:data.userName
-    }
+  return {
+    type: LOGIN_SUCCESS,
+    isAuthenticated: true,
+    userName: data.userName
+  };
 }
 
 function receiveLogout() {
-    return {
-        type: LOGOUT_SUCCESS,
-        isAuthenticated: false
-    }
+  return {
+    type: LOGOUT_SUCCESS,
+    isAuthenticated: false
+  };
 }
 
 // Logs the user out
 export function logoutUser(e) {
-    e.preventDefault();
-    return dispatch => {
-        localStorage.removeItem('id_token');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('menu_data');
-        dispatch(receiveLogout())
-    }
+  e.preventDefault();
+  return dispatch => {
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('menu_data');
+    dispatch(receiveLogout());
+  };
 }
 
 export function loginUser(data, dispatch) {
-    let config = {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `username=${data.userName}&password=${data.password}`
-    };
-    localStorage.setItem('id_token', 'token');
-    localStorage.setItem('userName', data.userName);
-    localStorage.setItem('menu_data', JSON.stringify(menuData));
+  let config = {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: `username=${data.userName}&password=${data.password}`
+  };
+  localStorage.setItem('id_token', 'token');
+  localStorage.setItem('userName', data.userName);
+  localStorage.setItem('menu_data', JSON.stringify(menuData));
 
-    dispatch(receiveLogin(data));
-    return Promise.resolve();
+  dispatch(receiveLogin(data));
+  return Promise.resolve();
     //return fetch('login', config)
     //    .then(response =>
     //        response.json().then(user => ({

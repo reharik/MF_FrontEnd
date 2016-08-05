@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from './../FormElements/Input';
 
-var SignInForm = ({fields: {userName, password}, resetForm, handleSubmit, submitting,dispatch}) =>
+let SignInForm = ({fields: {userName, password}, resetForm, handleSubmit, submitting, dispatch}) =>
   (
     <div className="signIn">
       <div className="signIn__outer">
@@ -16,11 +16,11 @@ var SignInForm = ({fields: {userName, password}, resetForm, handleSubmit, submit
               <Input property={userName} validation="top" dispatch={dispatch} />
             </div>
             <div className="signIn__form__row">
-              <Input property={password} validation="inline"/>
+              <Input property={password} validation="inline" />
             </div>
             <div className="signIn__form__footer">
               <button type="submit" className="signIn__form__footer__button" disabled={submitting}>
-                {submitting ? <i/> : <i/>} Sign In
+                {submitting ? <i /> : <i />} Sign In
               </button>
             </div>
           </form>

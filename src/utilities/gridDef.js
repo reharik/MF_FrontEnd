@@ -2,7 +2,7 @@
  * Created by reharik on 4/15/16.
  */
 import React from 'react';
-import { Store as store} from 'react-redux-grid'
+import { Store as store} from 'react-redux-grid';
 
 export const pageSize = 20;
 
@@ -39,32 +39,32 @@ export const height = '400px';
 //};
 
 export const plugins = {
-    COLUMN_MANAGER: {
-        sortable: {
-            enabled: true,
-            method: 'remote',
-            sortingSource: 'http://react-redux-grid.herokuapp.com/getfakeData'
-        }
-    },
+  COLUMN_MANAGER: {
+    sortable: {
+      enabled: true,
+      method: 'remote',
+      sortingSource: 'http://react-redux-grid.herokuapp.com/getfakeData'
+    }
+  },
     //PAGER: {
     //    enabled: true,
     //    pagingType: 'remote',
     //    pagingSource: 'http://react-redux-grid.herokuapp.com/getFakedPagedData'
     //},
-    LOADER: {
-        enabled: true
-    },
-    SELECTION_MODEL: {
-        mode: 'checkbox-multi',
-        enabled: true,
-        allowDeselect: true,
-        activeCls: 'active',
-        selectionEvent: 'singleclick'
-    },
-    ERROR_HANDLER: {
-        defaultErrorMessage: 'AN ERROR OCURRED',
-        enabled: true
-    }//,
+  LOADER: {
+    enabled: true
+  },
+  SELECTION_MODEL: {
+    mode: 'checkbox-multi',
+    enabled: true,
+    allowDeselect: true,
+    activeCls: 'active',
+    selectionEvent: 'singleclick'
+  },
+  ERROR_HANDLER: {
+    defaultErrorMessage: 'AN ERROR OCURRED',
+    enabled: true
+  }//,
     //BULK_ACTIONS: {
     //    enabled: true,
     //    actions: [

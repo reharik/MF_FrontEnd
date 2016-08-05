@@ -1,26 +1,26 @@
 /*jslint node: true */
-"use strict";
-var request = require("superagent");
-var requestPromise = require("././promiseSuperAgent");
+'use strict';
+let request = require('superagent');
+let requestPromise = require('././promiseSuperAgent');
 
 
-var URLS = {
-  TRAINERS: "/trainers",
-  ADD_TRAINER: "/trainer/create"
+let URLS = {
+  TRAINERS: '/trainers',
+  ADD_TRAINER: '/trainer/create'
 };
 
 
 module.exports = {
-  AddTrainer: function (trainer) {
+  AddTrainer: function(trainer) {
     return requestPromise(
       request.post(URLS.ADD_TRAINER)
-        .set("Accept", "application/json")
+        .set('Accept', 'application/json')
         .send(trainer)
     );
   },
-  LoadTrainerSummaries: function () {
+  LoadTrainerSummaries: function() {
     return requestPromise( request.get(URLS.TRAINERS)
-        .set("Accept", "application/json")
+        .set('Accept', 'application/json')
     );
   }
 };
