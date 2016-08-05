@@ -1,33 +1,16 @@
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import SignInForm from '../components/layout/SignInForm'
 import {reduxForm} from 'redux-form';
+import { loginUser } from './../actions/authActions.js'
+import SignInForm from './../components/layout/SignInForm';
+import formJsonSchema from './../utilities/formJsonSchema';
+import schema from './../schemas/signInModel.json';
 
+const fjs = formJsonSchema(schema);
 
-////var state = {
-////        signinForm: {
-////            config: {
-////                method : 'POST',
-////                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-////            },
-////            properties: {
-////                username:{ name: 'User Name', value:''},
-////                password:{ name: 'Password', value:''}
-////            }
-////        }
-////}
-////
-////
-////function mapStateToProps(state){
-////    return {
-////        signinForm: state.signinForm
-////    }
-////}
-////
-////function mapDispatchToProps(dispatch) {
-////    return bindActionCreators({ menuItemClicked, navBreadCrumbClicked }, dispatch)
-////}
-////
-////export default connect(mapStateToProps, mapDispatchToProps)(SignInForm)
+const SignInContainer = reduxForm({
+  form: 'login',
+  fields: fjs.fields,
+  validate: fjs.validate,
+  onSubmit: loginUser
+})(SignInForm);
 
-export default SignInForm;
+export default SignInContainer;

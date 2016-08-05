@@ -1,0 +1,66 @@
+html, body {
+  box-sizing: border-box;
+  font-family: helvetica,sans-serif;
+  font-size: 14px;
+  color: #666;
+  height:100%;
+  width:100%;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+ol {
+  list-style: none;
+  padding:0;
+  margin:0;
+}
+
+.app {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.signIn {
+  display: flex;
+  flex-flow: row nowrap;
+  width:100%;
+  justify-content: center;
+  align-items: center;
+  height: 800px;
+}
+
+.signIn__outer {
+  width:385px;
+  height:420px;
+}
+
+.signIn__header {
+  height:73px;
+  background: url("../images/banner-short.jpg") no-repeat scroll 0 0 #8eb9ce;
+}
+
+.signIn__content {
+  min-height:320px;
+}
+
+.signIn__form__header {
+  display: flex;
+  justify-content:flex-start;
+}
+
+.signIn__form__footer {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.input__container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  height : 75px;
+  width: 90%;
+}

@@ -8,21 +8,22 @@ import { browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import Root from './containers/Root'
 import configureStore from './store/configureStore'
-
-import './less/bootstrap.css';
-import './less/form.less';
-import './less/header.less';
-import './less/leftNav.less';
-import './less/menu.less';
-import './less/content-header.less';
-import './less/signIn.less';
-import './less/react-grid.less';
-import './less/main.less';
-// import './less/main.css';
-//require('./less/slidingNav2.css');
+//
+// import 'css/bootstrap.css';
+// import 'css/form.less';
+// import 'css/header.less';
+// import 'css/leftNav.less';
+// import 'css/menu.less';
+// import 'css/content-header.less';
+// import 'css/signIn.less';
+// import 'css/react-grid.less';
+// import 'css/main.less';
+// import './css/main.css';
+//require('./css/slidingNav2.css');
 // import './less/CC.css';
 // import './less/mf.css';
 //import './less/fg.menu.css';
+ import './css/index.css';
 
 
 
@@ -33,4 +34,4 @@ const history = syncHistoryWithStore(browserHistory, store);
 render(
     <Root store={store} history={history} />,
     document.getElementById('root')
-)
+);
