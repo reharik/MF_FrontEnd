@@ -1,6 +1,5 @@
 import React from 'react';
 import Input from './../FormElements/Input';
-import {Button} from 'react-bootstrap';
 
 var SignInForm = ({fields: {userName, password}, resetForm, handleSubmit, submitting,dispatch}) =>
   (
@@ -20,9 +19,9 @@ var SignInForm = ({fields: {userName, password}, resetForm, handleSubmit, submit
               <Input property={password} validation="inline"/>
             </div>
             <div className="signIn__form__footer">
-              <Button type="submit" className="signIn__form__footer__button" disabled={submitting}>
+              <button type="submit" className="signIn__form__footer__button" disabled={submitting}>
                 {submitting ? <i/> : <i/>} Sign In
-              </Button>
+              </button>
             </div>
           </form>
         </div>
