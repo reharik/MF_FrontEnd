@@ -1,8 +1,6 @@
 /**
  * Created by reharik on 4/15/16.
  */
-import React from 'react';
-import { Store as store} from 'react-redux-grid';
 
 export const pageSize = 20;
 
@@ -46,11 +44,11 @@ export const plugins = {
       sortingSource: 'http://react-redux-grid.herokuapp.com/getfakeData'
     }
   },
-    //PAGER: {
-    //    enabled: true,
-    //    pagingType: 'remote',
-    //    pagingSource: 'http://react-redux-grid.herokuapp.com/getFakedPagedData'
-    //},
+  //PAGER: {
+  //    enabled: true,
+  //    pagingType: 'remote',
+  //    pagingSource: 'http://react-redux-grid.herokuapp.com/getFakedPagedData'
+  //},
   LOADER: {
     enabled: true
   },
@@ -65,32 +63,32 @@ export const plugins = {
     defaultErrorMessage: 'AN ERROR OCURRED',
     enabled: true
   }//,
-    //BULK_ACTIONS: {
-    //    enabled: true,
-    //    actions: [
-    //        {
-    //            text: 'Move',
-    //            EVENT_HANDLER: () => {
-    //
-    //            }
-    //        },
-    //        {
-    //            text: 'Add',
-    //            EVENT_HANDLER: () => {
-    //
-    //            }
-    //        }
-    //    ]
-    //},
-    //GRID_ACTIONS: {
-    //    iconCls: 'action-icon',
-    //    menu: [
-    //        {
-    //            text: 'Delete',
-    //            EVENT_HANDLER: () => {
-    //
-    //            }
-    //        }
-    //    ]
-    //}
+  //BULK_ACTIONS: {
+  //    enabled: true,
+  //    actions: [
+  //        {
+  //            text: 'Move',
+  //            EVENT_HANDLER: () => {
+  //
+  //            }
+  //        },
+  //        {
+  //            text: 'Add',
+  //            EVENT_HANDLER: () => {
+  //
+  //            }
+  //        }
+  //    ]
+  //},
+  //GRID_ACTIONS: {
+  //    iconCls: 'action-icon',
+  //    menu: [
+  //        {
+  //            text: 'Delete',
+  //            EVENT_HANDLER: () => {
+  //
+  //            }
+  //        }
+  //    ]
+  //}
 };

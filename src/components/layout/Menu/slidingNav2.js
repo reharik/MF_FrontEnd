@@ -1,4 +1,3 @@
-
 let React = require('react');
 let ReactDom = require('react-dom');
 const CSSTransitionGroup = require('react-addons-css-transition-group');
@@ -37,12 +36,12 @@ const SlideTransition = React.createClass({
     };
 
     return (<div {...this.props} {...outerProps}>
-            <CSSTransitionGroup {...transProps}>
-                <div {...innerProps}>
-                    {this.props.children}
-                </div>
-            </CSSTransitionGroup>
-        </div>);
+      <CSSTransitionGroup {...transProps}>
+        <div {...innerProps}>
+          {this.props.children}
+        </div>
+      </CSSTransitionGroup>
+    </div>);
   }
 });
 
@@ -71,7 +70,7 @@ const Browser = React.createClass({
   render() {
     const options = this.props.options;
     let {path, breadCrumbs} = this.state;
-    const items = path.reduce(function(items, key, index) {
+    const items = path.reduce(function (items, key, index) {
       let item = items[key];
       let items2 = {
         name: item.name,
@@ -87,27 +86,30 @@ const Browser = React.createClass({
       return item.children;
     }, this.props.items);
 
-    let breadCrumbComp = (<ul className="fg-menu-breadcrumb fg-menu-footer ui-widget-header ui-corner-all ui-helper-clearfix">
-                {breadCrumbs.map(function(item) {
-                  return <li className="fg-menu-breadcrumb-text"><a onClick={e=> this.navTo(item)}>{item.name}</a></li>;
-                }.bind(this))}
-        </ul>);
+    let breadCrumbComp = (
+      <ul className="fg-menu-breadcrumb fg-menu-footer ui-widget-header ui-corner-all ui-helper-clearfix">
+        {breadCrumbs.map(function (item) {
+          return <li className="fg-menu-breadcrumb-text"><a onClick={e=> this.navTo(item)}>{item.name}</a></li>;
+        }.bind(this))}
+      </ul>);
 
 
     return (<div className="mf_menuContainer ui-widget ui-widget-content ui-corner-all">
-            {path.length > 0 ? breadCrumbComp : null }
-            <SlideTransition depth={path.length} className="items-container">
-                <ul className="ui-corner-all ui-widget-content fg-menu-current" >
-                    {items.map(function(item, index) {
-                      if (item.children) {
-                        return <li><a rel="calendar" className="ui-corner-all" onClick={e => this.navDown(index)}>{item.name}</a></li>;
-                      } else {
-                        return <li><a rel="calendar" className="ui-corner-all" onClick={e => this.goTo(item)}>{item.name}</a></li>;
-                      }
-                    }.bind(this))}
-                </ul>
-            </SlideTransition>
-        </div>);
+      {path.length > 0 ? breadCrumbComp : null }
+      <SlideTransition depth={path.length} className="items-container">
+        <ul className="ui-corner-all ui-widget-content fg-menu-current">
+          {items.map(function (item, index) {
+            if (item.children) {
+              return <li><a rel="calendar" className="ui-corner-all" onClick={e => this.navDown(index)}>{item.name}</a>
+              </li>;
+            } else {
+              return <li><a rel="calendar" className="ui-corner-all" onClick={e => this.goTo(item)}>{item.name}</a>
+              </li>;
+            }
+          }.bind(this))}
+        </ul>
+      </SlideTransition>
+    </div>);
   }
 });
 

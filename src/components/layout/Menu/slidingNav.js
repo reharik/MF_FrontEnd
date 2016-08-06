@@ -1,4 +1,3 @@
-
 let React = require('react');
 let ReactDom = require('react-dom');
 const CSSTransitionGroup = require('react-addons-css-transition-group');
@@ -37,12 +36,12 @@ const SlideTransition = React.createClass({
     };
 
     return (<div {...this.props} {...outerProps}>
-            <CSSTransitionGroup {...transProps}>
-                <div {...innerProps}>
-                    {this.props.children}
-                </div>
-            </CSSTransitionGroup>
-        </div>);
+      <CSSTransitionGroup {...transProps}>
+        <div {...innerProps}>
+          {this.props.children}
+        </div>
+      </CSSTransitionGroup>
+    </div>);
   }
 });
 
@@ -62,25 +61,27 @@ const Browser = React.createClass({
   render() {
 
     const {path} = this.state;
-    const items = path.reduce(function(items, key) {
+    const items = path.reduce(function (items, key) {
       return items[key].children;
     }, this.props.items);
     return (<div className="browser">
-            <h3>{path.length > 0 ? <a onClick={this.navUp}>← Back</a> : 'Home'}</h3>
+      <h3>{path.length > 0 ? <a onClick={this.navUp}>← Back</a> : 'Home'}</h3>
 
-            <SlideTransition depth={path.length} className="items-container">
-                <ul>
-                    {items.map(function(item, index) {
-                      if (item.children) {
-                        return <li className="item" ><a onClick={e => this.navDown(index)} key={item.name}>{item.name}</a></li>;
-                      } else {
-                        return <li className="item" ><div key={item.name}>{item.name}</div></li>;
-                      }
-                    }.bind(this))}
-                </ul>
-            </SlideTransition>
+      <SlideTransition depth={path.length} className="items-container">
+        <ul>
+          {items.map(function (item, index) {
+            if (item.children) {
+              return <li className="item"><a onClick={e => this.navDown(index)} key={item.name}>{item.name}</a></li>;
+            } else {
+              return <li className="item">
+                <div key={item.name}>{item.name}</div>
+              </li>;
+            }
+          }.bind(this))}
+        </ul>
+      </SlideTransition>
 
-        </div>);
+    </div>);
   }
 });
 

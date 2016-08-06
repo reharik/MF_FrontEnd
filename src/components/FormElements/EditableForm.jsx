@@ -3,17 +3,17 @@ var React = require("react");
 import {Button, Well} from 'react-bootstrap';
 
 const EditableForm = ({isEditing, formSubmitted, formCanceled, editFormCmd, children}) => {
-    if(isEditing){
-        return (<Well>
-            {children}
-            <Button bsStyle='success' name="ok" onClick={formSubmitted}>Ok</Button>
-            <Button bsStyle='danger' name="cancel" onClick={formCanceled}>X</Button>
-        </Well>);
-    }
+  if (isEditing) {
     return (<Well>
-        {children}
-        <Button bsStyle='info' name="edit" onClick={editFormCmd}>edit</Button>
-    </Well>)
+      {children}
+      <Button bsStyle='success' name="ok" onClick={formSubmitted}>Ok</Button>
+      <Button bsStyle='danger' name="cancel" onClick={formCanceled}>X</Button>
+    </Well>);
+  }
+  return (<Well>
+    {children}
+    <Button bsStyle='info' name="edit" onClick={editFormCmd}>edit</Button>
+  </Well>)
 };
 
 //

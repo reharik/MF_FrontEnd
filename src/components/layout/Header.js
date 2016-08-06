@@ -7,9 +7,9 @@ let React = require('react');
 import UserProfileHeader from './UserProfileHeader';
 
 const Header = ({userName, logoutUser}) => (
-    <div id="main-header" >
-        <UserProfileHeader userName={userName} logoutUser={logoutUser} />
-    </div>
+  <div id="main-header">
+    <UserProfileHeader userName={userName} logoutUser={logoutUser}/>
+  </div>
 );
 
 module.exports = Header;

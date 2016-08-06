@@ -13,10 +13,10 @@ let SignInForm = ({fields: {userName, password}, resetForm, handleSubmit, submit
               <label className="signIn__form__header__label">Sign In</label>
             </div>
             <div className="signIn__form__row">
-              <Input property={userName} validation="top" dispatch={dispatch} />
+              <Input property={userName} validation="top" dispatch={dispatch}/>
             </div>
             <div className="signIn__form__row">
-              <Input property={password} validation="inline" />
+              <Input property={password} validation="inline"/>
             </div>
             <div className="signIn__form__footer">
               <button type="submit" className="signIn__form__footer__button" disabled={submitting}>

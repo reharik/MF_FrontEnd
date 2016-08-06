@@ -1,14 +1,5 @@
 let jsen = require('jsen');
 
-export default schema => {
-  const fields = Object.keys(schema.properties);
-  const validate = buildValidationFn(schema);
-  return {
-    fields,
-    validate
-  };
-};
-
 function buildValidationFn(schema) {
   let validate = jsen(schema, {greedy: true});
   return _formValues => {
@@ -32,3 +23,11 @@ function buildValidationFn(schema) {
   };
 }
 
+export default schema => {
+  const fields = Object.keys(schema.properties);
+  const validate = buildValidationFn(schema);
+  return {
+    fields,
+    validate
+  };
+};

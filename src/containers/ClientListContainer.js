@@ -2,9 +2,9 @@
  * Created by reharik on 4/4/16.
  */
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { menuItemClicked, navBreadCrumbClicked } from './../actions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {menuItemClicked, navBreadCrumbClicked} from './../actions';
 import ClientList from '../components/ClientList';
 
 function mapStateToProps(state) {
@@ -28,7 +28,7 @@ const mapDispatchToProps = dispatch => {
 
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ menuItemClicked, navBreadCrumbClicked }, dispatch);
+  return bindActionCreators({menuItemClicked, navBreadCrumbClicked}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClientList);

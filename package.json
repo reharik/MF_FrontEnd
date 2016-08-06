@@ -18,7 +18,7 @@
     "build": "webpack",
     "test": "NODE_ENV=test mocha -w --recursive --compilers js:babel-core/register ./app/tests/**",
     "testOnce": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register ./app/tests/**",
-    "lint": "eslint .",
+    "lint": "eslint . ",
     "validate": "npm ls",
     "esw": "esw -w --color"
   },

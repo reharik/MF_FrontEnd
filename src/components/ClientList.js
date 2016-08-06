@@ -6,9 +6,9 @@ let React = require('react');
 
 
 const ClientList = ({userName}) => (
-    <div >
-        <div>kill me</div>
-    </div>
+  <div >
+    <div>kill me</div>
+  </div>
 );
 
 module.exports = ClientList;

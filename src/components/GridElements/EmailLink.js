@@ -4,7 +4,7 @@
 import {Link} from 'react-router';
 import React from 'react';
 
-export default ({ column, value, row }) => (
-    <div>
-        <a href={'mailto:' + value}>{value}</a>
-    </div>);
+export default ({column, value, row}) => (
+  <div>
+    <a href={'mailto:' + value}>{value}</a>
+  </div>);
