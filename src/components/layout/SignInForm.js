@@ -66,6 +66,6 @@ var SignInForm =({fields: {userName, password}, resetForm, handleSubmit, submitt
 export default reduxForm({
     form    : 'login',
     fields ,
-    validate,
+    // validate,
     onSubmit: loginUser
 })(SignInForm);

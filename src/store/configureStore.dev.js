@@ -13,7 +13,7 @@ export default function configureStore(initialState) {
         rootReducer,
         initialState,
         compose(
-            applyMiddleware(thunk, api, createLogger()),
+            applyMiddleware(thunk, createLogger()),
             DevTools.instrument()
         )
     );

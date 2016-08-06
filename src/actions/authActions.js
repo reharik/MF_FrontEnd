@@ -2,6 +2,9 @@
  * Created by reharik on 3/10/16.
  */
 var Promise = require('bluebird');
+import { reducer as notifReducer, actions as notifActions, Notifs } from 'redux-notifications';
+const { notifSend } = notifActions;
+
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
@@ -56,17 +59,23 @@ export function logoutUser(e) {
 }
 
 export function loginUser(data, dispatch) {
-    let config = {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `username=${data.userName}&password=${data.password}`
-    };
-    localStorage.setItem('id_token', 'token');
-    localStorage.setItem('userName', data.userName);
-    localStorage.setItem('menu_data', JSON.stringify(menuData));
 
-    dispatch(receiveLogin(data));
-    return Promise.resolve();
+    dispatch(notifSend({
+        message: 'hello world',
+        kind: 'info',
+        dismissAfter: 2000
+    }));
+    // let config = {
+    //     method: 'POST',
+    //     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    //     body: `username=${data.userName}&password=${data.password}`
+    // };
+    // localStorage.setItem('id_token', 'token');
+    // localStorage.setItem('userName', data.userName);
+    // localStorage.setItem('menu_data', JSON.stringify(menuData));
+    //
+    // dispatch(receiveLogin(data));
+    // return Promise.resolve();
     //return fetch('login', config)
     //    .then(response =>
     //        response.json().then(user => ({

@@ -1,11 +1,11 @@
-/**
- * Created by rharik on 5/3/16.
- */
+
 import React, { Component, PropTypes } from 'react'
 import { Provider } from 'react-redux'
 import routes from '../routes'
 import DevTools from './DevTools'
 import { Router } from 'react-router'
+import { Notifs } from 'redux-notifications';
+
 
 export default class Root extends Component {
     render() {
@@ -14,6 +14,7 @@ export default class Root extends Component {
             <Provider store={store}>
                 <div>
                     <Router history={history} routes={routes} />
+                    <Notifs />
                     <DevTools />
                 </div>
             </Provider>
