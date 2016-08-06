@@ -21,8 +21,53 @@ import configureStore from './store/configureStore';
 //import './less/fg.menu.css';
 import './css/index.css';
 
+// const menu = {
+//   menuItems: item ? JSON.parse(item).menuItems : [],
+//   path: [],
+//   breadCrumbItems: ['Home'],
+//   currentItem: ''
+// };
 
-const store = configureStore();
+
+
+const  menuItems = [
+          {text: 'Animal', children: [
+                {text: 'Land', children: [
+                      {text: 'Cheetah', path: 'Cheetah'},
+                      {text: 'Ant', path: 'Ant'}
+                  ]},
+                {text: 'Air', children: [
+                      {text: 'Eagle', path: 'Eagle'}
+                  ]},
+                {text: 'Water', children: [
+                      {text: 'Nessy', path: 'Nessy'}
+                  ]}
+            ]},
+          {text: 'Vegetable', children: [
+                {text: 'Broccoli', path: 'Broccoli'},
+                {text: 'IE6', path: 'IE6'}
+            ]},
+          {text: 'Mineral', children: [
+                {text: 'Granite', path: 'Granite'},
+                {text: 'Uraninite', path: 'Uraninite'}
+            ]}
+      ];
+
+const menu = {
+  menuItems,
+  path: [],
+  breadCrumbItems: ['Home'],
+  currentItem: ''
+};
+
+
+
+const state = {auth: {isAuthenticated: true, userName: 'Raif Harik'},
+  menu: menu
+}
+
+
+const store = configureStore(state);
 const history = syncHistoryWithStore(browserHistory, store);
 
 render(

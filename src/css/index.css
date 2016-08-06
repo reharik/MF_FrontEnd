@@ -1,5 +1,12 @@
-@import './normalize.css';
-@import './variables.css';
-@import './structural.css';
-@import './signIn.css';
-@import './formElements.css';
+@import 'normalize.css';
+
+@import 'variables.css';
+
+@import 'structural/structural.css';
+@import 'structural/menu_structural.css';
+
+@import 'display/signIn.css';
+@import 'display/formElements.css';
+@import 'display/header.css';
+@import 'display/body.css';
+@import 'display/menu.css';

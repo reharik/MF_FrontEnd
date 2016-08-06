@@ -1,5 +1,4 @@
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import {menuItemClicked, navBreadCrumbClicked} from './../actions/index.js';
 import MenuItemList from '../components/layout/Menu/MenuItemList';
 
@@ -29,9 +28,4 @@ function mapStateToProps(state) {
 //    }
 // }
 
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({menuItemClicked, navBreadCrumbClicked}, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MenuItemList);
+export default connect(mapStateToProps, {menuItemClicked, navBreadCrumbClicked})(MenuItemList);

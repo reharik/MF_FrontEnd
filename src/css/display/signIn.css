@@ -3,7 +3,7 @@
 }
 
 .signIn__header {
-  background: url("../images/banner-short.jpg") no-repeat #8eb9ce;
+  background: url("./../images/banner-short.jpg") no-repeat #8eb9ce;
   background-size:385px 73px ;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .signIn__form__footer__button {
-  background: url("../images/button-save-bg.png") repeat-x scroll 0 0 #CCCCCC;
+  background: url("./../images/button-save-bg.png") repeat-x scroll 0 0 #CCCCCC;
   border: 1px solid #B7D6DE;
   height: 27px;
   width: 80px;
@@ -46,9 +46,9 @@
 }
 
 .signIn__form__footer__button:hover {
-  background: url("../images/button-save-bg-hover.png") repeat-x scroll 0 0 #CCCCCC;
+  background: url("./../images/button-save-bg-hover.png") repeat-x scroll 0 0 #CCCCCC;
 }
 
 .signIn__form__footer__button:active {
-  background: url("../images/button-save-bg-active.png") repeat-x scroll 0 0 #CCCCCC;
+  background: url("./../images/button-save-bg-active.png") repeat-x scroll 0 0 #CCCCCC;
 }

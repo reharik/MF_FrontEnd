@@ -5,7 +5,7 @@ import React, {PropTypes} from 'react';
 import NavBreadCrumbItem from './NavBreadCrumbItem';
 
 const NavBreadCrumb = ({breadCrumbItems, navBreadCrumbClicked}) => (
-  < ul className="breadcrumb">
+  < ul className="menu__breadcrumb">
     {breadCrumbItems.map((item, index) =>
       <NavBreadCrumbItem
         key={index}

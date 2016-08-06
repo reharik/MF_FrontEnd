@@ -8,7 +8,9 @@ import React, {PropTypes} from 'react';
 
 const NavBreadCrumbItem = ({text, position, onClick}) => {
   if (position === 'last') {
-    return <li className="breadcrumb-last"><a className="breadcrumb-last">{text}</a></li>;
+    return <li className="menu__breadcrumb__item">
+      <a className="menu__breadcrumb__item__link">{text}</a>
+    </li>;
   } else {
     return <li><a onClick={onClick}>{text}</a><span className="ui-icon"></span></li>;
   }

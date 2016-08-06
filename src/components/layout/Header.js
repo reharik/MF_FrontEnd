@@ -1,13 +1,9 @@
-/**
- * Created by reharik on 3/11/16.
- */
-'use strict';
-let React = require('react');
+import React from 'react';
 
 import UserProfileHeader from './UserProfileHeader';
 
 const Header = ({userName, logoutUser}) => (
-  <div id="main-header">
+  <div className="mainHeader">
     <UserProfileHeader userName={userName} logoutUser={logoutUser}/>
   </div>
 );
