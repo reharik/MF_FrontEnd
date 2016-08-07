@@ -4,6 +4,7 @@ import React from 'react';
 import CellLink from './GridElements/CellLink.js';
 import EmailLink from './GridElements/EmailLink.js';
 import ContentHeader from './ContentHeader';
+import HeaderSearch from './HeaderSearch';
 
 const data = [
     {
@@ -187,7 +188,7 @@ const grid =  (props, {store}) => {
             <div className="trainerList__header__center__title">Trainers</div>
           </div>
           <div className="trainerList__header__right" >
-            <input className="search" style={{color: "rgb(204, 204, 204)"}} />
+            <HeaderSearch />
           </div>
         </div>
       </ContentHeader>
