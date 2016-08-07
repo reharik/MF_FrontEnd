@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from './../FormElements/Input';
+import {Notifs} from 'redux-notifications';
 
 let SignInForm = ({fields: {userName, password}, resetForm, handleSubmit, submitting, dispatch}) =>
   (
@@ -7,7 +8,7 @@ let SignInForm = ({fields: {userName, password}, resetForm, handleSubmit, submit
       <div className="signIn__outer">
         <div className="signIn__header"></div>
         <div className="signIn__content">
-          <div className="signIn__messageContainer"></div>
+          <Notifs />
           <form onSubmit={handleSubmit}>
             <div className="signIn__form__header">
               <label className="signIn__form__header__label">Sign In</label>

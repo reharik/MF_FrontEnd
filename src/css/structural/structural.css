@@ -91,6 +91,6 @@ a {
 }
 
 .mainBody {
-  display:fles;
+  display:flex;
   height:100%;
 }

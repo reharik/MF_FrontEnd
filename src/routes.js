@@ -9,7 +9,7 @@ import Trainer from './components/Trainer';
 //import { App, Home, Foo, Bar } from './components'
 
 
-let routes = (
+const routes = (
   <Route path="/" component={AppContainer}>
     <Route path="clients" component={ClientList} />
     <Route path="trainers" component={TrainersList} />

@@ -17,15 +17,4 @@ function mapStateToProps(state) {
   };
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//    return {
-//        menuItemClicked: (index, text) => {
-//            dispatch(menuItemClicked(index, text))
-//        },
-//        navBreadCrumbClicked: (index) => {
-//            dispatch(navBreadCrumbClicked(index))
-//        }
-//    }
-// }
-
 export default connect(mapStateToProps, {menuItemClicked, navBreadCrumbClicked})(MenuItemList);

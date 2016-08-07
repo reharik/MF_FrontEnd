@@ -28,32 +28,36 @@ import './css/index.css';
 //   currentItem: ''
 // };
 
-
-
+// TODO these will come from api
 const  menuItems = [
-          {text: 'Animal', children: [
-                {text: 'Land', children: [
-                      {text: 'Cheetah', path: 'Cheetah'},
-                      {text: 'Ant', path: 'Ant'}
-                  ]},
-                {text: 'Air', children: [
-                      {text: 'Eagle', path: 'Eagle'}
-                  ]},
-                {text: 'Water', children: [
-                      {text: 'Nessy', children: [
-                        {text: 'Nessy', path: 'Nessy'}
-                      ]}
-                  ]}
-            ]},
-          {text: 'Vegetable', children: [
-                {text: 'Broccoli', path: 'Broccoli'},
-                {text: 'IE6', path: 'IE6'}
-            ]},
-          {text: 'Mineral', children: [
-                {text: 'Granite', path: 'Granite'},
-                {text: 'Uraninite', path: 'Uraninite'}
-            ]}
-      ];
+  {text: 'Trainers', path:'trainers'},
+  {text: 'Clients', path:'clients'}
+  ];
+
+// const  menuItems = [
+//           {text: 'Animal', children: [
+//                 {text: 'Land', children: [
+//                       {text: 'Cheetah', path: 'Cheetah'},
+//                       {text: 'Ant', path: 'Ant'}
+//                   ]},
+//                 {text: 'Air', children: [
+//                       {text: 'Eagle', path: 'Eagle'}
+//                   ]},
+//                 {text: 'Water', children: [
+//                       {text: 'Nessy', children: [
+//                         {text: 'Nessy', path: 'Nessy'}
+//                       ]}
+//                   ]}
+//             ]},
+//           {text: 'Vegetable', children: [
+//                 {text: 'Broccoli', path: 'Broccoli'},
+//                 {text: 'IE6', path: 'IE6'}
+//             ]},
+//           {text: 'Mineral', children: [
+//                 {text: 'Granite', path: 'Granite'},
+//                 {text: 'Uraninite', path: 'Uraninite'}
+//             ]}
+//       ];
 
 const menu = {
   menuItems,
@@ -66,7 +70,7 @@ const menu = {
 
 const state = {auth: {isAuthenticated: true, userName: 'Raif Harik'},
   menu: menu
-}
+};
 
 
 const store = configureStore(state);
