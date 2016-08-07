@@ -40,7 +40,9 @@ const  menuItems = [
                       {text: 'Eagle', path: 'Eagle'}
                   ]},
                 {text: 'Water', children: [
-                      {text: 'Nessy', path: 'Nessy'}
+                      {text: 'Nessy', children: [
+                        {text: 'Nessy', path: 'Nessy'}
+                      ]}
                   ]}
             ]},
           {text: 'Vegetable', children: [
