@@ -1,10 +1,10 @@
-// import { Grid } from 'react-redux-grid'
+import { Grid } from 'react-redux-grid'
 import {plugins, pageSize, height} from './../utilities/gridDef.js';
 import React from 'react';
 import CellLink from './GridElements/CellLink.js';
 import EmailLink from './GridElements/EmailLink.js';
 import ContentHeader from './ContentHeader';
-import HeaderSearch from './HeaderSearch';
+import ContentHeaderSearch from './ContentHeaderSearch';
 
 const data = [
     {
@@ -172,7 +172,8 @@ const columns = [
 const gridData = {
     columns,
     plugins,
-    data
+    data,
+  stateKey:'fu'
 };
 
 const grid =  (props, {store}) => {
@@ -182,18 +183,19 @@ const grid =  (props, {store}) => {
       <ContentHeader >
         <div className="trainerList__header">
           <div className="trainerList__header__left" >
-            <button id="new" className="new" title="New"></button>
+            <button className="contentHeader__button__new" title="New"></button>
           </div>
           <div className="trainerList__header__center">
             <div className="trainerList__header__center__title">Trainers</div>
           </div>
           <div className="trainerList__header__right" >
-            <HeaderSearch />
+            <ContentHeaderSearch />
           </div>
         </div>
       </ContentHeader>
-      <div className="form-scroll-inner" style={{height: "791px"}}>
-        <div id="contentArea" className="content-inner">
+      <div className="form-scroll-inner" >
+        <div className="content-inner">
+          <Grid { ...gridData } />
         </div>
       </div>
     </div>);

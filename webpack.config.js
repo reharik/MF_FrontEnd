@@ -27,10 +27,11 @@ const config = {
   module: {
     noParse: [],
     loaders: [
-      {test: /\.jsx?$/, exclude: /node_modules/, loaders: ['react-hot', 'babel-loader']},
+      {test: /\.jsx?$/,  exclude: /[\\\/]node_modules[\\\/](?!react-redux-grid)/, loaders: ['react-hot', 'babel-loader']},
       {
         test: /\.css$/,
-        include: [path.resolve(__dirname, 'src/css'), path.resolve(__dirname, 'node_modules/redux-notifications/css')],
+        include: [path.resolve(__dirname, 'src/css'),
+          path.resolve(__dirname, 'node_modules/redux-notifications/css')],
         // loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[local]!postcss-loader')
         loader: 'style!css-loader?sourceMap=1&modules&importLoaders=1&localIdentName=[local]!postcss-loader'
       },
@@ -38,7 +39,19 @@ const config = {
         "test": /\.json$/,
         "loader": "json"
       },            //{
-      //         //    test  : /\.css$/,
+      {
+        test: /\.styl$/,
+        exclude: /[\\\/]node_modules[\\\/](?!react-redux-grid)/,
+        loaders: ['style-loader', 'css-loader', 'stylus-loader']
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loaders: ['url-loader?limit=10000&mimetype=application/font-woff' ]
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loaders: ['file-loader']
+      },//         //    test  : /\.css$/,
       //         //    loader: 'style!css'
       //         //},
       // //{
