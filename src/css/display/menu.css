@@ -6,13 +6,13 @@
 }
 
 .menu__breadcrumb {
-  background: url("./../images/left-nav-title.png") repeat-x scroll 0 0 #71A8C2;
+  background: url("./images/left-nav-title.png") repeat-x scroll 0 0 #71A8C2;
   border-radius: 4px;
   margin-bottom:15px;
 }
 
 .menu__breadcrumb__list__item__icon {
-  background: url("../images/left-nav-separator-icon.png") no-repeat scroll 6px 3px transparent;
+  background: url("./images/left-nav-separator-icon.png") no-repeat scroll 6px 3px transparent;
   width:12px;
   height:13px;
 }
@@ -60,7 +60,7 @@
 
 .menu__item__node__link__icon {
   width:17px;
-  background: url("./../images/button-v-right.png") no-repeat scroll 0 0 transparent;
+  background: url("./images/button-v-right.png") no-repeat scroll 0 0 transparent;
 }
 
 .menu__item__leaf {

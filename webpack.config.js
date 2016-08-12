@@ -1,64 +1,84 @@
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const validate = require('webpack-validator');
 
 const autoprefixer = require('autoprefixer');
 const precss = require('precss');
 const postcssImport = require('postcss-import');
 
-var node_modules = __dirname + '/node_modules';
+const webpackConfig = {
+  context: path.resolve(__dirname, 'src'),
 
-const config = {
+  devServer: {
+    host: '0.0.0.0',
+    port: '8080',
 
-  addVendor: function (name, path) {
-    this.resolve.alias[name] = path;
-    this.module.noParse.push(new RegExp(path));
+    contentBase: path.resolve(__dirname, './index.tmpl.html'),
+    historyApiFallback: true,
+
+    hot: true,
+    inline: true,
+
+    // --progress - [assets, children, chunks, colors, errors, hash, timings, version, warnings]
+    stats: {
+      assets: true,
+      children: true,
+      chunks: false,
+      colors: true,
+      errors: true,
+      errorDetails: true, //depends on {errors: true}
+      hash: true,
+      modules: false,
+      publicPath: true,
+      reasons: false,
+      source: true, //what does this do?
+      timings: true,
+      version: true,
+      warnings: true
+    }
   },
-  // Gives you sourcemaps without slowing down rebundling
-  devtool: 'cheap-module-eval-source-map',
-  resolve: {alias: {}},
-  entry: path.join(__dirname, 'src/index.js'),
+
+  devtool: 'cheap-module-eval-source-map', //javascript sourcemaps
+
+  entry: {
+    redux_tabletable: [
+      'react-hot-loader/patch',
+      './index.js'
+    ]
+  },
   output: {
-    path: path.join(__dirname, '/dist/'),
-    filename: 'bundle.js',
-    publicPath: '/'
+    path: path.resolve(__dirname, 'build'),
+    publicPath: '/',
+    filename: '[name].bundle.js'
   },
   module: {
     noParse: [],
     loaders: [
-      {test: /\.jsx?$/,  exclude: /[\\\/]node_modules[\\\/](?!react-redux-grid)/, loaders: ['react-hot', 'babel-loader']},
+      {test: /\.jsx?$/, include: [path.resolve(__dirname, 'src')], loader: 'babel'},
       {
         test: /\.css$/,
-        include: [path.resolve(__dirname, 'src/css'),
-          path.resolve(__dirname, 'node_modules/redux-notifications/css')],
-        // loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[local]!postcss-loader')
+        include: [path.resolve(__dirname, 'src/css')],
         loader: 'style!css-loader?sourceMap=1&modules&importLoaders=1&localIdentName=[local]!postcss-loader'
       },
       {
-        "test": /\.json$/,
-        "loader": "json"
-      },            //{
-      {
-        test: /\.styl$/,
-        exclude: /[\\\/]node_modules[\\\/](?!react-redux-grid)/,
-        loaders: ['style-loader', 'css-loader', 'stylus-loader']
+        test: /\.json$/, include: [path.resolve(__dirname), 'src'],
+        loader: "json-loader"
       },
       {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loaders: ['url-loader?limit=10000&mimetype=application/font-woff' ]
+        test: /\.png$/, include: [path.resolve(__dirname, 'src/css/images')],
+        loader: "url-loader", query: {mimetype: "image/png"}
       },
       {
-        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loaders: ['file-loader']
-      },//         //    test  : /\.css$/,
-      //         //    loader: 'style!css'
-      //         //},
-      // //{
-      // //    test   : /\.jsx?$/,
-      // //    exclude: /node_modules/,
-      // //    loader : 'babel'
-      // //},
+        test: /\.jpg$/, include: [path.resolve(__dirname, 'src/css/images')],
+        loader: "url-loader", query: {mimetype: "image/jpg"}
+      },
+      {
+        test: /\.gif$/, include: [path.resolve(__dirname, 'src/css/images')],
+        loader: "url-loader", query: {mimetype: "image/gif"}
+      }
+
       //         { test   : /\.jsx?$/, exclude: /[\\\/]node_modules[\\\/](?!react-redux-grid)/, loader : 'babel-loader' },
       //         { test: /\.css$/, loader: 'style-loader!css-loader' },
       //         { test: /\.css$/, loader: 'style-loader!css-loader!css-loader' },
@@ -66,9 +86,6 @@ const config = {
       //         // { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
       //         { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
       //         { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
-              { test: /\.png$/, loader: "url-loader", query: { mimetype: "image/png" } },
-              { test: /\.jpg$/, loader: "url-loader", query: { mimetype: "image/jpg" } },
-              { test: /\.gif$/, loader: "url-loader", query: { mimetype: "image/gif" } }
       //         { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loaders: ['url-loader?limit=10000&mimetype=application/font-woff' ] },
       //         { test: /\.styl$/, exclude: /[\\\/]node_modules[\\\/](?!react-redux-grid)/, loaders: ['style-loader', 'css-loader', 'stylus-loader'] }
 
@@ -76,13 +93,21 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: __dirname + '/src/index.tmpl.html'
+      template: './index.tmpl.html',
+      inject: true,
+      hash: true,
+      // cache: true,
+      // chunks: ['app'],
+      chunksSortMode: 'dependency',
+      showErrors: true
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin('index.css', {allChunks: true}),
-    new webpack.IgnorePlugin(/regenerator|nodent|js\-beautify/, /ajv/)
+    // Enable multi-pass compilation for enhanced performance
+    // in larger projects. Good default.
+    new webpack.HotModuleReplacementPlugin({
+      multiStep: true
+    }),
+    //see possible syntax errors at the browser console instead of hmre overlay
+    new webpack.NoErrorsPlugin()
   ],
 
   postcss() {
@@ -94,21 +119,16 @@ const config = {
       autoprefixer
     ];
   },
-  devServer: {
-    contentBase: './dist',
-    colors: true,
-    historyApiFallback: true,
-    inline: true,
-    hot: true,
-    stats: 'errors-only'
-  },
-  // sassLoader: {
-  //     includePaths: [path.resolve(__dirname, "./css")]
-  // },
-  // ignore packages that are not available in browser. e.g. fs
-  externals: {
-    cldr: 'empty'
+
+  resolve: {
+    extensions: ['', '.js', '.jsx']
   }
 };
 
-module.exports = config;
+module.exports = validate(webpackConfig, {
+  rules: {
+    'no-root-files-node-modules-nameclash': true, //default
+    'loader-enforce-include-or-exclude': false,
+    'loader-prefer-include': true
+  }
+});
