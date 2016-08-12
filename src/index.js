@@ -20,6 +20,7 @@ import configureStore from './store/configureStore';
 // import './less/mf.css';
 //import './less/fg.menu.css';
 import './css/index.css';
+import './css/redux-datatable.css';
 
 // const menu = {
 //   menuItems: item ? JSON.parse(item).menuItems : [],

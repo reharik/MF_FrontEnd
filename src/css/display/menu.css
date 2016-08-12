@@ -8,7 +8,7 @@
 .menu__breadcrumb {
   background: url("./../images/left-nav-title.png") repeat-x scroll 0 0 #71A8C2;
   border-radius: 4px;
-
+  margin-bottom:15px;
 }
 
 .menu__breadcrumb__list__item__icon {
@@ -40,7 +40,6 @@
 }
 
 .menu__items {
-  margin-top:15px;
 }
 
 .menu__item__node {

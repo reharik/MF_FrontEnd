@@ -1,3 +1,5 @@
+/* ------------- end reset ----------- */
+
 html, body {
   box-sizing: border-box;
   font-family: helvetica,sans-serif;
@@ -6,10 +8,16 @@ html, body {
   height:100%;
   width:100%;
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
-/* ------------- end reset ----------- */
+
+#id, #id>div {
+  height:100%;
+  width:100%;
+}
+
 ol, ul {
   list-style: none;
   padding:0;
