@@ -3,11 +3,7 @@ import ContentHeader from './ContentHeader';
 import ContentHeaderSearch from './ContentHeaderSearch';
 import {Table}  from 'redux-datatable'
 
-console.log('==========Table=========');
-console.log(Table);
-console.log('==========END Table=========');
-
-const TrainerList = ({ gridConfig }) => {
+const TrainerList = ({ gridConfig, columns }) => {
   return (
     <div id='trainerList'>
       <ContentHeader >
@@ -25,7 +21,7 @@ const TrainerList = ({ gridConfig }) => {
       </ContentHeader>
       <div className="form-scroll-inner" >
         <div className="content-inner">
-          <Table columns={gridConfig.columns} />
+          <Table columns={columns} config={gridConfig} />
         </div>
       </div>
     </div>);

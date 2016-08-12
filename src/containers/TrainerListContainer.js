@@ -3,6 +3,7 @@ import {plugins, pageSize, height} from './../utilities/gridDef.js';
 import TrainerList from '../components/TrainerList';
 import CellLink from './../components/GridElements/CellLink.js';
 import EmailLink from './../components/GridElements/EmailLink.js';
+import Promise from 'bluebird';
 
 const data = [
   {
@@ -162,16 +163,20 @@ const columns = [
   }
 ];
 
+const dataSource = function() {
+  return Promise.resolve(data);
+};
+
 function mapStateToProps(state) {
   const gridConfig = {
-    columns,
-    plugins,
-    data,
-    stateKey:'trainerList'
+    dataSource
   };
-
+  console.log('==========gridConfig=========');
+  console.log(gridConfig);
+  console.log('==========END gridConfig=========');
   return {
-    gridConfig
+    gridConfig,
+    columns
   };
 }
 
