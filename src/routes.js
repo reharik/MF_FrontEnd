@@ -3,7 +3,7 @@ import {Route} from 'react-router';
 
 import AppContainer from './containers/AppContainer';
 import ClientList from './components/ClientList';
-import TrainersList from './components/TrainersList';
+import TrainersList from './containers/TrainerListContainer';
 import Trainer from './components/Trainer';
 
 //import { App, Home, Foo, Bar } from './components'

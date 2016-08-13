@@ -1,12 +1,12 @@
 .contentHeader {
   width: 100%;
   height: 41px;
-  background: url(../images/content-header-silver.png) repeat-x scroll 0 0 transparent;
+  background: url(./images/content-header-silver.png) repeat-x scroll 0 0 transparent;
   margin-top:10px;
 }
 
 .contentHeader__headerSearch {
-  background: url(../images/search-bg.png) no-repeat scroll 0 0 transparent;
+  background: url(./images/search-bg.png) no-repeat scroll 0 0 transparent;
   width: 178px;
   height: 25px;
   border: none;
@@ -15,5 +15,5 @@
 }
 
 .contentHeader__button__new {
-  background: url(../images/icon-header-plus.png) no-repeat scroll 0 -23px transparent;
+  background: url(./images/icon-header-plus.png) no-repeat scroll 0 -23px transparent;
 }
