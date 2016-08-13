@@ -4,156 +4,72 @@ import TrainerList from '../components/TrainerList';
 import CellLink from './../components/GridElements/CellLink.js';
 import EmailLink from './../components/GridElements/EmailLink.js';
 import Promise from 'bluebird';
+import uuid from 'uuid';
 
 const data = [
   {
     name: 'Michael Jordan',
     position: 'Shooting Guard',
-    Id:1
+    id:uuid.v4()
   },
   {
     name: 'Charles Barkley',
     position: 'Power Forward',
-    Id:1
+    id:uuid.v4()
   },
   {
     name: 'Charles Barkley',
     position: 'Power Forward',
-    Id:1
+    id:uuid.v4()
   },
   {
     name: 'Charles Barkley',
     position: 'Power Forward',
-    Id:1
+    id:uuid.v4()
   },
   {
     name: 'Charles Barkley',
     position: 'Power Forward',
-    Id:1
+    id:uuid.v4()
   },
   {
     name: 'Charles Barkley',
     position: 'Power Forward',
-    Id:1
+    id:uuid.v4()
   },
   {
     name: 'Charles Barkley',
     position: 'Power Forward',
-    Id:1
+    id:uuid.v4()
   },
   {
     name: 'Charles Barkley',
     position: 'Power Forward',
-    Id:1
+    id:uuid.v4()
   },
   {
     name: 'Charles Barkley',
     position: 'Power Forward',
-    Id:1
+    id:uuid.v4()
   },
   {
     name: 'Charles Barkley',
     position: 'Power Forward',
-    Id:1
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward'
+    id:uuid.v4()
   }
+
 ];
 
 const columns = [
   {
-    property: 'Name',
+    property: 'name',
+    display: 'Name',
     width: '10%',
     format: CellLink('trainer')
   },
   {
-    property: 'Position',
+    property: 'position',
+    display: 'Position',
     width: '35%',
     format: EmailLink
   },
@@ -164,16 +80,13 @@ const columns = [
 ];
 
 const dataSource = function() {
-  return Promise.resolve(data);
+  return Promise.resolve({ok:true, data});
 };
 
 function mapStateToProps(state) {
   const gridConfig = {
     dataSource
   };
-  console.log('==========gridConfig=========');
-  console.log(gridConfig);
-  console.log('==========END gridConfig=========');
   return {
     gridConfig,
     columns

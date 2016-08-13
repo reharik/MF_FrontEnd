@@ -417,7 +417,7 @@ a {
 /*width: $num-width;*/
 /*}*/
 body {
-    font-size: 20px
+    font-size: 12px
 }
 .redux__datatable__table__row {
     border-bottom: 2px solid #e0e0e0;

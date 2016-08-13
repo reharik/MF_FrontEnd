@@ -7,7 +7,7 @@ import React from 'react';
 
 export default route => {
   return ({column, value, row}) => {
-    const fullRoute = route + '/' + row['Id'];
+    const fullRoute = route + '/' + row['id'];
     return (
       <div>
         <Link to={fullRoute}>{value}</Link>

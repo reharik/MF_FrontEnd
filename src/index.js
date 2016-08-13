@@ -4,23 +4,10 @@ import {browserHistory} from 'react-router';
 import {syncHistoryWithStore} from 'react-router-redux';
 import Root from './containers/Root';
 import configureStore from './store/configureStore';
-//
-// import 'css/bootstrap.css';
-// import 'css/form.less';
-// import 'css/header.less';
-// import 'css/leftNav.less';
-// import 'css/menu.less';
-// import 'css/content-header.less';
-// import 'css/signIn.less';
-// import 'css/react-grid.less';
-// import 'css/main.less';
-// import './css/main.css';
-//require('./css/slidingNav2.css');
-// import './less/CC.css';
-// import './less/mf.css';
-//import './less/fg.menu.css';
+
 import './css/index.css';
 import './css/redux-datatable.css';
+import './css/redux-task-calendar.css';
 
 // const menu = {
 //   menuItems: item ? JSON.parse(item).menuItems : [],
@@ -31,6 +18,7 @@ import './css/redux-datatable.css';
 
 // TODO these will come from api
 const  menuItems = [
+  {text: 'Calendar', path:'Calendar'},
   {text: 'Trainers', path:'trainers'},
   {text: 'Clients', path:'clients'}
   ];
@@ -67,12 +55,9 @@ const menu = {
   currentItem: ''
 };
 
-
-
 const state = {auth: {isAuthenticated: true, userName: 'Raif Harik'},
   menu: menu
 };
-
 
 const store = configureStore(state);
 const history = syncHistoryWithStore(browserHistory, store);
