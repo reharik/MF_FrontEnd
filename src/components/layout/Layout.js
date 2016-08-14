@@ -1,7 +1,7 @@
 import React from 'react';
 import NavigationContainer from './../../containers/MenuContainer'
 import Header from './../../containers/HeaderContainer';
-import SignInContainer from './../../containers/SignInContainer';
+import SignInContainer from '../../containers/forms/SignInContainer';
 import {Notifs} from 'redux-notifications';
 
 const Layout = ({isAuthenticated, userName, children}) => {

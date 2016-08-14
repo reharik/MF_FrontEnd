@@ -2,10 +2,10 @@ import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 
 import AppContainer from './containers/AppContainer';
-import ClientList from './components/ClientList';
-import TrainersList from './containers/TrainerListContainer';
+import ClientList from './components/lists/ClientList';
+import TrainersList from './containers/lists/TrainerListContainer';
 import Calendar from './containers/CalendarContainer';
-import Trainer from './components/Trainer';
+import Trainer from './components/forms/TrainerForm';
 
 //import { App, Home, Foo, Bar } from './components'
 

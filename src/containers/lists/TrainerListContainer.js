@@ -1,8 +1,8 @@
 import {connect} from 'react-redux';
-import {plugins, pageSize, height} from './../utilities/gridDef.js';
-import TrainerList from '../components/TrainerList';
-import CellLink from './../components/GridElements/CellLink.js';
-import EmailLink from './../components/GridElements/EmailLink.js';
+import {plugins, pageSize, height} from '../../utilities/gridDef.js';
+import TrainerList from '../../components/lists/TrainerList';
+import CellLink from '../../components/GridElements/CellLink.js';
+import EmailLink from '../../components/GridElements/EmailLink.js';
 import Promise from 'bluebird';
 import uuid from 'uuid';
 

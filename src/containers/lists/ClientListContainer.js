@@ -5,7 +5,7 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {menuItemClicked, navBreadCrumbClicked} from './../actions';
-import ClientList from '../components/ClientList';
+import ClientList from '../../components/lists/ClientList';
 
 function mapStateToProps(state) {
   return {

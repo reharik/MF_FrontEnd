@@ -1,6 +1,6 @@
 import React from 'react';
-import ContentHeader from './ContentHeader';
-import ContentHeaderSearch from './ContentHeaderSearch';
+import ContentHeader from '../ContentHeader';
+import ContentHeaderSearch from '../ContentHeaderSearch';
 import {Table}  from 'redux-datatable'
 
 const TrainerList = ({ gridConfig, columns }) => {

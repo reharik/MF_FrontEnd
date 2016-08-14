@@ -360,7 +360,7 @@ ol {
     width: 100%
 }
 .redux__task__calendar__header__display__date {
-    width: 200px
+    width: 300px
 }
 .redux__task__calendar__header__view__nav {}
 .redux__task__calendar__header__date__nav {
@@ -493,7 +493,7 @@ ol {
     text-align: center
 }
 .redux__task__calendar__header__date__nav {
-    width: 100px
+    width: 150px
 }
 .redux__task__calendar__header__date__nav__button {
     box-shadow: inset 0px 0px 14px -3px #f2fadc;
