@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from '../FormElements/Input';
+import Input from '../formElements/Input';
 import {Notifs} from 'redux-notifications';
 
 let SignInForm = ({fields: {userName, password}, resetForm, handleSubmit, submitting, dispatch}) =>

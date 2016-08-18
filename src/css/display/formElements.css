@@ -8,10 +8,12 @@
 }
 
 .input__container {
-
+  padding:5px;
 }
 
 .input__container__label {
+  font-size: 13px;
+  padding-left:2px;
 }
 
 .input__container__input {

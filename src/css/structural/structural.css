@@ -69,15 +69,6 @@ a {
   margin-top: 25px;
 }
 
-.input__container {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-around;
-  height : 75px;
-  width: 90%;
-}
-
-
 .mainHeader {
   height:78px;
   width:100%;

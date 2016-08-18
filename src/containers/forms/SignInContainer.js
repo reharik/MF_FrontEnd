@@ -1,10 +1,10 @@
 import {reduxForm} from 'redux-form';
-import {loginUser} from '../../actions/authActions.js';
+import {loginUser} from '../../modules/index.js';
 import SignInForm from '../../components/forms/SignInForm';
 import formJsonSchema from '../../utilities/formJsonSchema';
-import schema from '../../schemas/signInSchema.json';
+import schema from '../../schemas/schemas.json';
 
-const fjs = formJsonSchema(schema);
+const fjs = formJsonSchema(schema.definitions.signIn);
 
 const SignInContainer = reduxForm({
   form: 'login',

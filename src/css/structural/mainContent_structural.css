@@ -1,7 +1,8 @@
 .mainContent {
   display:flex;
   flex-flow:column nowrap;
-  width:88.5%;
+  width:87.5%;
+  height:100%;
 }
 
 .mainContent__contentInner {

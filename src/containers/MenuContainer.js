@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {menuItemClicked, navBreadCrumbClicked} from './../actions/index.js';
+import {menuItemClicked, navBreadCrumbClicked} from './../modules/index.js';
 import MenuItemList from '../components/layout/Menu/MenuItemList';
 
 function getCurrentItems(items, path) {

@@ -78,7 +78,6 @@ const webpackConfig = {
         test: /\.gif$/, include: [path.resolve(__dirname, 'src/css/images')],
         loader: "url-loader", query: {mimetype: "image/gif"}
       }
-
       //         { test   : /\.jsx?$/, exclude: /[\\\/]node_modules[\\\/](?!react-redux-grid)/, loader : 'babel-loader' },
       //         { test: /\.css$/, loader: 'style-loader!css-loader' },
       //         { test: /\.css$/, loader: 'style-loader!css-loader!css-loader' },

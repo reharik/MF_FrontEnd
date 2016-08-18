@@ -15,5 +15,17 @@
 }
 
 .contentHeader__button__new {
+  height:24px;
+  width:29px;
+  border-radius: 3px;
+  border: 1px solid #c6c6c6;
+  background: url(./images/icon-header-plus.png) no-repeat scroll 0 0 transparent;
+}
+
+.contentHeader__button__new:hover {
+  height:24px;
+  width:29px;
+  border-radius: 3px;
+  border: 1px solid #c6c6c6;
   background: url(./images/icon-header-plus.png) no-repeat scroll 0 -23px transparent;
 }

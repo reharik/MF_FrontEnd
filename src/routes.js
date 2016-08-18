@@ -5,7 +5,7 @@ import AppContainer from './containers/AppContainer';
 import ClientList from './components/lists/ClientList';
 import TrainersList from './containers/lists/TrainerListContainer';
 import Calendar from './containers/CalendarContainer';
-import Trainer from './components/forms/TrainerForm';
+import TrainerContainer from './containers/forms/TrainerContainer';
 
 //import { App, Home, Foo, Bar } from './components'
 
@@ -16,7 +16,7 @@ const routes = (
     <Route path="calendar" component={Calendar} />
     <Route path="clients" component={ClientList} />
     <Route path="trainers" component={TrainersList} />
-    <Route path="trainer/:trainerId" component={Trainer} />
+    <Route path="trainer/:trainerId" component={TrainerContainer} />
   </Route>);
 module.exports = routes;
 

@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {navDown} from '../actions';
+import {navDown} from '../modules/index';
 import Layout from '../components/layout/Layout';
 
 function mapStateToProps(state) {

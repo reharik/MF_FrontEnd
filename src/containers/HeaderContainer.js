@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {logoutUser} from './../actions/authActions.js';
+import {logoutUser} from './../modules/index';
 import Header from './../components/layout/Header';
 
 
