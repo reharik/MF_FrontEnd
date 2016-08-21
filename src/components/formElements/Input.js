@@ -18,35 +18,40 @@ const _Input = ({property, type, label, placeholder, validation, containerStyle,
     ? 'input__container__validation__error'
     : 'input__container__validation__success';
   let validationEl = null;
-  switch (validation) {
-    case 'inline': {
-      // if you use inline you'll need to adjust the height of the input container
-      validationEl = (<div className={valStyle}>{val}</div>);
-      break;
-    }
-    case 'top':
-    default: {
-      if (property.touched && property.error) {
-        dispatch(notifSend({
-          id: property.name,
-          message: property.error,
-          kind: 'danger'
-        }));
-      } else if (property.touched && property.dirty && !property.error) {
-        dispatch(notifDismiss(property.name));
-      }
-    }
-  }
+  // switch (validation) {
+  //   case 'inline': {
+  //     // if you use inline you'll need to adjust the height of the input container
+  //     validationEl = (<div className={valStyle}>{val}</div>);
+  //     break;
+  //   }
+  //   case 'top':
+  //   default: {
+  //     if (property.touched && property.error) {
+  //       dispatch(notifSend({
+  //         id: property.name,
+  //         message: property.error,
+  //         kind: 'danger'
+  //       }));
+  //     } else if (property.touched && property.dirty && !property.error) {
+  //       dispatch(notifDismiss(property.name));
+  //     }
+  //   }
+  // }
 
   const _containerStyle =  containerStyle ? containerStyle : '';
+
+  // console.log(';property.onChange.toString()')
+  // console.log(property)
+
+
 
   const input = function() {
     switch(type){
       case 'select': {
-        return (<Select className={style} options={selectOptions} {...property}  onBlur={() => {}} />)
+        return (<Select className={style} options={selectOptions} {...property} {...property}  />)
       }
       case 'multi-select': {
-        return (<Select className={style} options={selectOptions} {...property}  multi={true} onBlur={() => {}} />);
+        return (<Select className={style} options={selectOptions} {...property}  multi={true} {...property} />);
       }
       default:
       case 'input': {
@@ -54,9 +59,9 @@ const _Input = ({property, type, label, placeholder, validation, containerStyle,
       }
     }
   };
-  
+
   return (<div className={"input__container " + _containerStyle} >
-    <label className="input__container__label" htmlFor={property.name}>{_label}</label>
+    <label className="input__container__label" htmlFor={property.name}>{label}</label>
     {input()}
     {validationEl}
   </div>);

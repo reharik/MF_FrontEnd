@@ -1,4 +1,5 @@
 import {reduxForm} from 'redux-form';
+import {raifForm} from './raifForm';
 import TrainerForm from '../../components/forms/TrainerForm';
 import formJsonSchema from '../../utilities/formJsonSchema';
 import schema from '../../schemas/schemas.json';
@@ -14,10 +15,10 @@ const mapStateToProps = (state) => {
   }
 };
 
-const TrainerContainer = reduxForm({
+const TrainerContainer = raifForm({
   form: 'trainer',
   fields: fjs.fields,
-  validate: fjs.validate,
+  validate: fjs.validation,
   onSubmit: createNewTrainer
 }, mapStateToProps)(TrainerForm);
 
