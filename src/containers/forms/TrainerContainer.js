@@ -22,3 +22,4 @@ const TrainerContainer = reduxForm({
 }, mapStateToProps)(TrainerForm);
 
 export default TrainerContainer;
+  

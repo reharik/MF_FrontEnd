@@ -10,11 +10,9 @@ export default (state = [], action = {}) => {
 }
 
 
-export function createNewTrainer(dispatch) {
-
+export function createNewTrainer(data, dispatch) {
     dispatch(notifSend({
         message: 'hello world',
-        kind: 'info',
-        dismissAfter: 2000
+        kind: 'info'
     }));
 }

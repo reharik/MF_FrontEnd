@@ -56,7 +56,7 @@ const TrainerForm = ({fields: {
             </div>
             <div className="trainerForm__section__row">
               <Input property={city} containerStyle="trainerForm__section__row__address__city" dispatch={dispatch}/>
-              <Input type="multi-select"
+              <Input type="select"
                      selectOptions={states}
                      property={state}
                      containerStyle="trainerForm__section__row__address__state" 
