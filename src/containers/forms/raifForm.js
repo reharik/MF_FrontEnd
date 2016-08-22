@@ -1,20 +1,22 @@
 import {connect} from 'react-redux';
+import wrapMapDispatchToProps from './wrapMapDispatchToProps';
+import wrapMapStateToProps from './wrapMapStateToProps';
+
 import {raifValidation} from './raifValidation'
 export default raifForm = function(config, mapStateToProps, mapDispatchToProps) {
 
 
-  const validate = '';
-  const onChange = '';
-  const onBlur = '';
-  let isValid = '';
-  let errorMessage = '';
-  let touched = '';
+const blur = (field, value) =>
+    ({type: "BLUR", field, value});
 
-  config.fields.map(x =>{
-    let _label = propToLabel(x.name);
-    let _placeholder = propToLabel(_label);
-    let validationState = property.touched ? property.invalid ? 'input__error' : 'input__success' : '';
-    let inputStyle = 'input__container__input' + (type ? type : 'text') + ' ';
+  const change = (field, value) =>
+    ({type: "CHANGE", field, value});
 
-  })
+const actions = wrapMapDispatchToProps(mapDispatchToProps, {blur, change});
+   var fields = config.fields.map(x => {
+    x.onChange = actions.change;
+    x.onBlur = actions.blur;
+    x.isValid = true;
+    return x;
+  });
 }
