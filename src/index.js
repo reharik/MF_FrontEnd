@@ -58,7 +58,7 @@ const menu = {
   currentItem: ''
 };
 
-const state = {auth: {isAuthenticated: true, userName: 'Raif Harik'},
+const state = {auth: {isAuthenticated: false, userName: 'Raif Harik'},
   menu: menu
 };
 

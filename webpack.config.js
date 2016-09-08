@@ -43,7 +43,7 @@ const webpackConfig = {
   devtool: 'cheap-module-eval-source-map', //javascript sourcemaps
 
   entry: {
-    redux_tabletable: [
+    app: [
       'react-hot-loader/patch',
       './index.js'
     ]

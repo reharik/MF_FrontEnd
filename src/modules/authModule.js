@@ -57,33 +57,33 @@ export function loginUser(data, dispatch) {
         kind: 'info',
         dismissAfter: 2000
     }));
-    // let config = {
-    //     method: 'POST',
-    //     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    //     body: `username=${data.userName}&password=${data.password}`
-    // };
-    // localStorage.setItem('id_token', 'token');
-    // localStorage.setItem('userName', data.userName);
-    // localStorage.setItem('menu_data', JSON.stringify(menuData));
-    //
+    let config = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `username=${data.userName}&password=${data.password}`
+    };
+    localStorage.setItem('id_token', 'token');
+    localStorage.setItem('userName', data.userName);
+    localStorage.setItem('menu_data', JSON.stringify(menuData));
+
     // dispatch(receiveLogin(data));
     // return Promise.resolve();
-    //return fetch('login', config)
-    //    .then(response =>
-    //        response.json().then(user => ({
-    //            user,
-    //            response
-    //        }))
-    //).then(({ user, response }) => {
-    //        if (!response.ok) {
-    //            // If there was a problem, we want to
-    //            // reject with the error message
-    //            return Promise.reject(response.errors);
-    //        } else {
-    //            // If login was successful, set the token in local storage
-    //            localStorage.setItem('id_token', user.id_token);
-    //            // Dispatch the success action
-    //            dispatch(receiveLogin(user))
-    //        }
-    //    }).catch(err => console.log("Error: ", err))
+    return fetch('login', config)
+       .then(response =>
+           response.json().then(user => ({
+               user,
+               response
+           }))
+    ).then(({ user, response }) => {
+           if (!response.ok) {
+               // If there was a problem, we want to
+               // reject with the error message
+               return Promise.reject(response.errors);
+           } else {
+               // If login was successful, set the token in local storage
+               localStorage.setItem('id_token', user.id_token);
+               // Dispatch the success action
+               dispatch(receiveLogin(user))
+           }
+       }).catch(err => console.log("Error: ", err))
 }
