@@ -8,40 +8,35 @@ import Select from 'react-select';
 import uuid from 'uuid';
 
 const _Input = ({handleValueChange, type, label, placeholder, fieldState, validation, containerStyle, selectOptions, dispatch}) => {
-
-  console.log('==========fieldState=========');
-  console.log(fieldState);
-  console.log('==========END fieldState=========');
-
-  let _label = propToLabel(label || fieldState.field.name);
-
+  let _label = label !== 'undefined' ? label : fieldState.field.name;
   let _placeholder = propToLabel(placeholder || _label);
-  // let validationState = property.touched ? property.invalid ? 'input__error' : 'input__success' : '';
-  let style = 'input__container__' + (type ? type : 'input') ;//+ ' ' + validationState;
-  // let val = property.touched && property.error ? property.error : ' ';
-  // let valStyle = property.touched && property.error
-  //   ? 'input__container__validation__error'
-  //   : 'input__container__validation__success';
-  // let validationEl = null;
-  // switch (validation) {
-  //   case 'inline': {
-  //     // if you use inline you'll need to adjust the height of the input container
-  //     validationEl = (<div className={valStyle}>{val}</div>);
-  //     break;
-  //   }
-  //   case 'top':
-  //   default: {
-  //     if (property.touched && property.error) {
-  //       dispatch(notifSend({
-  //         id: property.name,
-  //         message: property.error,
-  //         kind: 'danger'
-  //       }));
-  //     } else if (property.touched && property.dirty && !property.error) {
-  //       dispatch(notifDismiss(property.name));
-  //     }
-  //   }
-  // }
+  let validationState = fieldState.isInvalid() ? 'input__error' : 'input__success';
+  let style = 'input__container__' + (type ? type : 'input') + ' ' + validationState;
+  let val = fieldState.isInvalid() ? fieldState.getMessage() : ' ';
+  
+  let valStyle = fieldState.isInvalid()
+    ? 'input__container__validation__error'
+    : 'input__container__validation__success';
+  let validationEl = null;
+  switch (validation) {
+    case 'inline': {
+      // if you use inline you'll need to adjust the height of the input container
+      validationEl = (<div className={valStyle}>{val}</div>);
+      break;
+    }
+    case 'top':
+    default: {
+      // if (property.touched && property.error) {
+      //   dispatch(notifSend({
+      //     id: property.name,
+      //     message: property.error,
+      //     kind: 'danger'
+      //   }));
+      // } else if (property.touched && property.dirty && !property.error) {
+      //   dispatch(notifDismiss(property.name));
+      // }
+    }
+  }
 
   const _containerStyle =  containerStyle ? containerStyle : '';
 
@@ -73,7 +68,7 @@ const _Input = ({handleValueChange, type, label, placeholder, fieldState, valida
   return (<div className={"input__container " + _containerStyle} >
     <label className="input__container__label" htmlFor={fieldState.field.name}>{_label}</label>
     {input()}
-    {/*validationEl*/}
+    {validationEl}
   </div>);
 };
 

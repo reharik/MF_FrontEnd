@@ -42,7 +42,7 @@ export default class SignInForm extends React.Component {
                         type='password'
                         label='Password'
                         required
-                        revalidateOnSubmit />
+                        revalidateOnSubmit validation="inline" />
               </div>
               <div className="signIn__form__footer">
                 <button type="submit" className="signIn__form__footer__button" disabled={isInvalid}>
