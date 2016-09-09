@@ -51,12 +51,6 @@ export function logoutUser(e) {
 }
 
 export function loginUser(data, dispatch) {
-
-    dispatch(notifSend({
-        message: 'hello world',
-        kind: 'info',
-        dismissAfter: 2000
-    }));
     let config = {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -83,7 +77,23 @@ export function loginUser(data, dispatch) {
                // If login was successful, set the token in local storage
                localStorage.setItem('id_token', user.id_token);
                // Dispatch the success action
-               dispatch(receiveLogin(user))
+               dispatch(receiveLogin(user));
+             //dipsatch(clearNotifs)
            }
        }).catch(err => console.log("Error: ", err))
 }
+
+export const model = {
+  userName: {
+    formField: 'userName',
+    type: 'text',
+    required: 'User Name field is Required',
+    revalidateOnSubmit: true
+  },
+  password: {
+    formField: 'password',
+    type: 'password',
+    required: 'Password field is Required',
+    revalidateOnSubmit: true
+  }
+};

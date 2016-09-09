@@ -7,7 +7,7 @@ const {notifSend, notifDismiss} = notifActions;
 import Select from 'react-select';
 import uuid from 'uuid';
 
-const _Input = ({handleValueChange, type, label, placeholder, fieldState, validation, containerStyle, selectOptions, dispatch}) => {
+const _Input = ({handleValueChange, type, label, placeholder, fieldState, formState, validation, containerStyle, selectOptions, dispatch}) => {
   let _label = label || propToLabel(fieldState.field.name);
   let _placeholder = placeholder || _label;
   let validationState = fieldState.isInvalid() ? 'input__error' : 'input__success';
@@ -21,20 +21,35 @@ const _Input = ({handleValueChange, type, label, placeholder, fieldState, valida
   switch (validation) {
     case 'inline': {
       // if you use inline you'll need to adjust the height of the input container
-      validationEl = (<div className={valStyle}>{val}</div>);
+      if(fieldState.isInvalid()) {
+        validationEl = (<div className={valStyle}>{val}</div>);
+      }
       break;
     }
     case 'top':
     default: {
-      // if (property.touched && property.error) {
-      //   dispatch(notifSend({
-      //     id: property.name,
-      //     message: property.error,
-      //     kind: 'danger'
-      //   }));
-      // } else if (property.touched && property.dirty && !property.error) {
-      //   dispatch(notifDismiss(property.name));
-      // }
+      let context = formState.createUnitOfWork();
+      let fi = context.getFieldState(fieldState.getName());
+
+      let errors = fi.get('errors') || [];
+
+      if (fieldState.isInvalid() && !errors.some(x=>x.id === fieldState.field.name)) {
+        console.log('==========fieldState=========');
+        console.log(fieldState);
+        console.log('==========END fieldState=========');
+        var errorAction = {
+          id: fieldState.field.name,
+          message: val,
+          kind: 'danger'
+        };
+        errors.push(errorAction);
+        dispatch(notifSend(errorAction));
+        fi.set('errors', errors)
+        context.updateFormState();
+      }
+      if (!fieldState.isInvalid() && errors.length>0) {
+        dispatch(notifDismiss(fieldState.field.name));
+      }
     }
   }
 

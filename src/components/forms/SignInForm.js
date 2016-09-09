@@ -9,7 +9,10 @@ export default class SignInForm extends React.Component {
     super(props);
     this.formState = new FormState(this);
     this.state = {};
-    
+    this.loginUser = props.loginUser;
+    this.notifs = props.notifs;
+    this.model = this.props.model;
+
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   render() {
@@ -31,24 +34,16 @@ export default class SignInForm extends React.Component {
                 <label className="signIn__form__header__label">Sign In</label>
               </div>
               <div className="signIn__form__row">
-                <Input
-                  formField='userName'
-                  type='text'
-                  required
-                  revalidateOnSubmit />
+                <Input {...this.model.userName} dispatch={this.props.dispatch} formState={this.props.formState} />
               </div>
               <div className="signIn__form__row">
-                <Input  formField='Password'
-                        type='password'
-                        label='Password'
-                        required
-                        revalidateOnSubmit validation="inline" />
+                <Input {...this.model.password}  dispatch={this.props.dispatch} formState={this.props.formState} />
               </div>
               <div className="signIn__form__footer">
                 <button type="submit" className="signIn__form__footer__button" disabled={isInvalid}>
                   Sign In
                 </button>
-                <span>{submitMessage}</span>
+                <div>{submitMessage}</div>
               </div>
             </Form>
           </div>
@@ -60,10 +55,11 @@ export default class SignInForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let model = this.formState.createUnitOfWork().createModel();
-    if (model) {
-      alert(JSON.stringify(model)); // proceed with valid data
+    if (model!==null) {
+      this.loginUser(model, this.props.dispatch);
+    } else {
+      // alert('fu'); //JSON.stringify(this.formState.getMessages()));
     }
-    // else: createModel called setState to set the appropriate validation messages
   }
 }
 
