@@ -9,7 +9,7 @@ export default class SignInForm extends React.Component {
     super(props);
     this.formState = new FormState(this);
     this.state = {};
-
+    
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   render() {

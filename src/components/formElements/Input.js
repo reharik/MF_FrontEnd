@@ -8,12 +8,12 @@ import Select from 'react-select';
 import uuid from 'uuid';
 
 const _Input = ({handleValueChange, type, label, placeholder, fieldState, validation, containerStyle, selectOptions, dispatch}) => {
-  let _label = label !== 'undefined' ? label : fieldState.field.name;
-  let _placeholder = propToLabel(placeholder || _label);
+  let _label = label || propToLabel(fieldState.field.name);
+  let _placeholder = placeholder || _label;
   let validationState = fieldState.isInvalid() ? 'input__error' : 'input__success';
   let style = 'input__container__' + (type ? type : 'input') + ' ' + validationState;
   let val = fieldState.isInvalid() ? fieldState.getMessage() : ' ';
-  
+
   let valStyle = fieldState.isInvalid()
     ? 'input__container__validation__error'
     : 'input__container__validation__success';
