@@ -5,8 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const validate = require('webpack-validator');
 
 const autoprefixer = require('autoprefixer');
-const precss = require('precss');
-const postcssImport = require('postcss-import');
+const combineLoaders = require('webpack-combine-loaders');
 
 const webpackConfig = {
   context: path.resolve(__dirname, 'src'),
@@ -59,9 +58,32 @@ const webpackConfig = {
       {test: /\.jsx?$/, include: [path.resolve(__dirname, 'src')], loader: 'babel'},
       {
         test: /\.css$/,
-        include: [path.resolve(__dirname, 'src/css')],
-        loader: 'style!css-loader?sourceMap=1&modules&importLoaders=1&localIdentName=[local]!postcss-loader'
+        include: [
+          path.resolve(__dirname, 'src/css')
+        ],
+        loader: combineLoaders([
+          {
+            loader: 'style'
+          },
+          {
+            loader: 'css',
+            query: {
+              modules: true,
+              sourceMap: true,
+              localIdentName: '[local]',
+              importLoaders: true
+            }
+          },
+          {
+            loader: 'postcss'
+          }
+        ])
       },
+      // {
+      //   test: /\.css$/,
+      //   include: [path.resolve(__dirname, 'src/css')],
+      //   loader: 'style!css-loader?sourceMap=1&modules&importLoaders=1&localIdentName=[local]!postcss-loader'
+      // },
       {
         test: /\.json$/, include: [path.resolve(__dirname), 'src'],
         loader: "json-loader"
@@ -109,16 +131,18 @@ const webpackConfig = {
     new webpack.NoErrorsPlugin()
   ],
 
-  postcss() {
+  postcss: (webpack) => {
     return [
-      precss,
-      postcssImport({
-        addDependencyTo: webpack
+      require('postcss-import')({
+        addDependencyTo: webpack,
+        path: [ 'css' ],
+        root: path.resolve(__dirname, '/'),
+        skipDuplicates: true
       }),
-      autoprefixer
+      require('postcss-cssnext')()
     ];
   },
-
+  
   resolve: {
     extensions: ['', '.js', '.jsx']
   }
