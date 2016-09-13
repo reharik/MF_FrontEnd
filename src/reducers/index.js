@@ -1,5 +1,4 @@
 import {combineReducers} from 'redux';
-import {reducer as form} from 'redux-form';
 import {routerReducer as routing} from 'react-router-redux';
 // import { Reducers } from 'react-redux-grid';
 import {reducer as notifs} from 'redux-notifications';
@@ -12,8 +11,7 @@ const routerReducer = combineReducers({
   ...calendarReducers,
   notifs,
     ...local,
-  routing,
-  form
+  routing
 });
 
 export default routerReducer;

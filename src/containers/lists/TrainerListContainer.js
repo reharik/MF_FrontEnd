@@ -79,13 +79,27 @@ const columns = [
   }
 ];
 
+import { DATA_REQUEST, DATA_SUCCESS, DATA_FAILURE }  from 'redux-datatable';
+import { CALL_API } from 'redux-api-middleware';
+
+
 const dataSource = function() {
-  return Promise.resolve({ok:true, data});
+
+return {
+  [CALL_API]: {
+    endpoint: 'localhost:3000/trainers',
+    method: 'GET',
+    types: [DATA_REQUEST, DATA_SUCCESS, DATA_FAILURE]
+  }
+};
+
+
+  // return Promise.resolve({ok:true, data});
 };
 
 function mapStateToProps(state) {
   const gridConfig = {
-    dataSource
+    dispatchDataSource:dataSource
   };
   return {
     gridConfig,
