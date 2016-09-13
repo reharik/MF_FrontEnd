@@ -27,11 +27,12 @@
     "node": ">=0.12.0"
   },
   "dependencies": {
-    "bluebird": "^3.3.4",
+    "bluebird": "^3.4.1",
     "jsen": "^0.6.1",
     "json": "^9.0.4",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
+    "react-formstate": "^0.4.4",
     "react-input-color": "^1.7.2",
     "react-redux": "^4.4.0",
     "react-router": "^2.0.1",

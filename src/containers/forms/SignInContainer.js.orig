@@ -1,12 +1,21 @@
+<<<<<<< HEAD
 import {connect} from 'react-redux';
 import {loginUser} from '../../modules/index.js';
+=======
+// import {reduxForm} from 'redux-form';
+// import {loginUser} from '../../modules/index.js';
+>>>>>>> fca02c487461422819e9444f79acd8ec048e97ae
 import SignInForm from '../../components/forms/SignInForm';
 import formJsonSchema from '../../utilities/formJsonSchema';
 import schema from '../../schemas/schemas.json';
+import {connect} from 'react-redux';
+import {loginUser, model} from '../../modules/authModule';
 
 // const fjs = formJsonSchema(schema.definitions.signIn);
 
-const model = [
+<<<<<<< HEAD
+const model = () => ({
+  model: [
     {
       type: 'text',
       name: 'userName',
@@ -19,8 +28,12 @@ const model = [
       label: 'Password',
       rules: [{rule: 'required'}]
     }
-  ];
+  ],
+  loginUser
+});
 
+const SignInContainer = connect(model)(SignInForm);
+=======
 const mapStateToProps = (state) => {
   return {
     notifs: state.notifs,
@@ -28,6 +41,8 @@ const mapStateToProps = (state) => {
     model
   }
 };
+
 const SignInContainer = connect(mapStateToProps)(SignInForm);
+>>>>>>> fca02c487461422819e9444f79acd8ec048e97ae
 
 export default SignInContainer;
