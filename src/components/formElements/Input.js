@@ -6,8 +6,11 @@ import Select from 'react-select';
 // import uuid from 'uuid';
 
 const _Input = ({data, validation, containerStyle, dispatch}) => {
+console.log('==========data=========');
+console.log(data);
+console.log('==========END data=========');
 
-  let validationState = data.isvalid ?  'input__success' : 'input__error';
+  let validationState = data.invalid ?  'input__success' : 'input__error';
   let style = 'input__container__' + (data.type ? data.type : 'input') + ' ' + validationState;
   let val = data.errors.length > 0 ? data.error : '';
   let valStyle = data.errors.length > 0
@@ -51,7 +54,8 @@ const _Input = ({data, validation, containerStyle, dispatch}) => {
                        type={data.type ? data.type : 'text'}
                        placeholder={data.placeholder}
                        name={data.name}
-                       onChange={data.onChange}
+       value={data.value}
+                          onChange={data.onChange}
         />)
       }
     }
