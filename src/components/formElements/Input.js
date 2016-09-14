@@ -5,11 +5,7 @@ const {notifSend, notifDismiss} = notifActions;
 import Select from 'react-select';
 // import uuid from 'uuid';
 
-const _Input = ({data, validation, containerStyle, dispatch}) => {
-console.log('==========data=========');
-console.log(data);
-console.log('==========END data=========');
-
+const _Input = ({data, validation, containerStyle, notifs, dispatch}) => {
   let validationState = data.invalid ?  'input__success' : 'input__error';
   let style = 'input__container__' + (data.type ? data.type : 'input') + ' ' + validationState;
   let val = data.errors.length > 0 ? data.error : '';
@@ -18,24 +14,33 @@ console.log('==========END data=========');
     : 'input__container__validation__success';
   let validationEl = null;
   switch (validation) {
-    case 'inline': {
+    case 'inline':
+    {
       // if you use inline you'll need to adjust the height of the input container
       validationEl = (<div className={valStyle}>{val}</div>);
       break;
     }
     case 'top':
-    default: {
-      if (data.errors.length > 0) {
+    default:
+    {
+      data.errors.forEach(x =>
         dispatch(notifSend({
-          id: data.name,
-          message: data.error,
+          id: data.formName + '_' + data.name + '_' + x.rule,
+          formName: data.formName,
+          fieldName: data.name,
+          rule: x.rule,
+          message: x.message,
           kind: 'danger'
-        }));
-        // get state of notifications to determine if we should dispatch
-      } else if (!data.error) {
-        dispatch(notifDismiss(data.name));
-      }
+        })));
+      // if(data.errors.length <= 0){
+      notifs.filter(n => n.fieldName === data.name
+      && n.formName === data.formName
+      && !data.errors.some(e => e.rule === n.rule))
+        .forEach(n => dispatch(notifDismiss(n.id)))
     }
+    // get state of notifications to determine if we should dispatch
+    // } else if (!data.error) {
+    //   // dispatch(notifDismiss(data.name));
   }
 
   const _containerStyle = containerStyle ? containerStyle : '';
@@ -54,8 +59,8 @@ console.log('==========END data=========');
                        type={data.type ? data.type : 'text'}
                        placeholder={data.placeholder}
                        name={data.name}
-       value={data.value}
-                          onChange={data.onChange}
+                       value={data.value}
+                       onChange={data.onChange}
         />)
       }
     }
