@@ -68,7 +68,7 @@ export function loginUser(data, dispatch) {
     //
     // dispatch(receiveLogin(data));
     // return Promise.resolve();
-    return fetch('login', config)
+    return fetch('api/auth', config)
        .then(response =>
            response.json().then(user => ({
                user,

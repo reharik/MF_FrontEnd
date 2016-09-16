@@ -1,11 +1,11 @@
 import {connect} from 'react-redux';
 import TrainerForm from '../../components/forms/TrainerForm';
-import formJsonSchema from '../../utilities/formJsonSchema';
+// import formJsonSchema from '../../utilities/formJsonSchema';
 import schema from '../../schemas/schemas.json';
 import states from './../../constants/states'
 import { createNewTrainer } from './../../modules/trainerModule';
 
-const fjs = formJsonSchema(schema.definitions.trainer);
+// const fjs = formJsonSchema(schema.definitions.trainer);
 
 const model = () => ({model:[
   {

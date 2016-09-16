@@ -11,7 +11,7 @@ let SignInForm = ({model, loginUser, notifs, dispatch}) =>
         <div className="signIn__header"></div>
         <div className="signIn__content">
           <Notifs />
-          <Form onSubmit={loginUser} model={model} >
+          <Form submitHandler={loginUser} model={model} >
             <div className="signIn__form__header">
               <label className="signIn__form__header__label">Sign In</label>
             </div>

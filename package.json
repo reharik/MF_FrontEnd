@@ -14,8 +14,8 @@
   ],
   "main": "app.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --config ",
-    "build": "webpack",
+    "build": "webpack -p --config ./app/webpack.config.js --progress --profile --colors",
+    "start": "webpack-dev-server --progress --config ./app/webpack.config.js",
     "test": "NODE_ENV=test mocha -w --recursive --compilers js:babel-core/register ./app/tests/**",
     "testOnce": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register ./app/tests/**",
     "lint": "eslint . ",

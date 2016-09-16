@@ -48,14 +48,20 @@ const webpackConfig = {
     ]
   },
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     filename: '[name].bundle.js'
   },
   module: {
     noParse: [],
     loaders: [
-      {test: /\.jsx?$/, include: [path.resolve(__dirname, 'src')], loader: 'babel'},
+      {
+        test: /\.jsx?$/,
+        loader: 'babel',
+        include: [
+          path.resolve(__dirname, 'src')
+        ],
+      },
       {
         test: /\.css$/,
         include: [
@@ -142,7 +148,7 @@ const webpackConfig = {
       require('postcss-cssnext')()
     ];
   },
-  
+
   resolve: {
     extensions: ['', '.js', '.jsx']
   }
