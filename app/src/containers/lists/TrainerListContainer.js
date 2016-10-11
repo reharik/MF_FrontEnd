@@ -6,6 +6,8 @@ import EmailLink from '../../components/GridElements/EmailLink.js';
 import Promise from 'bluebird';
 import uuid from 'uuid';
 
+import { DATA_REQUEST, DATA_SUCCESS, DATA_FAILURE }  from 'redux-datatable';
+import { CALL_API } from 'redux-api-middleware';
 const data = [
   {
     name: 'Michael Jordan',
@@ -79,15 +81,12 @@ const columns = [
   }
 ];
 
-import { DATA_REQUEST, DATA_SUCCESS, DATA_FAILURE }  from 'redux-datatable';
-import { CALL_API } from 'redux-api-middleware';
 
 
 const dataSource = function() {
-
 return {
   [CALL_API]: {
-    endpoint: 'localhost:3000/trainers',
+    endpoint: 'http://localhost:3000/trainers',
     method: 'GET',
     types: [DATA_REQUEST, DATA_SUCCESS, DATA_FAILURE]
   }

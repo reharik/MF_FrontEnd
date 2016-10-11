@@ -1,6 +1,6 @@
 @import 'thirdParty/normalize.css';
 
-@import 'variables.css';
+/*@import 'variables.css.temp';*/
 
 @import 'structural/structural.css';
 @import 'structural/menu_structural.css';

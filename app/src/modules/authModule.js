@@ -68,22 +68,28 @@ export function loginUser(data, dispatch) {
     //
     // dispatch(receiveLogin(data));
     // return Promise.resolve();
-    return fetch('api/auth', config)
+    return fetch('http://localhost:3000/auth', config)
        .then(response =>
-           response.json().then(user => ({
-               user,
+       {
+         if(response.status === 401){
+           return Promise.reject(response.statusText);
+         }
+         return response.json().then(body => ({
+             body,
                response
-           }))
-    ).then(({ user, response }) => {
+           }))}
+    ).then(({ body, response }) => {
            if (!response.ok) {
                // If there was a problem, we want to
                // reject with the error message
                return Promise.reject(response.errors);
            } else {
                // If login was successful, set the token in local storage
-               localStorage.setItem('id_token', user.id_token);
+             localStorage.setItem('id_token', body.user.id_token);
+             localStorage.setItem('userName', body.user.userName);
+             // localStorage.setItem('menu_data', JSON.stringify(menuData));
                // Dispatch the success action
-               dispatch(receiveLogin(user))
+               dispatch(receiveLogin(body.user))
            }
        }).catch(err => console.log("Error: ", err))
 }

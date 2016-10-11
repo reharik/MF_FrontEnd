@@ -35,11 +35,11 @@ export default (state = data, action = {}) => {
                 path: state.path.slice(0, action.index),
                 breadCrumbItems: state.breadCrumbItems.slice(0, action.index + 1)
             });
-        case LOGIN_SUCCESS:
-            const items = JSON.parse(localStorage.getItem('menu_data'));
-            return Object.assign({}, state, {
-                menuItems: items.menuItems
-            });
+        // case LOGIN_SUCCESS:
+        //     const items = JSON.parse(localStorage.getItem('menu_data'));
+        //     return Object.assign({}, state, {
+        //         menuItems: items.menuItems
+        //     });
         default:
             return state;
     }
