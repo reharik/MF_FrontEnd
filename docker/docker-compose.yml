@@ -1,0 +1,24 @@
+version: "2"
+services:
+  mf_frontend:
+    image: mf_frontend
+    volumes:
+      - ./../app:/home/current/app
+    command: npm start #top -b #
+
+    environment:
+      APPLICATION_NAME: mf_frontend
+    ports:
+      - "8080:8080"
+
+#  frontend_test:
+#    image: wk_frontend
+#    volumes:
+#      - ./../app:/home/current/app
+#    command: npm test #top -b #
+#    environment:
+#      DEBUG: 'true'
+#      NODE_ENV: development
+#      APPLICATION_NAME: wk_frontend
+#    ports:
+#      - "8080:8080"

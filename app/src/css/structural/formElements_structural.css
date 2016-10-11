@@ -1,0 +1,9 @@
+
+.input__container {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    height : 60px;
+    width: 100%;
+}
+
