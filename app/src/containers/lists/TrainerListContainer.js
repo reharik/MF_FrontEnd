@@ -1,3 +1,4 @@
+import configValues from './../../utilities/configValues';
 import {connect} from 'react-redux';
 import {plugins, pageSize, height} from '../../utilities/gridDef.js';
 import TrainerList from '../../components/lists/TrainerList';
@@ -86,8 +87,9 @@ const columns = [
 const dataSource = function() {
 return {
   [CALL_API]: {
-    endpoint: 'http://localhost:3000/trainers',
+    endpoint: configValues.apiBase + 'trainers',
     method: 'GET',
+    credentials: 'same-origin',
     types: [DATA_REQUEST, DATA_SUCCESS, DATA_FAILURE]
   }
 };

@@ -1,3 +1,4 @@
+import configValues from './../utilities/configValues';
 export const LOGIN_SUCCESS = 'methodFit/auth/LOGIN_SUCCESS';
 export const LOGOUT_SUCCESS = 'methodFit/auth/LOGOUT_SUCCESS';
 
@@ -60,6 +61,7 @@ export function loginUser(data, dispatch) {
     let config = {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        credentials: 'same-origin',
         body: `username=${data.userName}&password=${data.password}`
     };
     // localStorage.setItem('id_token', 'token');
@@ -68,7 +70,7 @@ export function loginUser(data, dispatch) {
     //
     // dispatch(receiveLogin(data));
     // return Promise.resolve();
-    return fetch('http://localhost:3000/auth', config)
+    return fetch(configValues.apiBase+'auth', config)
        .then(response =>
        {
          if(response.status === 401){
