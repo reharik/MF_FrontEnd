@@ -65,10 +65,11 @@ const data = [
 
 const columns = [
   {
-    property: 'name',
+    property: ({column, row}) => {
+      return CellLink('trainer')({value: `${row.firstName} ${row.lastName}`, row})
+    },
     display: 'Name',
     width: '10%',
-    format: CellLink('trainer')
   },
   {
     property: 'position',
@@ -89,8 +90,8 @@ return {
   [CALL_API]: {
     endpoint: configValues.apiBase + 'trainers',
     method: 'GET',
-    credentials: 'same-origin',
-    types: [DATA_REQUEST, DATA_SUCCESS, DATA_FAILURE]
+    credentials: 'include',
+    types: [DATA_REQUEST, {type:DATA_SUCCESS, payload: (action, state, res) => res.json().then((json) => json.trainers)} , DATA_FAILURE]
   }
 };
 

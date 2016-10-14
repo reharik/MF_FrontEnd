@@ -16,7 +16,7 @@ const routes = (
     <Route path="calendar" component={Calendar} />
     <Route path="clients" component={ClientList} />
     <Route path="trainers" component={TrainersList} />
-    <Route path="trainer/:trainerId" component={TrainerContainer} />
+    <Route path="trainer(/:trainerId)" component={TrainerContainer} />
   </Route>);
 module.exports = routes;
 

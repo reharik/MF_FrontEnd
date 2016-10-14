@@ -61,8 +61,8 @@ export function loginUser(data, dispatch) {
     let config = {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        credentials: 'same-origin',
-        body: `username=${data.userName}&password=${data.password}`
+      credentials: 'include',
+      body: `username=${data.userName}&password=${data.password}`
     };
     // localStorage.setItem('id_token', 'token');
     // localStorage.setItem('userName', data.userName);

@@ -2,6 +2,8 @@ import React from 'react';
 import ContentHeader from '../ContentHeader';
 import ContentHeaderSearch from '../ContentHeaderSearch';
 import {Table}  from 'redux-datatable'
+import {Link} from 'react-router';
+
 
 const TrainerList = ({ gridConfig, columns }) => {
   return (
@@ -9,7 +11,7 @@ const TrainerList = ({ gridConfig, columns }) => {
       <ContentHeader >
         <div className="trainerList__header">
           <div className="trainerList__header__left" >
-            <button className="contentHeader__button__new" title="New" />
+            <Link to='trainer'><button className="contentHeader__button__new" title="New" /></Link>
           </div>
           <div className="trainerList__header__center">
             <div className="trainerList__header__center__title">Trainers</div>
