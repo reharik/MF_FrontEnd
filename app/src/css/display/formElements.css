@@ -17,7 +17,7 @@
 }
 
 .input__container__input,
-.input__container__text,
+.input__container__string,
 .input__container__password {
   font-size: 13px;
   background-color: #ffffff;

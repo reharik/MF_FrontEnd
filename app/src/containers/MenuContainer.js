@@ -8,7 +8,7 @@ function getCurrentItems(items, path) {
   }, items);
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
   return {
     items: getCurrentItems(state.menu.menuItems, state.menu.path),
     path: state.menu.path,

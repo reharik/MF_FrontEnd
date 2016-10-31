@@ -5,6 +5,7 @@ import {Form} from 'freakin-react-forms';
 
 let SignInForm = ({model, loginUser, notifs, dispatch}) =>
 {
+  if(!model){return null;}
   return (
     <div className="signIn">
       <div className="signIn__outer">

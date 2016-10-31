@@ -1,10 +1,8 @@
 import {connect} from 'react-redux';
 import TrainerForm from '../../components/forms/TrainerForm';
-// import formJsonSchema from '../../utilities/formJsonSchema';
-import schema from '../../schemas/schemas.json';
+import formJsonSchema from '../../utilities/formJsonSchema';
 import states from './../../constants/states'
 import { createNewTrainer } from './../../modules/trainerModule';
-
 // const fjs = formJsonSchema(schema.definitions.trainer);
 
 const model = [
@@ -22,10 +20,11 @@ const model = [
   }
 ];
 
+
 const mapStateToProps = (state) => {
   return {
     notifs: state.notifs,
-    model,
+    model: formJsonSchema(state.schema.definitions.trainer),
     states,
     createNewTrainer
   }

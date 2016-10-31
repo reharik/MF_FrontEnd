@@ -56,7 +56,7 @@ const _Input = ({data, validation, containerStyle, notifs, dispatch}) => {
       default:
       case 'input': {
         return (<input className={style}
-                       type={data.type ? data.type : 'text'}
+                       type={data.type ? data.type : 'string'}
                        placeholder={data.placeholder}
                        name={data.name}
                        value={data.value}

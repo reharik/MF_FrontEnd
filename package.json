@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "bluebird": "^3.4.1",
-    "jsen": "^0.6.1",
     "json": "^9.0.4",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",

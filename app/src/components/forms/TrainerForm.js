@@ -8,7 +8,6 @@ import ColorPicker from '../formElements/ColorPicker';
 
 const TrainerForm = ({model,
   states,
-  handleSubmit,
   notifs,
   submitting,
   createNewTrainer,
@@ -30,7 +29,7 @@ const TrainerForm = ({model,
       </ContentHeader>
       <div className="form-scroll-inner" >
         <div className="content-inner">
-          <Form submitHandler={x=>loginUser(x,dispatch)} model={model} className="trainerForm__content">
+          <Form submitHandler={x=>createNewTrainer(x,dispatch)} model={model} className="trainerForm__content">
             <div className="trainerForm__section__header">
               <label className="trainerForm__section__header__label">Contact Info</label>
             </div>

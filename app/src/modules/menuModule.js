@@ -45,8 +45,6 @@ export default (state = data, action = {}) => {
     }
 };
 
-
-
 export const menuItemClicked = (index, text, isParent) => {
     return isParent ? {
         type: NAV_DOWN,

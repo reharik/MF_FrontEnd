@@ -98,6 +98,38 @@
         "mobilePhone"
       ]
     },
+    "trainer2": {
+      "title": "trainer",
+      "type": "object",
+      "properties": {
+        "contact":{
+          "description": "The contact information or users",
+          "type": "object",
+          "$ref": "#/definitions/contact"
+        },
+        "account":{
+          "description": "The account information for users who can login",
+          "type": "object",
+          "$ref": "#/definitions/account"
+        },
+        "address":{
+          "description": "The address information for users",
+          "type": "object",
+          "$ref": "#/definitions/address"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "defaultClientRate": {
+          "type": "number"
+        }
+      },
+      "required": [
+      ]
+    },
     "account": {
       "title": "account",
       "type": "object",
