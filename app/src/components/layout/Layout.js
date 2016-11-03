@@ -4,7 +4,10 @@ import Header from './../../containers/HeaderContainer';
 import SignInContainer from '../../containers/forms/SignInContainer';
 import {Notifs} from 'redux-notifications';
 
-const Layout = ({isAuthenticated, userName, children}) => {
+const Layout = ({isReady, isAuthenticated, userName, children}) => {
+  if(!isReady) {
+    return null;
+  }
   if (!isAuthenticated) {
     return (<SignInContainer />);
   }

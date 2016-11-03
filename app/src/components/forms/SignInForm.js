@@ -1,9 +1,10 @@
 import React from 'react';
-import Input from '../formElements/Input';
+import InputContainer from './../../containers/InputContainer';
 import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
+import uuid from 'uuid';
 
-let SignInForm = ({model, loginUser, notifs, dispatch}) =>
+let SignInForm = ({model, loginUser}) =>
 {
   if(!model){return null;}
   return (
@@ -12,15 +13,15 @@ let SignInForm = ({model, loginUser, notifs, dispatch}) =>
         <div className="signIn__header"></div>
         <div className="signIn__content">
           <Notifs />
-          <Form submitHandler={x=>loginUser(x,dispatch)} model={model} >
+          <Form submitHandler={x=>loginUser(x)} model={model} >
             <div className="signIn__form__header">
               <label className="signIn__form__header__label">Sign In</label>
             </div>
             <div className="signIn__form__row">
-              <Input frfProperty="userName" validation="top" notifs={notifs} dispatch={dispatch}/>
+              <InputContainer frfProperty="userName" />
             </div>
             <div className="signIn__form__row">
-              <Input frfProperty="password" notifs={notifs}  dispatch={dispatch}/>
+              <InputContainer frfProperty="password" />
             </div>
             <div className="signIn__form__footer">
               <button type="submit" className="signIn__form__footer__button" >

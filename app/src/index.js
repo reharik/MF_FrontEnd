@@ -8,9 +8,10 @@ import configureStore from './store/configureStore';
 import './css/index.css';
 import './css/thirdParty/redux-datatable.css';
 import './css/thirdParty/redux-task-calendar.css';
-import './css/thirdParty/react-select.css';
 import './css/thirdParty/input-color.css';
 import './css/thirdParty/notif-styles.css';
+import './css/thirdParty/reactSelect.css';
+import './css/thirdParty/react-datepicker.css';
 
 // const menu = {
 //   menuItems: item ? JSON.parse(item).menuItems : [],
@@ -58,7 +59,7 @@ const menu = {
   currentItem: ''
 };
 
-const state = {auth: {isAuthenticated: false, userName: 'Raif Harik'},
+const state = {
   menu: menu
 };
 

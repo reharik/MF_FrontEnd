@@ -37,9 +37,7 @@ const _Input = ({property, type, label, placeholder, validation, containerStyle,
 
   return (<div className={"input__container " + _containerStyle} >
     <label className="input__container__label" htmlFor={property.name}>{_label}</label>
-    <InputColor {...property}
-        defaultValue="#345678"
-  />
+    <InputColor {...data} defaultValue="#345678" />
     {validationEl}
   </div>);
 };

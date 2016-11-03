@@ -11,20 +11,18 @@ export default (state = [], action = {}) => {
     return state;
 }
 
-
-export function createNewTrainer(data, dispatch) {
-console.log('==========config=========');
-console.log(config);
-console.log('==========END config=========');
-  const event = {
+export function createNewTrainer(data) {
+  console.log('==========data=========');
+  console.log(data);
+  console.log('==========END data=========');
+  return {
     [CALL_API]: {
       endpoint: config.apiBase + 'trainer/create',
       method: 'POST',
+      credentials: 'include',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data),
       types: ['REQUEST', 'SUCCESS', 'FAILURE']
     }
   };
-  dispatch(event);
 }
-

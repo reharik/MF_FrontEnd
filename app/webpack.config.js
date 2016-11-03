@@ -76,7 +76,7 @@ const webpackConfig = {
             query: {
               modules: true,
               sourceMap: true,
-              localIdentName: '[local]',
+               localIdentName: '[local]',
               importLoaders: true
             }
           },

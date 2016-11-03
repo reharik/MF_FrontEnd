@@ -1,11 +1,22 @@
 import React from 'react';
+import InputColor from 'react-input-color';
 // import propToLabel from './../../utilities/propToLabel';
-import {actions as notifActions} from 'redux-notifications';
-const {notifSend, notifDismiss} = notifActions;
-import Select from 'react-select';
+import TokenAutocomplete from '../formElements/reactSelect/index';
 // import uuid from 'uuid';
+import Datepicker from 'react-datepicker';
+import moment from 'moment';
+import MaskedInput from 'react-maskedinput'
 
-const _Input = ({data, validation, containerStyle, notifs, dispatch}) => {
+const _Input = ({data,
+                validation, 
+                containerStyle,
+                selectOptions,
+                notifs, 
+                notifSend, 
+                notifDismiss}) => {
+  console.log('==========data=========');
+  console.log(data);
+  console.log('==========END data=========');
   let validationState = data.invalid ?  'input__success' : 'input__error';
   let style = 'input__container__' + (data.type ? data.type : 'input') + ' ' + validationState;
   let val = data.errors.length > 0 ? data.error : '';
@@ -24,19 +35,19 @@ const _Input = ({data, validation, containerStyle, notifs, dispatch}) => {
     default:
     {
       data.errors.forEach(x =>
-        dispatch(notifSend({
+        notifSend({
           id: data.formName + '_' + data.name + '_' + x.rule,
           formName: data.formName,
           fieldName: data.name,
           rule: x.rule,
           message: x.message,
           kind: 'danger'
-        })));
+        }));
       // if(data.errors.length <= 0){
       notifs.filter(n => n.fieldName === data.name
       && n.formName === data.formName
       && !data.errors.some(e => e.rule === n.rule))
-        .forEach(n => dispatch(notifDismiss(n.id)))
+        .forEach(n => notifDismiss(n.id))
     }
     // get state of notifications to determine if we should dispatch
     // } else if (!data.error) {
@@ -46,17 +57,38 @@ const _Input = ({data, validation, containerStyle, notifs, dispatch}) => {
   const _containerStyle = containerStyle ? containerStyle : '';
 
   const input = function() {
-    switch(data.type){
+    switch(data['x-input'] || data.type){
+      case 'date-time': {
+        const onChange = moment => data.onChange({target:{name:data.name, value:moment}});
+        return (<Datepicker selected={data.value || moment()}
+                            {...data}
+                            onChange={onChange}
+                            onBlur={data.onBlur}
+                            className={style} />)
+      }
+      case 'color-picker': {
+        return (<InputColor {...data} defaultValue="#345678" />)
+      }
       case 'select': {
-        return (<Select className={style} options={data.selectOptions} {...data} />)
+        return (<TokenAutocomplete className={style} simulateSelect={true}
+                                   parseToken={ value => value.label }
+                                   parseOption={ value => value.label }
+                                   options={selectOptions} {...data}
+                                   defaultValues={data.value || []}
+                                   {...data} />)
       }
       case 'multi-select': {
-        return (<Select className={style} options={data.selectOptions} {...data}  multi={true} />);
+        return (<TokenAutocomplete className={style}
+                                   defaultValues={data.value || []}
+                                   parseToken={ value => value.label }
+                                   parseOption={ value => value.label }
+                                   parseCustom={ value => value.label }
+                                   options={selectOptions} {...data}  />);
       }
       default:
-      case 'input': {
+      case 'number':
+      case 'string': {
         return (<input className={style}
-                       type={data.type ? data.type : 'string'}
                        placeholder={data.placeholder}
                        name={data.name}
                        value={data.value}

@@ -1,24 +1,21 @@
 import React from 'react';
-import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
 import ContentHeader from '../ContentHeader';
-import Input from '../formElements/Input';
+import Input from './../../containers/InputContainer';
 import ColorPicker from '../formElements/ColorPicker';
 
 
 const TrainerForm = ({model,
   states,
-  notifs,
   submitting,
-  createNewTrainer,
-  dispatch}) => {
+  createNewTrainer}) => {
 
   return (
     <div className='trainerForm'>
       <ContentHeader >
         <div className="trainerForm__header">
           <div className="trainerForm__header__left" >
-            <button className="contentHeader__button__new" title="New" onClick={() => createNewTrainer(dispatch)} />
+            <button className="contentHeader__button__new" title="New" onClick={createNewTrainer} />
           </div>
           <div className="trainerForm__header__center">
             <div className="trainerForm__header__center__title">Trainer</div>
@@ -29,17 +26,50 @@ const TrainerForm = ({model,
       </ContentHeader>
       <div className="form-scroll-inner" >
         <div className="content-inner">
-          <Form submitHandler={x=>createNewTrainer(x,dispatch)} model={model} className="trainerForm__content">
+          <Form submitHandler={x=>createNewTrainer(x)} model={model} className="trainerForm__content">
             <div className="trainerForm__section__header">
               <label className="trainerForm__section__header__label">Contact Info</label>
             </div>
             <div className="trainerForm__section__row">
-              <Input frfProperty="firstName" validation="top" notifs={notifs} dispatch={dispatch} id="raif"/>
-              <Input frfProperty="lastName" validation="top" notifs={notifs} dispatch={dispatch}/>
+              <Input frfProperty="firstName" validation="top" />
+              <Input frfProperty="lastName" validation="top" />
+            </div>
+            <div className="trainerForm__section__row__single">
+              <Input frfProperty="birthDate"/>
+            </div>
+            <div className="trainerForm__section__row">
+              <Input frfProperty="street1" />
+              <Input frfProperty="street2" />
+            </div>
+            <div className="trainerForm__section__row">
+              <Input frfProperty="city" containerStyle="trainerForm__section__row__address__city" />
+              <Input type="select"
+                     selectOptions={states}
+                     frfProperty="state"
+                     containerStyle="trainerForm__section__row__address__state"
+                     />
+              <Input frfProperty="zipCode" containerStyle="trainerForm__section__row__address__zip" />
+            </div>
+            <div className="trainerForm__section__header">
+              <label className="trainerForm__section__header__label">Trainer Info</label>
+            </div>
+            <div className="trainerForm__section__row">
+              <Input frfProperty="defaultClientRate" />
+              <Input frfProperty="color" />
+            </div>
+            <div className="trainerForm__section__row">
+              <Input frfProperty="mobilePhone" />
+              <Input frfProperty="secondaryPhone" />
+            </div>
+            <div className="trainerForm__section__header">
+              <label className="trainerForm__section__header__label">Account Info</label>
+            </div>
+            <div className="trainerForm__section__row__single">
+              <Input frfProperty="email" />
             </div>
             <div className="trainerForm__footer">
-              <button type="submit" className="trainerForm__footer__button" disabled={submitting}>
-                {submitting ? <i /> : <i />} Submit
+              <button type="submit" className="trainerForm__footer__button">
+               Submit
               </button>
             </div>
           </Form>
@@ -98,7 +128,7 @@ const TrainerForm = ({model,
 //               <label className="trainerForm__section__header__label">Contact Info</label>
 //             </div>
 //             <div className="trainerForm__section__row">
-//               <Input property={firstName} dispatch={dispatch} id="raif"/>
+//               <Input property={firstName}  id="raif"/>
 //               <Input property={lastName} dispatch={dispatch}/>
 //             </div>
 //             <div className="trainerForm__section__row__single">

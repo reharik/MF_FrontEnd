@@ -6,12 +6,11 @@ import formJsonSchema from '../../utilities/formJsonSchema';
 const mapStateToProps = (state) => {
   return {
     notifs: state.notifs,
-    loginUser,
     model: formJsonSchema(state.schema.definitions.signIn)
 
   }
 };
 
-const SignInContainer = connect(mapStateToProps)(SignInForm);
+const SignInContainer = connect(mapStateToProps,{ loginUser })(SignInForm);
 
 export default SignInContainer;

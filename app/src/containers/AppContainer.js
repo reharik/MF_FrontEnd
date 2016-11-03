@@ -12,7 +12,11 @@ class LayoutContainer extends Component {
   // this causes infinte loop for some reason
   // componentDidUpdate() { this.loadData(); }
 
-  loadData() { this.props.getJsonSchema(); }
+  loadData() {
+    console.log('=========="loadData"=========');
+    console.log("loadData");
+    console.log('==========END "loadData"=========');
+    this.props.getJsonSchema(); }
 
   render() {
     if (this.props.isFetching) {
@@ -25,9 +29,9 @@ class LayoutContainer extends Component {
   }
 }
 
-
 function mapStateToProps(state = []) {
   return {
+    isReady: Object.keys(state.schema.definitions).length > 0,
     isAuthenticated: state.auth.isAuthenticated,
     userName: state.auth.userName
   };

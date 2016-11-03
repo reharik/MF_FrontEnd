@@ -3,33 +3,16 @@ import TrainerForm from '../../components/forms/TrainerForm';
 import formJsonSchema from '../../utilities/formJsonSchema';
 import states from './../../constants/states'
 import { createNewTrainer } from './../../modules/trainerModule';
-// const fjs = formJsonSchema(schema.definitions.trainer);
-
-const model = [
-  {
-    type: 'text',
-    name: 'firstName',
-    label: 'First Name',
-    rules: [{rule:'required'}]
-  },
-  {
-    type: 'text',
-    name: 'lastName',
-    label: 'Last Name',
-    rules: [{rule:'required'}]
-  }
-];
 
 
 const mapStateToProps = (state) => {
+  const model = formJsonSchema(state.schema.definitions.trainer);
   return {
-    notifs: state.notifs,
-    model: formJsonSchema(state.schema.definitions.trainer),
-    states,
-    createNewTrainer
+    model,
+    states
   }
 };
 
-const TrainerContainer = connect(mapStateToProps)(TrainerForm);
+const TrainerContainer = connect(mapStateToProps, { createNewTrainer })(TrainerForm);
 
 export default TrainerContainer;
