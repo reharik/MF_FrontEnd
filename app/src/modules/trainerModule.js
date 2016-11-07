@@ -4,7 +4,9 @@ import { actions as notifActions } from 'redux-notifications';
 const { notifSend } = notifActions;
 
 
-// export const LOGIN_SUCCESS = 'methodFit/auth/LOGIN_SUCCESS';
+export const CREATE_TRAINER_REQUEST = 'methodFit/trainer/CREATE_TRAINER_REQUEST';
+export const CREATE_TRAINER_SUCCESS = 'methodFit/trainer/CREATE_TRAINER_SUCCESS';
+export const CREATE_TRAINER_FAILURE = 'methodFit/trainer/CREATE_TRAINER_FAILURE';
 
 
 export default (state = [], action = {}) => {
@@ -22,7 +24,7 @@ export function createNewTrainer(data) {
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data),
-      types: ['REQUEST', 'SUCCESS', 'FAILURE']
+      types: [CREATE_TRAINER_REQUEST, CREATE_TRAINER_SUCCESS, CREATE_TRAINER_FAILURE]
     }
   };
 }
