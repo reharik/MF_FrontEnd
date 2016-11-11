@@ -13,10 +13,10 @@ import TrainerContainer from './containers/forms/TrainerContainer';
 const routes = (
   <Route path="/" component={AppContainer}>
     <IndexRoute component={Calendar} />
-    <Route path="calendar" component={Calendar} />
-    <Route path="clients" component={ClientList} />
-    <Route path="trainers" component={TrainersList} />
-    <Route path="trainer(/:trainerId)" component={TrainerContainer} />
+    <Route path="/calendar" component={Calendar} />
+    <Route path="/clients" component={ClientList} />
+    <Route path="/trainers" component={TrainersList} />
+    <Route path="/trainer(/:trainerId)" component={TrainerContainer} />
   </Route>);
 module.exports = routes;
 

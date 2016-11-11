@@ -7,10 +7,10 @@ import { calendarReducers } from 'redux-task-calendar';
 import local from './../modules/index';
 
 const routerReducer = combineReducers({
-    ...tableReducers,
+  ...tableReducers,
   ...calendarReducers,
   notifs,
-    ...local,
+  ...local,
   routing
 });
 

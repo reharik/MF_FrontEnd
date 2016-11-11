@@ -24,7 +24,7 @@ const mapRules = (parent, property) => {
   return property;
 };
 
-export default function(schema) {
+export default function(schema, obj) {
   if(!schema) { return; }
   const recurseProps = parent => {
     return Object.keys(parent.properties).map(p => {
@@ -34,7 +34,14 @@ export default function(schema) {
       return recurseProps(parent.properties[p]);
     });
   };
-  return recurseProps(schema).reduce(flat,[]);
+  let formModel = recurseProps(schema).reduce(flat,[]);
+  if(obj) {
+    formModel.map(x => {
+      if (obj[x.name]) { x.value = obj[x.name]; }
+      return x;
+    });
+  }
+  return formModel;
 };
 
 /*

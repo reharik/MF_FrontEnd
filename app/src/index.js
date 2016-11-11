@@ -22,9 +22,9 @@ import './css/thirdParty/react-datepicker.css';
 
 // TODO these will come from api
 const  menuItems = [
-  {text: 'Calendar', path:'Calendar'},
-  {text: 'Trainers', path:'trainers'},
-  {text: 'Clients', path:'clients'}
+  {text: 'Calendar', path:'/calendar'},
+  {text: 'Trainers', path:'/trainers'},
+  {text: 'Clients', path:'/clients'}
   ];
 
 // const  menuItems = [

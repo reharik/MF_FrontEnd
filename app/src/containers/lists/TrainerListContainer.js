@@ -9,59 +9,6 @@ import uuid from 'uuid';
 
 import { DATA_REQUEST, DATA_SUCCESS, DATA_FAILURE }  from 'redux-datatable';
 import { CALL_API } from 'redux-api-middleware';
-const data = [
-  {
-    name: 'Michael Jordan',
-    position: 'Shooting Guard',
-    id:uuid.v4()
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward',
-    id:uuid.v4()
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward',
-    id:uuid.v4()
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward',
-    id:uuid.v4()
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward',
-    id:uuid.v4()
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward',
-    id:uuid.v4()
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward',
-    id:uuid.v4()
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward',
-    id:uuid.v4()
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward',
-    id:uuid.v4()
-  },
-  {
-    name: 'Charles Barkley',
-    position: 'Power Forward',
-    id:uuid.v4()
-  }
-
-];
 
 const columns = [
   {
@@ -72,7 +19,7 @@ const columns = [
     width: '10%',
   },
   {
-    property: 'position',
+    property: 'email',
     display: 'Position',
     width: '35%',
     format: EmailLink

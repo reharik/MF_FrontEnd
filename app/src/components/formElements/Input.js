@@ -66,8 +66,11 @@ const _Input = ({data,
   const input = function() {
     switch(data['x-input'] || data.type){
       case 'date-time': {
+        console.log('==========data.value=========');
+        console.log(data.value);
+        console.log('==========END data.value=========');
         const onChange = moment => data.onChange({target:{name:data.name, value:moment}});
-        return (<Datepicker selected={data.value || moment()}
+        return (<Datepicker selected={data.value || new moment()}
                             {...data}
                             onChange={onChange}
                             onBlur={data.onBlur}
