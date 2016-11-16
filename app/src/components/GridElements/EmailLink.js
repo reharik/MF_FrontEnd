@@ -1,10 +1,13 @@
 /**
  * Created by reharik on 4/16/16.
  */
-import {Link} from 'react-router';
 import React from 'react';
+import selectn from 'selectn';
 
-export default ({column, value, row}) => (
-  <div>
-    <a href={'mailto:' + value}>{value}</a>
-  </div>);
+export default ({column, row}) => {
+  const value = selectn(column.propertyName,row);
+  return (
+    <div>
+      <a href={'mailto:' + value}>{value}</a>
+    </div>);
+}

@@ -1,28 +1,23 @@
-import configValues from './../../utilities/configValues';
 import {connect} from 'react-redux';
-import {plugins, pageSize, height} from '../../utilities/gridDef.js';
 import TrainerList from '../../components/lists/TrainerList';
 import CellLink from '../../components/GridElements/CellLink.js';
 import EmailLink from '../../components/GridElements/EmailLink.js';
-import Promise from 'bluebird';
-import uuid from 'uuid';
 
-import { DATA_REQUEST, DATA_SUCCESS, DATA_FAILURE }  from 'redux-datatable';
-import { CALL_API } from 'redux-api-middleware';
+import { fetchTrainersAction } from './../../modules/trainerModule';
 
 const columns = [
   {
     property: ({column, row}) => {
-      return CellLink('trainer')({value: `${row.firstName} ${row.lastName}`, row})
+      return CellLink('trainer')({value: `${row.contact.firstName} ${row.contact.lastName}`, row})
     },
     display: 'Name',
     width: '10%',
   },
   {
-    property: 'email',
-    display: 'Position',
-    width: '35%',
-    format: EmailLink
+    property: EmailLink,
+    propertyName: 'contact.email',
+    display: 'Email',
+    width: '35%'
   },
   {
     property: 'id',
@@ -31,28 +26,17 @@ const columns = [
 ];
 
 
-
-const dataSource = function() {
-return {
-  [CALL_API]: {
-    endpoint: configValues.apiBase + 'trainers',
-    method: 'GET',
-    credentials: 'include',
-    types: [DATA_REQUEST, {type:DATA_SUCCESS, payload: (action, state, res) => res.json().then((json) => json.trainers)} , DATA_FAILURE]
-  }
-};
-
-
-  // return Promise.resolve({ok:true, data});
-};
-
 function mapStateToProps(state) {
   const gridConfig = {
-    dispatchDataSource:dataSource
+    tableName: 'trainerList',
+    dataSource: 'trainers',
+    fetchDataAction: fetchTrainersAction,
   };
   return {
     gridConfig,
-    columns
+    columns,
+    trainers: state.trainers
+
   };
 }
 

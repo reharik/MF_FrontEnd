@@ -2,14 +2,11 @@ import React from 'react';
 import {Form} from 'freakin-react-forms';
 import ContentHeader from '../ContentHeader';
 import Input from './../../containers/InputContainer';
-import ColorPicker from '../formElements/ColorPicker';
-
 
 const TrainerForm = ({model,
   states,
   submitting,
   createNewTrainer}) => {
-
   return (
     <div className='trainerForm'>
       <ContentHeader >
@@ -31,41 +28,41 @@ const TrainerForm = ({model,
               <label className="trainerForm__section__header__label">Contact Info</label>
             </div>
             <div className="trainerForm__section__row">
-              <Input frfProperty="firstName" validation="top" />
-              <Input frfProperty="lastName" validation="top" />
+              <Input frfProperty={model.firstName} validation="top" />
+              <Input frfProperty={model.lastName} validation="top" />
             </div>
             <div className="trainerForm__section__row__single">
-              <Input frfProperty="birthDate"/>
+              <Input frfProperty={model.birthDate}/>
             </div>
             <div className="trainerForm__section__row">
-              <Input frfProperty="street1" />
-              <Input frfProperty="street2" />
+              <Input frfProperty={model.street1} />
+              <Input frfProperty={model.street2} />
             </div>
             <div className="trainerForm__section__row">
-              <Input frfProperty="city" containerStyle="trainerForm__section__row__address__city" />
+              <Input frfProperty={model.city} containerStyle="trainerForm__section__row__address__city" />
               <Input type="select"
                      selectOptions={states}
-                     frfProperty="state"
+                     frfProperty={model.state}
                      containerStyle="trainerForm__section__row__address__state"
                      />
-              <Input frfProperty="zipCode" containerStyle="trainerForm__section__row__address__zip" />
+              <Input frfProperty={model.zipCode} containerStyle="trainerForm__section__row__address__zip" />
             </div>
             <div className="trainerForm__section__header">
               <label className="trainerForm__section__header__label">Trainer Info</label>
             </div>
             <div className="trainerForm__section__row">
-              <Input frfProperty="defaultClientRate" />
-              <Input frfProperty="color" />
+              <Input frfProperty={model.defaultClientRate} />
+              <Input frfProperty={model.color} />
             </div>
             <div className="trainerForm__section__row">
-              <Input frfProperty="mobilePhone" />
-              <Input frfProperty="secondaryPhone" />
+              <Input frfProperty={model.mobilePhone} />
+              <Input frfProperty={model.secondaryPhone} />
             </div>
             <div className="trainerForm__section__header">
               <label className="trainerForm__section__header__label">Account Info</label>
             </div>
             <div className="trainerForm__section__row__single">
-              <Input frfProperty="email" />
+              <Input frfProperty={model.email} />
             </div>
             <div className="trainerForm__footer">
               <button type="submit" className="trainerForm__footer__button">

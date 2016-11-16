@@ -18,10 +18,10 @@ let SignInForm = ({model, loginUser}) =>
               <label className="signIn__form__header__label">Sign In</label>
             </div>
             <div className="signIn__form__row">
-              <InputContainer frfProperty="userName" />
+              <InputContainer frfProperty={model.userName} />
             </div>
             <div className="signIn__form__row">
-              <InputContainer frfProperty="password" />
+              <InputContainer frfProperty={model.password} />
             </div>
             <div className="signIn__form__footer">
               <button type="submit" className="signIn__form__footer__button" >

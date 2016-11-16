@@ -9,7 +9,7 @@ import { createNewTrainer, fetchTrainerAction } from './../../modules/trainerMod
 class TrainerFormContainer extends Component {
   componentWillMount() { this.loadData(); }
 
-  componentWillReceiveProps(newProps) { this.loadData(); }
+  // componentWillReceiveProps(newProps) { this.loadData(); }
 
   loadData() {
     if (this.props.params.trainerId) {
@@ -29,7 +29,7 @@ class TrainerFormContainer extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  const trainer = state.trainers.filter(x=>x.id === props.id)[0];
+  const trainer = state.trainers.filter(x=>x.id === props.params.trainerId)[0];
   const model = formJsonSchema(state.schema.definitions.trainer, trainer);
   return {
     model,

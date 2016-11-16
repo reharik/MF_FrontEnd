@@ -26,22 +26,19 @@ const mapRules = (parent, property) => {
 
 export default function(schema, obj) {
   if(!schema) { return; }
-  const recurseProps = parent => {
+  const recurseProps = (parent, nestObj) => {
     return Object.keys(parent.properties).map(p => {
       if (parent.properties[p].type !== 'object' && !parent.properties[p].properties) {
-        return mapRules(parent, mapProperty(parent, p));
+        let val = mapRules(parent, mapProperty(parent, p));
+        if(nestObj) {val.value = nestObj[p];}
+        return val;
       }
-      return recurseProps(parent.properties[p]);
+      return recurseProps(parent.properties[p], nestObj ? nestObj[p] : undefined);
     });
   };
-  let formModel = recurseProps(schema).reduce(flat,[]);
-  if(obj) {
-    formModel.map(x => {
-      if (obj[x.name]) { x.value = obj[x.name]; }
-      return x;
-    });
-  }
-  return formModel;
+  return recurseProps(schema, obj)
+    .reduce(flat,[])
+    .reduce((prev,next) => { prev[next.name] = next; return prev;}, {});
 };
 
 /*
