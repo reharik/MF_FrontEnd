@@ -12,9 +12,7 @@ const _Input = ({data,
                 notifs, 
                 notifSend, 
                 notifDismiss}) => {
-  console.log('==========data.value=========');
-  console.log(data.value);
-  console.log('==========END data.value=========');
+  
   let inputStyle = classNames({
       ['input__container__' + (data.type ? data.type : 'input')]:true,
       'input__success' : !data.invalid,
