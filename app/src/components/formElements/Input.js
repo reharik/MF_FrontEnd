@@ -3,7 +3,6 @@ import InputColor from 'react-input-color';
 import TokenAutocomplete from '../formElements/reactSelect/index';
 import Datepicker from 'react-datepicker';
 import moment from 'moment';
-import MaskedInput from 'react-maskedinput'
 import classNames from 'classnames'
 
 const _Input = ({data,
@@ -13,9 +12,9 @@ const _Input = ({data,
                 notifs, 
                 notifSend, 
                 notifDismiss}) => {
-console.log('========== data=========');
-console.log( data);
-console.log('==========END  data=========');
+  console.log('==========data.value=========');
+  console.log(data.value);
+  console.log('==========END data.value=========');
   let inputStyle = classNames({
       ['input__container__' + (data.type ? data.type : 'input')]:true,
       'input__success' : !data.invalid,
