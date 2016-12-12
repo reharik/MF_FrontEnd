@@ -10,10 +10,13 @@ import keyCodes from './utils/keyCodes';
 
 function defaultValuesPropType(props, propName, component) {
   const prop = props[propName];
+console.log('==========prop=========');
+console.log(prop);
+console.log('==========END prop=========');
 
   if (props.simulateSelect && isArray(prop) && prop.length > 1) {
       return new Error(
-        'when props.simulateSelect is set to TRUE, you should pass more than a single value in props.defaultValues'
+        'when props.simulateSelect is set to TRUE, you should NOT pass more than a single value in props.defaultValues'
       );
   }
 

@@ -6,18 +6,29 @@ import EmailLink from '../../components/GridElements/EmailLink.js';
 import { fetchTrainersAction } from './../../modules/trainerModule';
 
 const columns = [
-  {
+   {
     property: ({column, row}) => {
-      return CellLink('trainer')({value: `${row.contact.firstName} ${row.contact.lastName}`, row})
+      return CellLink('trainer')({value: `${row.contact.lastName}`, row})
     },
-    display: 'Name',
+    sort:'lastName',
+    display: 'Last Name',
+    width: '10%',
+  },
+  {
+    property: 'contact.firstName',
+    display: 'First Name',
     width: '10%',
   },
   {
     property: EmailLink,
-    propertyName: 'contact.email',
+    propertyName: 'contact.emailAddress',
     display: 'Email',
     width: '35%'
+  },
+  {
+    property: 'contact.phone',
+    display: 'Phone',
+    width: '10%',
   },
   {
     property: 'id',

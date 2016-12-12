@@ -4,10 +4,9 @@ import SignInForm from '../../components/forms/SignInForm';
 import formJsonSchema from '../../utilities/formJsonSchema';
 
 const mapStateToProps = (state) => {
+  var model = formJsonSchema(state.schema.definitions.signIn);
   return {
-    notifs: state.notifs,
-    model: formJsonSchema(state.schema.definitions.signIn)
-
+    model: model
   }
 };
 

@@ -9,10 +9,10 @@ const _Input = ({data,
                 validation,
                 containerStyle,
                 selectOptions,
-                notifs, 
-                notifSend, 
+                notifs,
+                notifSend,
                 notifDismiss}) => {
-  
+
   let inputStyle = classNames({
       ['input__container__' + (data.type ? data.type : 'input')]:true,
       'input__success' : !data.invalid,
@@ -48,10 +48,13 @@ const _Input = ({data,
           kind: 'danger'
         }));
       // if(data.errors.length <= 0){
-      notifs.filter(n => n.fieldName === data.name
-      && n.formName === data.formName
-      && !data.errors.some(e => e.rule === n.rule))
-        .forEach(n => notifDismiss(n.id))
+
+      // need to dismiss any where theere was an error but it's been fixed so it's no longer in the list of errors
+      // perhaps dispmiss an id for each rule not in the errors
+      // notifs.filter(n => n.fieldName === data.name
+      // && n.formName === data.formName
+      // && !data.errors.some(e => e.rule === n.rule))
+      //   .forEach(n => notifDismiss(n.id))
     }
     // get state of notifications to determine if we should dispatch
     // } else if (!data.error) {
@@ -65,8 +68,6 @@ const _Input = ({data,
   const input = function() {
     switch(data['x-input'] || data.type){
       case 'date-time': {
-        console.log('==========data.value=========');
-        console.log(data.value);
         console.log('==========END data.value=========');
         const onChange = moment => data.onChange({target:{name:data.name, value:moment}});
         return (<Datepicker selected={data.value || new moment()}

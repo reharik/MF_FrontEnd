@@ -4,11 +4,8 @@ import {actions as notifActions} from 'redux-notifications';
 const {notifSend, notifDismiss} = notifActions;
 
 const mapStateToProps = (state, props) => {
-  console.log('==========props=========');
-  console.log(props);
-  console.log('==========END props=========');
   return {
-    notifs: state.notifs,
+    // notifs: state.notifs,
     ...props
   }
 };
