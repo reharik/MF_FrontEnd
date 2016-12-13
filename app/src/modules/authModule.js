@@ -37,22 +37,14 @@ export default (state = initialState, action = {}) => {
 //     }
 // }
 
-function receiveLogout() {
-    return {
-        type: LOGOUT_SUCCESS,
-        isAuthenticated: false
-    }
-}
-
-// Logs the user out
-export function logoutUser(e) {
-    e.preventDefault();
-    return dispatch => {
-        localStorage.removeItem('id_token');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('menu_data');
-        dispatch(receiveLogout())
-    }
+export function logoutUser() {
+  localStorage.removeItem('id_token');
+  localStorage.removeItem('userName');
+  localStorage.removeItem('menu_data');
+  return {
+    type: LOGOUT_SUCCESS,
+    isAuthenticated: false
+  };
 }
 
 export function loginUser(data) {

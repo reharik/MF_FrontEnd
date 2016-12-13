@@ -4,13 +4,14 @@ import {apiMiddleware} from 'redux-api-middleware';
 import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools';
 import thunk from 'redux-thunk';
+import loggedOutMiddleware from './../utilities/loggedOutMiddleware';
 
 export default function configureStore(initialState) {
   const store = createStore(
     rootReducer,
     initialState,
     compose(
-      applyMiddleware(thunk, apiMiddleware, createLogger()),
+      applyMiddleware(thunk, apiMiddleware, loggedOutMiddleware, createLogger()),
       DevTools.instrument()
     )
   );
