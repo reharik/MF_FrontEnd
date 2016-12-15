@@ -29,6 +29,7 @@
   vertical-align: middle;
   padding: 4px 6px;
   color:#666;
+  width:100%;
 }
 
 .editor__container__validation__error {

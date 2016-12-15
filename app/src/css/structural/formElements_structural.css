@@ -1,5 +1,5 @@
 
-.input__container {
+.editor__container {
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-around;
