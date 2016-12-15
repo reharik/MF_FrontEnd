@@ -7,4 +7,6 @@
 div.form-scroll-inner {
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: white;
+  border: 1px solid #D9D9D9;
 }

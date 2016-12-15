@@ -1,18 +1,21 @@
 import React from 'react';
 import {Form} from 'freakin-react-forms';
 import ContentHeader from '../ContentHeader';
-import Input from './../../containers/InputContainer';
+import SubmissionFor from './../../containers/SubmissionForContainer';
+import HiddenFor from './../formElements/elementsFor/HiddenFor';
+import {browserHistory} from 'react-router';
 
 const TrainerForm = ({model,
   states,
   submitting,
-  createNewTrainer}) => {
+  upsertTrainer}) => {
   return (
     <div className='trainerForm'>
       <ContentHeader >
         <div className="trainerForm__header">
           <div className="trainerForm__header__left" >
-            <button className="contentHeader__button__new" title="New" onClick={createNewTrainer} />
+
+            <button className="contentHeader__button__new" title="New" onClick={() => browserHistory.push('/trainer')} />
           </div>
           <div className="trainerForm__header__center">
             <div className="trainerForm__header__center__title">Trainer</div>
@@ -23,46 +26,41 @@ const TrainerForm = ({model,
       </ContentHeader>
       <div className="form-scroll-inner" >
         <div className="content-inner">
-          <Form submitHandler={x=>createNewTrainer(x)} model={model} className="trainerForm__content">
+          <Form submitHandler={x=>upsertTrainer(x)} model={model} className="trainerForm__content">
             <div className="trainerForm__section__header">
               <label className="trainerForm__section__header__label">Contact Info</label>
+              <HiddenFor frfProperty={model.id}  isHidden={true} />
             </div>
             <div className="trainerForm__section__row">
-              <Input frfProperty={model.firstName} validation="top" />
-              <Input frfProperty={model.lastName} validation="top" />
+              <SubmissionFor frfProperty={model.firstName} validation="top" />
+              <SubmissionFor frfProperty={model.lastName} validation="top" />
+            </div>
+            <div className="trainerForm__section__row">
+              <SubmissionFor frfProperty={model.mobilePhone} />
+              <SubmissionFor frfProperty={model.secondaryPhone} />
             </div>
             <div className="trainerForm__section__row__single">
-              <Input frfProperty={model.birthDate}/>
+              <SubmissionFor frfProperty={model.email} />
             </div>
             <div className="trainerForm__section__row">
-              <Input frfProperty={model.street1} />
-              <Input frfProperty={model.street2} />
+              <SubmissionFor frfProperty={model.street1} />
+              <SubmissionFor frfProperty={model.street2} />
             </div>
             <div className="trainerForm__section__row">
-              <Input frfProperty={model.city} containerStyle="trainerForm__section__row__address__city" />
-              <Input type="select"
-                     selectOptions={states}
+              <SubmissionFor frfProperty={model.city} containerStyle="trainerForm__section__row__address__city" />
+              <SubmissionFor selectOptions={states}
                      frfProperty={model.state}
                      containerStyle="trainerForm__section__row__address__state"
                      />
-              <Input frfProperty={model.zipCode} containerStyle="trainerForm__section__row__address__zip" />
+              <SubmissionFor frfProperty={model.zipCode} containerStyle="trainerForm__section__row__address__zip" />
             </div>
             <div className="trainerForm__section__header">
               <label className="trainerForm__section__header__label">Trainer Info</label>
             </div>
             <div className="trainerForm__section__row">
-              <Input frfProperty={model.defaultClientRate} />
-              <Input frfProperty={model.color} />
-            </div>
-            <div className="trainerForm__section__row">
-              <Input frfProperty={model.mobilePhone} />
-              <Input frfProperty={model.secondaryPhone} />
-            </div>
-            <div className="trainerForm__section__header">
-              <label className="trainerForm__section__header__label">Account Info</label>
-            </div>
-            <div className="trainerForm__section__row__single">
-              <Input frfProperty={model.email} />
+              <SubmissionFor frfProperty={model.birthDate}/>
+              {/*<SubmissionFor frfProperty={model.defaultClientRate} /> */}
+              <SubmissionFor frfProperty={model.color} />
             </div>
             <div className="trainerForm__footer">
               <button type="submit" className="trainerForm__footer__button">
@@ -125,7 +123,7 @@ const TrainerForm = ({model,
 //               <label className="trainerForm__section__header__label">Contact Info</label>
 //             </div>
 //             <div className="trainerForm__section__row">
-//               <Input property={firstName}  id="raif"/>
+//               <SubmissionFor property={firstName}  id="raif"/>
 //               <Input property={lastName} dispatch={dispatch}/>
 //             </div>
 //             <div className="trainerForm__section__row__single">

@@ -4,7 +4,6 @@ import OptionList from './options/index.jsx';
 import Token from './token/index.jsx';
 import {includes, difference, filter, noop, identity, isArray, isUndefined, isEmpty} from 'lodash';
 import {contains} from 'underscore.string';
-import Immutable from 'immutable';
 import keyCodes from './utils/keyCodes';
 
 
@@ -82,14 +81,15 @@ class TokenAutocomplete extends React.Component {
   state = {
     focused: false,
     inputValue: '',
-    values: Immutable.List([])
+    values: []
   }
 
 
   //LIFECYCLE
 
   componentDidMount() {
-    let values = Immutable.List(this.props.defaultValues);
+    let values = this.props.defaultValues;
+    values = isArray(values) ? values : [values];
     this.setState({values});
 
     if (!isUndefined(this.props.focus)) {
@@ -106,7 +106,9 @@ class TokenAutocomplete extends React.Component {
 
   }
   componentWillReceiveProps(nextProps) {
-    let values = Immutable.List(nextProps.defaultValues);
+    let values = nextProps.defaultValues;
+    // values = isArray(values) ? values : [values];
+
     this.setState({values});
   }
 
@@ -193,7 +195,7 @@ class TokenAutocomplete extends React.Component {
 
     const valueRemoved = this.state.values.get(index);
     const values = this.state.values.delete(index);
-    this.props.onChange({target:{name:this.props.name, value:values.toArray()}}, values, valueRemoved);
+    this.props.onChange({target:{name:this.props.name, value:values}}, values, valueRemoved);
 
     // this.setState({values});
     this.focus();
@@ -202,16 +204,16 @@ class TokenAutocomplete extends React.Component {
   addSelectedValue = () => {
     const areOptionsAvailable = this.getAvailableOptions().length;
     const newValue = areOptionsAvailable ? this.refs.options.getSelected() : void 0;
-    const isAlreadySelected = includes(this.state.values.toArray(), newValue);
+    const isAlreadySelected = includes(this.state.values, newValue);
     const shouldAddValue = !!newValue && !isAlreadySelected;
 
     if (shouldAddValue) {
 
       let values = this.props.simulateSelect
-        ? Immutable.List([newValue])
+        ? [newValue]
         : this.state.values.push(newValue);
 
-      this.props.onChange({target:{name:this.props.name, value:values.toArray()}}, values, newValue);
+      this.props.onChange({target:{name:this.props.name, value:values}}, values, newValue);
       this.setState({
         // values,
         inputValue: ''
@@ -238,7 +240,7 @@ class TokenAutocomplete extends React.Component {
       if (this.props.simulateSelect) {
         availableOptions = this.props.options;
       } else {
-        availableOptions = difference(this.props.options, this.state.values.toArray());
+        availableOptions = difference(this.props.options, this.state.values);
       }
 
       //filter
@@ -267,7 +269,7 @@ class TokenAutocomplete extends React.Component {
   }
 
   shouldShowInput = () => {
-    return this.props.filterOptions && (!this.props.simulateSelect || !this.state.values.size);
+    return this.props.filterOptions && (!this.props.simulateSelect || !this.state.values);
   }
 
   shouldShowFakePlaceholder = () => {
@@ -292,7 +294,6 @@ class TokenAutocomplete extends React.Component {
     } else {
       return null;
     }
-
   }
 
   renderTokens = () => {

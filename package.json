@@ -74,5 +74,7 @@
     "webpack-combine-loaders": "2.0.0",
     "webpack-dev-server": "^1.14.1",
     "webpack-validator": "^2.2.7"
-  }
+  },
+  "pre-commit": [
+  ]
 }

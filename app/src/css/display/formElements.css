@@ -1,25 +1,25 @@
 
-.input__error {
+.editor__error {
 
 }
 
-.input__success {
+.editor__success {
 
 }
 
-.input__container {
+.editor__container {
   padding:5px;
 }
 
-.input__container__label {
+.editor__container__label {
   font-size: 13px;
   padding-left:2px;
 }
 
-.input__container__input,
-.input__container__number,
-.input__container__string,
-.input__container__password {
+.editor__container__input,
+.editor__container__number,
+.editor__container__string,
+.editor__container__password {
   font-size: 13px;
   background-color: #ffffff;
   border: 1px solid #cccccc;
@@ -31,11 +31,11 @@
   color:#666;
 }
 
-.input__container__validation__error {
+.editor__container__validation__error {
   color: red;
   min-height: 22px;
 }
 
-.input__container__validation__success {
+.editor__container__validation__success {
   min-height: 22px;
 }

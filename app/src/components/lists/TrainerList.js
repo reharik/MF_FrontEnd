@@ -2,8 +2,7 @@ import React from 'react';
 import ContentHeader from '../ContentHeader';
 import ContentHeaderSearch from '../ContentHeaderSearch';
 import {Table}  from 'redux-datatable'
-import {Link} from 'react-router';
-
+import {browserHistory} from 'react-router';
 
 const TrainerList = ({ gridConfig, columns }) => {
   return (
@@ -11,7 +10,7 @@ const TrainerList = ({ gridConfig, columns }) => {
       <ContentHeader >
         <div className="trainerList__header">
           <div className="trainerList__header__left" >
-            <Link to='trainer'><button className="contentHeader__button__new" title="New" /></Link>
+            <button className="contentHeader__button__new" title="New" onClick={() => browserHistory.push('/trainer')} />
           </div>
           <div className="trainerList__header__center">
             <div className="trainerList__header__center__title">Trainers</div>

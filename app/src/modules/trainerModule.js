@@ -4,9 +4,9 @@ import { actions as notifActions } from 'redux-notifications';
 const { notifSend } = notifActions;
 import { browserHistory } from 'react-router';
 
-export const CREATE_TRAINER_REQUEST = 'methodFit/trainer/CREATE_TRAINER_REQUEST';
-export const CREATE_TRAINER_SUCCESS = 'methodFit/trainer/CREATE_TRAINER_SUCCESS';
-export const CREATE_TRAINER_FAILURE = 'methodFit/trainer/CREATE_TRAINER_FAILURE';
+export const UPSERT_TRAINER_REQUEST = 'methodFit/trainer/UPSERT_TRAINER_REQUEST';
+export const UPSERT_TRAINER_SUCCESS = 'methodFit/trainer/UPSERT_TRAINER_SUCCESS';
+export const UPSERT_TRAINER_FAILURE = 'methodFit/trainer/UPSERT_TRAINER_FAILURE';
 export const TRAINER_REQUEST = 'methodFit/trainer/TRAINER_REQUEST';
 export const TRAINER_SUCCESS = 'methodFit/trainer/TRAINER_SUCCESS';
 export const TRAINER_FAILURE = 'methodFit/trainer/TRAINER_FAILURE';
@@ -16,9 +16,6 @@ export const TRAINER_LIST_FAILURE = 'methodFit/trainer/TRAINER_LIST_FAILURE';
 
 
 const trainerReducer = (map = new Map, trainer = {}) => {
-  if (!trainer) {
-    return;
-  }
   map.set(trainer.id,trainer);
   return map;
 };
@@ -26,10 +23,10 @@ const trainerReducer = (map = new Map, trainer = {}) => {
 
 export default (state = [], action = {}) => {
   switch (action.type) {
-    case CREATE_TRAINER_REQUEST:
+    case UPSERT_TRAINER_REQUEST:
     case TRAINER_REQUEST:
     case TRAINER_LIST_REQUEST: {
-      console.log('CREATE_TRAINER_REQUEST');
+      console.log('UPSERT_TRAINER_REQUEST');
       return state;
     }
     case TRAINER_SUCCESS: { 
@@ -52,8 +49,16 @@ export default (state = [], action = {}) => {
       action.payload.reduce((prev, item) => { return trainerReducer(prev, item) }, m);
       return [...m.values()];
     }
-    case CREATE_TRAINER_SUCCESS:
-    case CREATE_TRAINER_FAILURE: {
+    case UPSERT_TRAINER_SUCCESS: {
+      // we want the id from the success payload and the action
+      // that triggered the upsert.  combine those and then
+      // do like trainerSuccess
+      console.log('==========action=========');
+      console.log(action);
+      console.log('==========END action=========');
+      return state;
+    }
+    case UPSERT_TRAINER_FAILURE: {
       return state;
     }
     default: {
@@ -62,16 +67,16 @@ export default (state = [], action = {}) => {
   }
 }
 
-export function createNewTrainer(data) {
+export function upsertTrainer(data) {
   return {
     [CALL_API]: {
-      endpoint: config.apiBase + 'trainer/create',
+      endpoint: config.apiBase + 'trainer/upsert',
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data),
-      types: [CREATE_TRAINER_REQUEST, {
-        type: CREATE_TRAINER_SUCCESS,
+      types: [UPSERT_TRAINER_REQUEST, {
+        type: UPSERT_TRAINER_SUCCESS,
         payload: (a, s, r) => {
           browserHistory.push('/trainers');
           return r.json().then(json => {
@@ -80,7 +85,7 @@ export function createNewTrainer(data) {
           });
         }
       },
-        CREATE_TRAINER_FAILURE]
+        UPSERT_TRAINER_FAILURE]
     }
   };
 }
