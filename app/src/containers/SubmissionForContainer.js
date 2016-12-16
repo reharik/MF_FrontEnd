@@ -5,7 +5,6 @@ const {notifSend, notifDismiss} = notifActions;
 
 const mapStateToProps = (state, props) => {
   return {
-    // notifs: state.notifs,
     ...props
   }
 };
