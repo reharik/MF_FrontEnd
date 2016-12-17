@@ -1,5 +1,5 @@
 var React = require("react");
-var RHDisplay = require('./Display.jsx');
+var RHDisplay = require('./elementsFor/Display.jsx');
 var RHInput = require('./Input.js');
 
 

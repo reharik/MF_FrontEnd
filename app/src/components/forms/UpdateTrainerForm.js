@@ -1,82 +1,86 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {Form} from 'freakin-react-forms';
 import ContentHeader from '../ContentHeader';
-import SubmissionFor from './../../containers/SubmissionForContainer';
-import HiddenFor from './../formElements/elementsFor/HiddenFor';
+import EditableFor from './../formElements/elementsFor/EditableFor';
 import {browserHistory} from 'react-router';
 
-const TrainerForm = ({model,
-  states,
-  submitting,
-  upsertTrainer}) => {
-  return (
-    <div className='trainerForm'>
-      <ContentHeader >
-        <div className="trainerForm__header">
-          <div className="trainerForm__header__left" >
+class UpdateTrainerForm extends Component {
+  state = {
+    editingTrainerName: false
+  };
 
-            <button className="contentHeader__button__new" title="New" onClick={() => browserHistory.push('/trainer')} />
+  componentWillMount() {
+    this.loadData();
+  }
+
+  // componentWillReceiveProps(newProps) { this.loadData(); }
+
+  loadData() {
+    this.props.fetchTrainerAction(this.props.params.trainerId);
+  }
+
+  toggleEditTrainerName = (rollBack) => {
+    if(rollBack){
+      this.props.rollbackTrainerName({
+        firstName: this.props.model.firstName.originalValue,
+        lastName: this.props.model.lastName.originalValue
+      })
+    }
+    this.setState({ editingTrainerName:!this.state.editingTrainerName })
+  };
+
+  render() {
+
+    if (this.props.isFetching) {
+      return (<p style={{ 'padding-top': '100px' }}> Loading... </p>);
+    }
+    if (this.props.errorMessage) {
+      return (<p style={{ 'padding-top': '100px' }}>ERROR! -> {this.props.errorMessage}</p>);
+    }
+    return (
+      <div className='trainerForm'>
+        <ContentHeader >
+          <div className="trainerForm__header">
+            <div className="trainerForm__header__left">
+
+              <button className="contentHeader__button__new" title="New"
+                      onClick={() => browserHistory.push('/trainer')}/>
+            </div>
+            <div className="trainerForm__header__center">
+              <div className="trainerForm__header__center__title">Trainer</div>
+            </div>
+            <div className="trainerForm__header__right">
+            </div>
           </div>
-          <div className="trainerForm__header__center">
-            <div className="trainerForm__header__center__title">Trainer</div>
-          </div>
-          <div className="trainerForm__header__right" >
-          </div>
-        </div>
-      </ContentHeader>
-      <div className="form-scroll-inner" >
-        <div className="content-inner">
-          <Form submitHandler={x=>upsertTrainer(x)} model={model} className="trainerForm__content">
+        </ContentHeader>
+        <div className="form-scroll-inner">
+          <div className="content-inner">
             <div className="trainerForm__section__header">
               <label className="trainerForm__section__header__label">Contact Info</label>
-              <HiddenFor frfProperty={model.id}  isHidden={true} />
             </div>
             <div className="trainerForm__section__row">
-              <SubmissionFor frfProperty={model.firstName} validation="top" />
-              <SubmissionFor frfProperty={model.lastName} validation="top" />
+              <Form submitHandler={x => this.props.updateTrainerName(x)} model={this.props.model}
+                    formName="updateTrainerName"
+                    className="trainerForm__content">
+                <EditableFor frfProperty={this.props.model.firstName} editing={this.state.editingTrainerName}/>
+                <EditableFor frfProperty={this.props.model.lastName} editing={this.state.editingTrainerName}/>
+                {this.state.editingTrainerName
+                  ? (<div className="trainerForm__footer">
+                  <button type="submit" className="trainerForm__footer__button"> Submit </button>
+                  <button onClick={() => this.toggleEditTrainerName(true)}>Cancel</button>
+                </div>)
+                  : (<button onClick={() => this.toggleEditTrainerName()}>edit</button>)
+                }
+              </Form>
             </div>
-            <div className="trainerForm__section__row">
-              <SubmissionFor frfProperty={model.mobilePhone} />
-              <SubmissionFor frfProperty={model.secondaryPhone} />
-            </div>
-            <div className="trainerForm__section__row__single">
-              <SubmissionFor frfProperty={model.email} />
-            </div>
-            <div className="trainerForm__section__row">
-              <SubmissionFor frfProperty={model.street1} />
-              <SubmissionFor frfProperty={model.street2} />
-            </div>
-            <div className="trainerForm__section__row">
-              <SubmissionFor frfProperty={model.city} containerStyle="trainerForm__section__row__address__city" />
-              <SubmissionFor selectOptions={states}
-                     frfProperty={model.state}
-                     containerStyle="trainerForm__section__row__address__state"
-                     />
-              <SubmissionFor frfProperty={model.zipCode} containerStyle="trainerForm__section__row__address__zip" />
-            </div>
-            <div className="trainerForm__section__header">
-              <label className="trainerForm__section__header__label">Trainer Info</label>
-            </div>
-            <div className="trainerForm__section__row">
-              <SubmissionFor frfProperty={model.birthDate}/>
-              {/*<SubmissionFor frfProperty={model.defaultClientRate} /> */}
-              <SubmissionFor frfProperty={model.color} />
-            </div>
-            <div className="trainerForm__footer">
-              <button type="submit" className="trainerForm__footer__button">
-               Submit
-              </button>
-            </div>
-          </Form>
+          </div>
         </div>
       </div>
-    </div>);
-};
+    );
+  }
+}
 
-
-
-
-
+export default UpdateTrainerForm;
 
 
 
@@ -170,7 +174,4 @@ const TrainerForm = ({model,
 //     </div>);
 // };
 
-TrainerForm.contextTypes = {
-};
 
-export default TrainerForm;

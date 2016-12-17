@@ -21,13 +21,13 @@ const columns = [
   },
   {
     property: EmailLink,
-    propertyName: 'contact.emailAddress',
+    propertyName: 'contact.email',
     display: 'Email',
     width: '35%'
   },
   {
-    property: 'contact.phone',
-    display: 'Phone',
+    property: 'contact.mobilePhone',
+    display: 'Mobile Phone',
     width: '10%',
   },
   {

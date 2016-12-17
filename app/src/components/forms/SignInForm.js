@@ -1,5 +1,5 @@
 import React from 'react';
-import InputContainer from './../../containers/InputContainer';
+import SubmissionFor from './../../containers/SubmissionForContainer';
 import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
 import uuid from 'uuid';
@@ -18,10 +18,10 @@ let SignInForm = ({model, loginUser}) =>
               <label className="signIn__form__header__label">Sign In</label>
             </div>
             <div className="signIn__form__row">
-              <InputContainer frfProperty={model.userName} />
+              <SubmissionFor frfProperty={model.userName} />
             </div>
             <div className="signIn__form__row">
-              <InputContainer frfProperty={model.password} />
+              <SubmissionFor frfProperty={model.password} />
             </div>
             <div className="signIn__form__footer">
               <button type="submit" className="signIn__form__footer__button" >

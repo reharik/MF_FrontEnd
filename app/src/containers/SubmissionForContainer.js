@@ -1,15 +1,14 @@
 import {connect} from 'react-redux';
-import Input from './../components/formElements/Input';
+import SubmissionFor from './../components/formElements/elementsFor/SubmissionFor';
 import {actions as notifActions} from 'redux-notifications';
 const {notifSend, notifDismiss} = notifActions;
 
 const mapStateToProps = (state, props) => {
   return {
-    // notifs: state.notifs,
     ...props
   }
 };
 
-const InputContainer = connect(mapStateToProps, { notifSend, notifDismiss })(Input);
+const SubmissionForContainer = connect(mapStateToProps, { notifSend, notifDismiss })(SubmissionFor);
 
-export default InputContainer;
+export default SubmissionForContainer;

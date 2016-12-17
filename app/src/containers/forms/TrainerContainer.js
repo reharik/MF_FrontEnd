@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import TrainerForm from '../../components/forms/TrainerForm';
 import formJsonSchema from '../../utilities/formJsonSchema';
 import states from './../../constants/states'
-import { createNewTrainer, fetchTrainerAction } from './../../modules/trainerModule';
+import { upsertTrainer, fetchTrainerAction } from './../../modules/trainerModule';
 
 
 class TrainerFormContainer extends Component {
@@ -24,20 +24,17 @@ class TrainerFormContainer extends Component {
     if (this.props.errorMessage) {
       return (<p style={{ 'padding-top': '100px' }}>ERROR! -> {this.props.errorMessage}</p>);
     }
-    return (<TrainerForm{...this.props} />);
+    return (<TrainerForm {...this.props} />);
   }
 }
 
 const mapStateToProps = (state, props) => {
   const trainer = state.trainers.filter(x=>x.id === props.params.trainerId)[0];
   const model = formJsonSchema(state.schema.definitions.trainer, trainer);
-  console.log('==========model=========');
-  console.log(model);
-  console.log('==========END model=========');
   return {
     model,
     states
   }
 };
 
-export default connect(mapStateToProps, { createNewTrainer,fetchTrainerAction })(TrainerFormContainer);
+export default connect(mapStateToProps, { upsertTrainer,fetchTrainerAction })(TrainerFormContainer);

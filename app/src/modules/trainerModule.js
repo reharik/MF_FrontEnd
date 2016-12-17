@@ -7,6 +7,9 @@ import { browserHistory } from 'react-router';
 export const CREATE_TRAINER_REQUEST = 'methodFit/trainer/CREATE_TRAINER_REQUEST';
 export const CREATE_TRAINER_SUCCESS = 'methodFit/trainer/CREATE_TRAINER_SUCCESS';
 export const CREATE_TRAINER_FAILURE = 'methodFit/trainer/CREATE_TRAINER_FAILURE';
+export const UPDATE_TRAINER_NAME_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_NAME_REQUEST';
+export const UPDATE_TRAINER_NAME_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_NAME_SUCCESS';
+export const UPDATE_TRAINER_NAME_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_NAME_FAILURE';
 export const TRAINER_REQUEST = 'methodFit/trainer/TRAINER_REQUEST';
 export const TRAINER_SUCCESS = 'methodFit/trainer/TRAINER_SUCCESS';
 export const TRAINER_FAILURE = 'methodFit/trainer/TRAINER_FAILURE';
@@ -16,9 +19,6 @@ export const TRAINER_LIST_FAILURE = 'methodFit/trainer/TRAINER_LIST_FAILURE';
 
 
 const trainerReducer = (map = new Map, trainer = {}) => {
-  if (!trainer) {
-    return;
-  }
   map.set(trainer.id,trainer);
   return map;
 };
@@ -52,17 +52,67 @@ export default (state = [], action = {}) => {
       action.payload.reduce((prev, item) => { return trainerReducer(prev, item) }, m);
       return [...m.values()];
     }
-    case CREATE_TRAINER_SUCCESS:
+    case CREATE_TRAINER_SUCCESS: {
+      // we want the id from the success payload and the action
+      // that triggered the upsert.  combine those and then
+      // do like trainerSuccess
+      console.log('==========action=========');
+      console.log(action);
+      console.log('==========END action=========');
+      return state;
+    }
+    case UPDATE_TRAINER_NAME_FAILURE:
     case CREATE_TRAINER_FAILURE: {
       return state;
     }
+      
+    case UPDATE_TRAINER_NAME_SUCCESS: {
+      return state.map(x => {
+        if(x.id === action.id) {
+          return {...x, firstName: action.firstName, lastName: action.lastName}
+        }
+        return x; 
+      });
+    }
+      
     default: {
       return state;
     }
   }
 }
 
-export function createNewTrainer(data) {
+
+export function updateTrainerName(data) {
+  return {
+    [CALL_API]: {
+      endpoint: config.apiBase + 'trainer/updateTrainerName',
+      method: 'POST',
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data),
+      types: [UPDATE_TRAINER_NAME_REQUEST, {
+        type: UPDATE_TRAINER_NAME_SUCCESS,
+        payload: (a, s, r) => {
+          browserHistory.push('/trainers');
+          return r.json().then(json => {
+            json.upsertedItem = a[CALL_API].body;
+            return json
+          });
+        }
+      },
+        UPDATE_TRAINER_NAME_FAILURE]
+    }
+  };
+}
+
+export function rollbackTrainerName(name) {
+  return { 
+    type:UPDATE_TRAINER_NAME_SUCCESS,
+    name
+  }
+}
+
+export function createTrainer(data) {
   return {
     [CALL_API]: {
       endpoint: config.apiBase + 'trainer/create',
