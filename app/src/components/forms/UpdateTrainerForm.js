@@ -21,9 +21,9 @@ class UpdateTrainerForm extends Component {
 
   toggleEditTrainerName = (rollBack) => {
     if(rollBack){
-      this.props.rollBackTrainerName({
-        firstName: this.model.firstName.originalValue,
-        lastName: this.model.lastName.originalValue
+      this.props.rollbackTrainerName({
+        firstName: this.props.model.firstName.originalValue,
+        lastName: this.props.model.lastName.originalValue
       })
     }
     this.setState({ editingTrainerName:!this.state.editingTrainerName })
@@ -42,7 +42,7 @@ class UpdateTrainerForm extends Component {
         <ContentHeader >
           <div className="trainerForm__header">
             <div className="trainerForm__header__left">
-  
+
               <button className="contentHeader__button__new" title="New"
                       onClick={() => browserHistory.push('/trainer')}/>
             </div>
@@ -59,7 +59,7 @@ class UpdateTrainerForm extends Component {
               <label className="trainerForm__section__header__label">Contact Info</label>
             </div>
             <div className="trainerForm__section__row">
-              <Form submitHandler={x => this.props.updateTrainerName(x)} model={this.model}
+              <Form submitHandler={x => this.props.updateTrainerName(x)} model={this.props.model}
                     formName="updateTrainerName"
                     className="trainerForm__content">
                 <EditableFor frfProperty={this.props.model.firstName} editing={this.state.editingTrainerName}/>
@@ -69,7 +69,7 @@ class UpdateTrainerForm extends Component {
                   <button type="submit" className="trainerForm__footer__button"> Submit </button>
                   <button onClick={() => this.toggleEditTrainerName(true)}>Cancel</button>
                 </div>)
-                  : (<button onClick={this.toggleEditTrainerName}>edit</button>)
+                  : (<button onClick={() => this.toggleEditTrainerName()}>edit</button>)
                 }
               </Form>
             </div>

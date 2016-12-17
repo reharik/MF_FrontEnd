@@ -8,9 +8,6 @@ import { updateTrainerName, fetchTrainerAction, rollbackTrainerName } from './..
 const mapStateToProps = (state, props) => {
   const trainer = state.trainers.filter(x=>x.id === props.params.trainerId)[0];
   const model = formJsonSchema(state.schema.definitions.trainer, trainer);
-  console.log('==========model=========');
-  console.log(model);
-  console.log('==========END model=========');
   return {
     model,
     states
