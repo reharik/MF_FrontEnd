@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import UpdateTrainerForm from '../../components/forms/UpdateTrainerForm';
 import formJsonSchema from '../../utilities/formJsonSchema';
 import states from './../../constants/states'
-import { updateTrainerName, fetchTrainerAction, rollbackTrainerName } from './../../modules/trainerModule';
+import { updateTrainerInfo, fetchTrainerAction, rollbackTrainerName } from './../../modules/trainerModule';
 
 const mapStateToProps = (state, props) => {
   const trainer = state.trainers.filter(x=>x.id === props.params.trainerId)[0];
@@ -14,6 +14,6 @@ const mapStateToProps = (state, props) => {
   }
 };
 
-export default connect(mapStateToProps, { updateTrainerName,
+export default connect(mapStateToProps, { updateTrainerInfo,
   rollbackTrainerName,
   fetchTrainerAction })(UpdateTrainerForm);

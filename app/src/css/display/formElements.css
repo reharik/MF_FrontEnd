@@ -40,3 +40,18 @@
 .editor__container__validation__success {
   min-height: 22px;
 }
+
+.display__container {
+
+}
+
+.display__container__label {
+  font-size: 13px;
+  padding-left: 2px;
+  font-weight: bold;
+}
+
+.display__container__value {
+  padding-left:10px;
+}
+

@@ -7,9 +7,18 @@ import { browserHistory } from 'react-router';
 export const CREATE_TRAINER_REQUEST = 'methodFit/trainer/CREATE_TRAINER_REQUEST';
 export const CREATE_TRAINER_SUCCESS = 'methodFit/trainer/CREATE_TRAINER_SUCCESS';
 export const CREATE_TRAINER_FAILURE = 'methodFit/trainer/CREATE_TRAINER_FAILURE';
-export const UPDATE_TRAINER_NAME_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_NAME_REQUEST';
-export const UPDATE_TRAINER_NAME_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_NAME_SUCCESS';
-export const UPDATE_TRAINER_NAME_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_NAME_FAILURE';
+export const UPDATE_TRAINER_PASSWORD_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_PASSWORD_REQUEST';
+export const UPDATE_TRAINER_PASSWORD_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_PASSWORD_SUCCESS';
+export const UPDATE_TRAINER_PASSWORD_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_PASSWORD_FAILURE';
+export const UPDATE_TRAINER_CONTACT_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_CONTACT_REQUEST';
+export const UPDATE_TRAINER_CONTACT_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_CONTACT_SUCCESS';
+export const UPDATE_TRAINER_CONTACT_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_CONTACT_FAILURE';
+export const UPDATE_TRAINER_ADDRESS_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_ADDRESS_REQUEST';
+export const UPDATE_TRAINER_ADDRESS_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_ADDRESS_SUCCESS';
+export const UPDATE_TRAINER_ADDRESS_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_ADDRESS_FAILURE';
+export const UPDATE_TRAINER_INFO_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_INFO_REQUEST';
+export const UPDATE_TRAINER_INFO_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_INFO_SUCCESS';
+export const UPDATE_TRAINER_INFO_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_INFO_FAILURE';
 export const TRAINER_REQUEST = 'methodFit/trainer/TRAINER_REQUEST';
 export const TRAINER_SUCCESS = 'methodFit/trainer/TRAINER_SUCCESS';
 export const TRAINER_FAILURE = 'methodFit/trainer/TRAINER_FAILURE';
@@ -32,7 +41,7 @@ export default (state = [], action = {}) => {
       console.log('CREATE_TRAINER_REQUEST');
       return state;
     }
-    case TRAINER_SUCCESS: { 
+    case TRAINER_SUCCESS: {
       let m = new Map();
       for(let obj of state) {
         if (obj && obj.id) {
@@ -61,20 +70,20 @@ export default (state = [], action = {}) => {
       console.log('==========END action=========');
       return state;
     }
-    case UPDATE_TRAINER_NAME_FAILURE:
+    case UPDATE_TRAINER_INFO_FAILURE:
     case CREATE_TRAINER_FAILURE: {
       return state;
     }
-      
-    case UPDATE_TRAINER_NAME_SUCCESS: {
+
+    case UPDATE_TRAINER_INFO_SUCCESS: {
       return state.map(x => {
         if(x.id === action.id) {
           return {...x, firstName: action.firstName, lastName: action.lastName}
         }
-        return x; 
+        return x;
       });
     }
-      
+
     default: {
       return state;
     }
@@ -82,16 +91,16 @@ export default (state = [], action = {}) => {
 }
 
 
-export function updateTrainerName(data) {
+export function updateTrainerInfo(data) {
   return {
     [CALL_API]: {
-      endpoint: config.apiBase + 'trainer/updateTrainerName',
+      endpoint: config.apiBase + 'trainer/updateTrainerInfo',
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data),
-      types: [UPDATE_TRAINER_NAME_REQUEST, {
-        type: UPDATE_TRAINER_NAME_SUCCESS,
+      types: [UPDATE_TRAINER_INFO_REQUEST, {
+        type: UPDATE_TRAINER_INFO_SUCCESS,
         payload: (a, s, r) => {
           browserHistory.push('/trainers');
           return r.json().then(json => {
@@ -100,17 +109,80 @@ export function updateTrainerName(data) {
           });
         }
       },
-        UPDATE_TRAINER_NAME_FAILURE]
+        UPDATE_TRAINER_INFO_FAILURE]
     }
   };
 }
 
-export function rollbackTrainerName(name) {
-  return { 
-    type:UPDATE_TRAINER_NAME_SUCCESS,
-    name
-  }
+export function updateTrainerPassword(data) {
+  return {
+    [CALL_API]: {
+      endpoint: config.apiBase + 'trainer/updateTrainerPassword',
+      method: 'POST',
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data),
+      types: [UPDATE_TRAINER_PASSWORD_REQUEST, {
+        type: UPDATE_TRAINER_PASSWORD_SUCCESS,
+        payload: (a, s, r) => {
+          browserHistory.push('/trainers');
+          return r.json().then(json => {
+            json.upsertedItem = a[CALL_API].body;
+            return json
+          });
+        }
+      },
+        UPDATE_TRAINER_PASSWORD_FAILURE]
+    }
+  };
 }
+
+export function updateTrainerContact(data) {
+  return {
+    [CALL_API]: {
+      endpoint: config.apiBase + 'trainer/updateTrainerContact',
+      method: 'POST',
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data),
+      types: [UPDATE_TRAINER_CONTACT_REQUEST, {
+        type: UPDATE_TRAINER_CONTACT_SUCCESS,
+        payload: (a, s, r) => {
+          browserHistory.push('/trainers');
+          return r.json().then(json => {
+            json.upsertedItem = a[CALL_API].body;
+            return json
+          });
+        }
+      },
+        UPDATE_TRAINER_CONTACT_FAILURE]
+    }
+  };
+}
+
+export function updateTrainerAddress(data) {
+  return {
+    [CALL_API]: {
+      endpoint: config.apiBase + 'trainer/updateTrainerAddress',
+      method: 'POST',
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data),
+      types: [UPDATE_TRAINER_ADDRESS_REQUEST, {
+        type: UPDATE_TRAINER_ADDRESS_SUCCESS,
+        payload: (a, s, r) => {
+          browserHistory.push('/trainers');
+          return r.json().then(json => {
+            json.upsertedItem = a[CALL_API].body;
+            return json
+          });
+        }
+      },
+        UPDATE_TRAINER_ADDRESS_FAILURE]
+    }
+  };
+}
+
 
 export function createTrainer(data) {
   return {

@@ -2,12 +2,11 @@ import React from 'react';
 import classNames from 'classnames';
 
 const DisplayFor = ({data, displayStyle}) => {
-  const _displayStyle = classNames('editor__container', displayStyle);
-
+  const _displayStyle = classNames('display__container', displayStyle);
   return (
     <div className={_displayStyle}>
-      <label><span>{data.label}</span></label>
-      <p>{data.value}</p>
+      <label className="display__container__label"><span>{data.label}</span></label>
+      <span className="display__container__value">{data.value}</span>
     </div>
   );
 };

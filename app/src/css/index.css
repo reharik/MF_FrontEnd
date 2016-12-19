@@ -8,6 +8,7 @@
 @import 'structural/trainerList_structural.css';
 @import 'structural/trainerForm_structural.css';
 @import 'structural/formElements_structural.css';
+@import 'structural/editableDisplay_structural.css';
 
 @import 'display/body.css';
 @import 'display/signIn.css';
@@ -19,3 +20,4 @@
 @import 'display/trainerList.css';
 @import 'display/trainerForm.css';
 @import 'display/contentHeader.css';
+@import 'display/editableDisplay.css';
