@@ -1,12 +1,10 @@
 import { CALL_API } from 'redux-api-middleware';
 import config from './../utilities/configValues';
-import { actions as notifActions } from 'redux-notifications';
-const { notifSend } = notifActions;
 import { browserHistory } from 'react-router';
 
-export const CREATE_TRAINER_REQUEST = 'methodFit/trainer/CREATE_TRAINER_REQUEST';
-export const CREATE_TRAINER_SUCCESS = 'methodFit/trainer/CREATE_TRAINER_SUCCESS';
-export const CREATE_TRAINER_FAILURE = 'methodFit/trainer/CREATE_TRAINER_FAILURE';
+export const HIRE_TRAINER_REQUEST = 'methodFit/trainer/HIRE_TRAINER_REQUEST';
+export const HIRE_TRAINER_SUCCESS = 'methodFit/trainer/HIRE_TRAINER_SUCCESS';
+export const HIRE_TRAINER_FAILURE = 'methodFit/trainer/HIRE_TRAINER_FAILURE';
 export const UPDATE_TRAINER_PASSWORD_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_PASSWORD_REQUEST';
 export const UPDATE_TRAINER_PASSWORD_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_PASSWORD_SUCCESS';
 export const UPDATE_TRAINER_PASSWORD_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_PASSWORD_FAILURE';
@@ -35,10 +33,10 @@ const trainerReducer = (map = new Map, trainer = {}) => {
 
 export default (state = [], action = {}) => {
   switch (action.type) {
-    case CREATE_TRAINER_REQUEST:
+    case HIRE_TRAINER_REQUEST:
     case TRAINER_REQUEST:
     case TRAINER_LIST_REQUEST: {
-      console.log('CREATE_TRAINER_REQUEST');
+      console.log('HIRE_TRAINER_REQUEST');
       return state;
     }
     case TRAINER_SUCCESS: {
@@ -61,17 +59,14 @@ export default (state = [], action = {}) => {
       action.payload.reduce((prev, item) => { return trainerReducer(prev, item) }, m);
       return [...m.values()];
     }
-    case CREATE_TRAINER_SUCCESS: {
-      // we want the id from the success payload and the action
-      // that triggered the upsert.  combine those and then
-      // do like trainerSuccess
-      console.log('==========action=========');
-      console.log(action);
-      console.log('==========END action=========');
-      return state;
+    case HIRE_TRAINER_SUCCESS: {
+      var insertedItem = selectn('payload.hiredTrainer', action);
+      insertedItem.id = selectn('payload.result.handlerResult.trainerId',action);
+
+      return insertedItem.id ? [...state, insertedItem] : state;
     }
     case UPDATE_TRAINER_INFO_FAILURE:
-    case CREATE_TRAINER_FAILURE: {
+    case HIRE_TRAINER_FAILURE: {
       return state;
     }
 
@@ -79,6 +74,42 @@ export default (state = [], action = {}) => {
       return state.map(x => {
         if(x.id === action.id) {
           return {...x, firstName: action.firstName, lastName: action.lastName}
+        }
+        return x;
+      });
+    }
+
+    case UPDATE_TRAINER_PASSWORD_SUCCESS: {
+      return state.map(x => {
+        if(x.id === action.id) {
+          return {...x, password: action.password}
+        }
+        return x;
+      });
+    }
+
+    case UPDATE_TRAINER_CONTACT_SUCCESS: {
+      return state.map(x => {
+        if(x.id === action.id) {
+          return {...x,
+            mobilePhone: action.mobilePhone,
+            secondaryPhone: action.secondaryPhone,
+            email:action.email
+          }
+        }
+        return x;
+      });
+    }
+
+    case UPDATE_TRAINER_ADDRESS_SUCCESS: {
+      return state.map(x => {
+        if(x.id === action.id) {
+          return {...x,
+            street1: action.street1,
+            street2: action.street2,
+            city: action.city,
+            state: action.state,
+            zipCode: action.zipCode}
         }
         return x;
       });
@@ -92,19 +123,25 @@ export default (state = [], action = {}) => {
 
 
 export function updateTrainerInfo(data) {
+  const item = {
+    id: data.id,
+    birthDate:data.birthDate,
+    color: data.color,
+    firstName: data.firstName,
+    lastName: data.lastName,
+  };
   return {
     [CALL_API]: {
       endpoint: config.apiBase + 'trainer/updateTrainerInfo',
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data),
+      body: JSON.stringify(item),
       types: [UPDATE_TRAINER_INFO_REQUEST, {
         type: UPDATE_TRAINER_INFO_SUCCESS,
         payload: (a, s, r) => {
-          browserHistory.push('/trainers');
           return r.json().then(json => {
-            json.upsertedItem = a[CALL_API].body;
+            json.updatedInfo = a[CALL_API].body;
             return json
           });
         }
@@ -115,19 +152,21 @@ export function updateTrainerInfo(data) {
 }
 
 export function updateTrainerPassword(data) {
+  const item = {
+    id: data.id,
+    password:data.password
+  };
   return {
     [CALL_API]: {
       endpoint: config.apiBase + 'trainer/updateTrainerPassword',
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data),
+      body: JSON.stringify(item),
       types: [UPDATE_TRAINER_PASSWORD_REQUEST, {
         type: UPDATE_TRAINER_PASSWORD_SUCCESS,
         payload: (a, s, r) => {
-          browserHistory.push('/trainers');
           return r.json().then(json => {
-            json.upsertedItem = a[CALL_API].body;
             return json
           });
         }
@@ -138,19 +177,24 @@ export function updateTrainerPassword(data) {
 }
 
 export function updateTrainerContact(data) {
+  const item = {
+    id: data.id,
+    secondaryPhone: data.secondaryPhone,
+    mobilePhone: data.mobilePhone,
+    email: data.email
+  };
   return {
     [CALL_API]: {
       endpoint: config.apiBase + 'trainer/updateTrainerContact',
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data),
+      body: JSON.stringify(item),
       types: [UPDATE_TRAINER_CONTACT_REQUEST, {
         type: UPDATE_TRAINER_CONTACT_SUCCESS,
         payload: (a, s, r) => {
-          browserHistory.push('/trainers');
           return r.json().then(json => {
-            json.upsertedItem = a[CALL_API].body;
+            json.updatedContact= a[CALL_API].body;
             return json
           });
         }
@@ -161,19 +205,26 @@ export function updateTrainerContact(data) {
 }
 
 export function updateTrainerAddress(data) {
+  const item = {
+    id: data.id,
+    street1: data.street1,
+    street2: data.street2,
+    city: data.city,
+    state: data.state,
+    zipCode: data.zipCode
+  };
   return {
     [CALL_API]: {
       endpoint: config.apiBase + 'trainer/updateTrainerAddress',
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data),
+      body: JSON.stringify(item),
       types: [UPDATE_TRAINER_ADDRESS_REQUEST, {
         type: UPDATE_TRAINER_ADDRESS_SUCCESS,
         payload: (a, s, r) => {
-          browserHistory.push('/trainers');
           return r.json().then(json => {
-            json.upsertedItem = a[CALL_API].body;
+            json.updatedAddress = a[CALL_API].body;
             return json
           });
         }
@@ -184,25 +235,25 @@ export function updateTrainerAddress(data) {
 }
 
 
-export function createTrainer(data) {
+export function hireTrainer(data) {
   return {
     [CALL_API]: {
-      endpoint: config.apiBase + 'trainer/create',
+      endpoint: config.apiBase + 'trainer/hireTrainer',
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data),
-      types: [CREATE_TRAINER_REQUEST, {
-        type: CREATE_TRAINER_SUCCESS,
+      types: [HIRE_TRAINER_REQUEST, {
+        type: HIRE_TRAINER_SUCCESS,
         payload: (a, s, r) => {
           browserHistory.push('/trainers');
           return r.json().then(json => {
-            json.upsertedItem = a[CALL_API].body;
+            json.hiredTrainer = a[CALL_API].body;
             return json
           });
         }
       },
-        CREATE_TRAINER_FAILURE]
+        HIRE_TRAINER_FAILURE]
     }
   };
 }

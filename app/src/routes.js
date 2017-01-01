@@ -2,11 +2,13 @@ import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 
 import AppContainer from './containers/AppContainer';
-import ClientList from './components/lists/ClientList';
+import ClientList from './containers/lists/ClientListContainer';
 import TrainersList from './containers/lists/TrainerListContainer';
 import Calendar from './containers/CalendarContainer';
 import TrainerContainer from './containers/forms/TrainerContainer';
 import UpdateTrainerContainer from './containers/forms/UpdateTrainerContainer';
+import ClientContainer from './containers/forms/ClientContainer';
+import UpdateClientContainer from './containers/forms/UpdateClientContainer';
 
 //import { App, Home, Foo, Bar } from './components'
 
@@ -15,6 +17,8 @@ const routes = (
     <IndexRoute component={Calendar} />
     <Route path="/calendar" component={Calendar} />
     <Route path="/clients" component={ClientList} />
+    <Route path="/client" component={ClientContainer} />
+    <Route path="/client(/:clientId)" component={UpdateClientContainer} />
     <Route path="/trainers" component={TrainersList} />
       <Route path="/trainer" component={TrainerContainer} />
       <Route path="/trainer(/:trainerId)" component={UpdateTrainerContainer} />

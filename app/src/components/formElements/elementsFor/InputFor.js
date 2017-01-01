@@ -33,13 +33,15 @@ const InputFor = ({data,
       }
       case 'select':
       {
+        // const onChange = option => data.onChange({target: {name: data.name, value: option.target.value}});
+
         return (<TokenAutocomplete className={inputStyle} simulateSelect={true}
                                    parseToken={ value => value.label || value }
                                    parseOption={ value => value.label || value }
                                    options={selectOptions} {...data}
                                    defaultValues={data.value || []}
                                    filterOptions={false}
-          {...data} />)
+                                   {...data} />)
       }
       case 'multi-select':
       {
@@ -68,7 +70,7 @@ const InputFor = ({data,
   };
 
   return (
-    <div className="editor_input" > 
+    <div className="editor_input" >
       { input() }
     </div>)
 };

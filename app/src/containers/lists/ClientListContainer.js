@@ -1,34 +1,55 @@
-/**
- * Created by reharik on 4/4/16.
- */
-
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {menuItemClicked, navBreadCrumbClicked} from './../actions';
 import ClientList from '../../components/lists/ClientList';
+import CellLink from '../../components/GridElements/CellLink.js';
+import EmailLink from '../../components/GridElements/EmailLink.js';
+
+import { fetchClientsAction } from './../../modules/clientModule';
+
+const columns = [
+  {
+    property: ({column, row}) => {
+      return CellLink('client')({value: `${row.contact.lastName}`, row})
+    },
+    sort:'lastName',
+    display: 'Last Name',
+    width: '10%',
+  },
+  {
+    property: 'contact.firstName',
+    display: 'First Name',
+    width: '10%',
+  },
+  {
+    property: EmailLink,
+    propertyName: 'contact.email',
+    display: 'Email',
+    width: '35%'
+  },
+  {
+    property: 'contact.mobilePhone',
+    display: 'Mobile Phone',
+    width: '10%',
+  },
+  {
+    property: 'id',
+    hidden : true
+  }
+];
+
 
 function mapStateToProps(state) {
+  const gridConfig = {
+    tableName: 'clientList',
+    dataSource: 'clients',
+    fetchDataAction: fetchClientsAction,
+  };
   return {
-    items: state.menu.menuItems,
-    path: state.menu.path,
-    breadCrumbItems: state.menu.breadCrumbItems
+    gridConfig,
+    columns,
+    clients: state.clients
+
   };
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    menuItemClicked: (index, text) => {
-      dispatch(menuItemClicked(index, text));
-    },
-    navBreadCrumbClicked: index => {
-      dispatch(navBreadCrumbClicked(index));
-    }
-  };
-};
+export default connect(mapStateToProps)(ClientList);
 
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({menuItemClicked, navBreadCrumbClicked}, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ClientList);

@@ -7,32 +7,32 @@ import {contains} from 'underscore.string';
 import keyCodes from './utils/keyCodes';
 
 
-function defaultValuesPropType(props, propName, component) {
-  const prop = props[propName];
-console.log('==========prop=========');
-console.log(prop);
-console.log('==========END prop=========');
-
-  if (props.simulateSelect && isArray(prop) && prop.length > 1) {
-      return new Error(
-        'when props.simulateSelect is set to TRUE, you should NOT pass more than a single value in props.defaultValues'
-      );
-  }
-
-  return React.PropTypes.array(props, propName, component);
-}
-
-function tresholdPropType(props, propName, component) {
-  const prop = props[propName];
-
-  if (props.simulateSelect && prop > 0) {
-      return new Error(
-        'when props.simulateSelect is set to TRUE, you should not pass non-zero treshold'
-      );
-  }
-
-  return React.PropTypes.number(props, propName, component);
-}
+// function defaultValuesPropType(props, propName, component) {
+//   const prop = props[propName];
+// console.log('==========prop=========');
+// console.log(prop);
+// console.log('==========END prop=========');
+//
+//   if (props.simulateSelect && isArray(prop) && prop.length > 1) {
+//       return new Error(
+//         'when props.simulateSelect is set to TRUE, you should NOT pass more than a single value in props.defaultValues'
+//       );
+//   }
+//
+//   return React.PropTypes.array(props, propName, component);
+// }
+//
+// function tresholdPropType(props, propName, component) {
+//   const prop = props[propName];
+//
+//   if (props.simulateSelect && prop > 0) {
+//       return new Error(
+//         'when props.simulateSelect is set to TRUE, you should not pass non-zero treshold'
+//       );
+//   }
+//
+//   return React.PropTypes.number(props, propName, component);
+// }
 
 class TokenAutocomplete extends React.Component {
 
@@ -42,8 +42,8 @@ class TokenAutocomplete extends React.Component {
     //initial state
     options: React.PropTypes.array,
     placeholder: React.PropTypes.string,
-    treshold: tresholdPropType,
-    defaultValues: defaultValuesPropType,
+    // treshold: tresholdPropType,
+    // defaultValues: defaultValuesPropType,
     processing: React.PropTypes.bool,
     focus: React.PropTypes.bool,
     //behaviour
@@ -107,7 +107,7 @@ class TokenAutocomplete extends React.Component {
   }
   componentWillReceiveProps(nextProps) {
     let values = nextProps.defaultValues;
-    // values = isArray(values) ? values : [values];
+    values = isArray(values) ? values : [values];
 
     this.setState({values});
   }
@@ -132,6 +132,7 @@ class TokenAutocomplete extends React.Component {
   //EVENT HANDLERS
 
   onInputChange = e => {
+
     this.props.onInputChange(e.target.value);
     this.setState({
       inputValue: e.target.value
@@ -208,12 +209,15 @@ class TokenAutocomplete extends React.Component {
     const shouldAddValue = !!newValue && !isAlreadySelected;
 
     if (shouldAddValue) {
+console.log('==========this.props.simulateSelect=========');
+console.log(this.props.simulateSelect);
+console.log('==========END this.props.simulateSelect=========');
 
       let values = this.props.simulateSelect
-        ? [newValue]
+        ? newValue
         : this.state.values.push(newValue);
 
-      this.props.onChange({target:{name:this.props.name, value:values}}, values, newValue);
+      this.props.onChange({target:{name:this.props.name, value:values.value}}, values, newValue);
       this.setState({
         // values,
         inputValue: ''

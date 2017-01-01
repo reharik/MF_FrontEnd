@@ -8,20 +8,23 @@ import {browserHistory} from 'react-router';
 const TrainerForm = ({model,
   states,
   submitting,
-  updateTrainerInfo}) => {
+  updateTrainerInfo,
+  updateTrainerContact,
+  updateTrainerAddress,
+  updateTrainerPassword}) => {
 
   return (
-    <div className='trainerForm'>
+    <div className='form'>
       <ContentHeader >
-        <div className="trainerForm__header">
-          <div className="trainerForm__header__left" >
+        <div className="form__header">
+          <div className="form__header__left" >
 
             <button className="contentHeader__button__new" title="New" onClick={() => browserHistory.push('/trainer')} />
           </div>
-          <div className="trainerForm__header__center">
-            <div className="trainerForm__header__center__title">Trainer</div>
+          <div className="form__header__center">
+            <div className="form__header__center__title">Trainer</div>
           </div>
-          <div className="trainerForm__header__right" >
+          <div className="form__header__right" >
           </div>
         </div>
       </ContentHeader>

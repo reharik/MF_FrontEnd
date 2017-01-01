@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import TrainerForm from '../../components/forms/TrainerForm';
 import formJsonSchema from '../../utilities/formJsonSchema';
 import states from './../../constants/states'
-import { upsertTrainer, fetchTrainerAction } from './../../modules/trainerModule';
+import { hireTrainer, fetchTrainerAction } from './../../modules/trainerModule';
 
 
 class TrainerFormContainer extends Component {
@@ -37,4 +37,4 @@ const mapStateToProps = (state, props) => {
   }
 };
 
-export default connect(mapStateToProps, { upsertTrainer,fetchTrainerAction })(TrainerFormContainer);
+export default connect(mapStateToProps, { hireTrainer, fetchTrainerAction })(TrainerFormContainer);

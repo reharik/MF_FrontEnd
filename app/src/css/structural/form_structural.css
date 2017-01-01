@@ -1,0 +1,13 @@
+.form__header {
+  display:flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  height:100%
+}
+
+.form__section__row {
+  display:flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}

@@ -5,8 +5,8 @@
 @import 'structural/structural.css';
 @import 'structural/menu_structural.css';
 @import 'structural/mainContent_structural.css';
-@import 'structural/trainerList_structural.css';
-@import 'structural/trainerForm_structural.css';
+@import 'structural/list_structural.css';
+@import 'structural/form_structural.css';
 @import 'structural/formElements_structural.css';
 @import 'structural/editableDisplay_structural.css';
 
@@ -17,7 +17,7 @@
 @import 'display/body.css';
 @import 'display/menu.css';
 @import 'display/mainContent.css';
-@import 'display/trainerList.css';
-@import 'display/trainerForm.css';
+@import 'display/list.css';
+@import 'display/form.css';
 @import 'display/contentHeader.css';
 @import 'display/editableDisplay.css';

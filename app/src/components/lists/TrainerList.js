@@ -8,14 +8,14 @@ const TrainerList = ({ gridConfig, columns }) => {
   return (
     <div id='trainerList'>
       <ContentHeader >
-        <div className="trainerList__header">
-          <div className="trainerList__header__left" >
+        <div className="list__header">
+          <div className="list__header__left" >
             <button className="contentHeader__button__new" title="New" onClick={() => browserHistory.push('/trainer')} />
           </div>
-          <div className="trainerList__header__center">
-            <div className="trainerList__header__center__title">Trainers</div>
+          <div className="list__header__center">
+            <div className="list__header__center__title">Trainers</div>
           </div>
-          <div className="trainerList__header__right" >
+          <div className="list__header__right" >
             <ContentHeaderSearch />
           </div>
         </div>
