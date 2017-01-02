@@ -10,11 +10,8 @@ import { updateTrainerInfo,
   fetchTrainerAction } from './../../modules/trainerModule';
 
 class UpdateTrainerFormContainer extends Component {
-  componentWillMount() { this.loadData(); }
-
-  componentWillReceiveProps(newProps) {
-this.forceUpdate();
-      // this.loadData();
+  componentWillMount() {
+    this.loadData();
   }
 
   loadData() {

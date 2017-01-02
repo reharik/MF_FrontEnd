@@ -1,6 +1,8 @@
 import { CALL_API } from 'redux-api-middleware';
 import config from './../utilities/configValues';
 import { browserHistory } from 'react-router';
+import { denormalizeTrainer } from './../utilities/denormalize';
+import selectn from 'selectn';
 
 export const HIRE_TRAINER_REQUEST = 'methodFit/trainer/HIRE_TRAINER_REQUEST';
 export const HIRE_TRAINER_SUCCESS = 'methodFit/trainer/HIRE_TRAINER_SUCCESS';
@@ -31,8 +33,8 @@ const trainerReducer = (map = new Map, trainer = {}) => {
 };
 
 
-export default (state = [], action = {}) => {
-  switch (action.type) {
+export default (state = [], update = {}) => {
+  switch (update.type) {
     case HIRE_TRAINER_REQUEST:
     case TRAINER_REQUEST:
     case TRAINER_LIST_REQUEST: {
@@ -46,7 +48,7 @@ export default (state = [], action = {}) => {
             m.set(obj.id, obj);
         }
       }
-      trainerReducer(m, action.payload);
+      trainerReducer(m, update.payload);
       return [...m.values()];
     }
     case TRAINER_LIST_SUCCESS: {
@@ -56,14 +58,14 @@ export default (state = [], action = {}) => {
           m.set(obj.id, obj);
         }
       }
-      action.payload.reduce((prev, item) => { return trainerReducer(prev, item) }, m);
+      update.payload.reduce((prev, item) => { return trainerReducer(prev, item) }, m);
       return [...m.values()];
     }
     case HIRE_TRAINER_SUCCESS: {
-      var insertedItem = selectn('payload.hiredTrainer', action);
-      insertedItem.id = selectn('payload.result.handlerResult.trainerId',action);
+      var insertedItem = selectn('payload.hiredTrainer', update);
+      insertedItem.id = selectn('payload.result.handlerResult.trainerId',update);
 
-      return insertedItem.id ? [...state, insertedItem] : state;
+      return insertedItem.id ? [...state, denormalizeTrainer(insertedItem)] : state;
     }
     case UPDATE_TRAINER_INFO_FAILURE:
     case HIRE_TRAINER_FAILURE: {
@@ -71,30 +73,33 @@ export default (state = [], action = {}) => {
     }
 
     case UPDATE_TRAINER_INFO_SUCCESS: {
+      let update = selectn('payload.update', update);
+
       return state.map(x => {
-        if(x.id === action.id) {
-          return {...x, firstName: action.firstName, lastName: action.lastName}
+        if(x.id === update.id) {
+          return {...x, contact: {...x.contact, firstName: update.firstName, lastName: update.lastName}}
         }
         return x;
       });
     }
 
     case UPDATE_TRAINER_PASSWORD_SUCCESS: {
-      return state.map(x => {
-        if(x.id === action.id) {
-          return {...x, password: action.password}
-        }
-        return x;
-      });
+      // don't store the password in state
+      return state;
     }
 
     case UPDATE_TRAINER_CONTACT_SUCCESS: {
+      let update = selectn('payload.update', update);
+
       return state.map(x => {
-        if(x.id === action.id) {
+        if(x.id === update.id) {
           return {...x,
-            mobilePhone: action.mobilePhone,
-            secondaryPhone: action.secondaryPhone,
-            email:action.email
+            contact: {
+              ...x.contact,
+              secondaryPhone: update.secondaryPhone,
+              mobilePhone: update.mobilePhone,
+              email: update.email
+            }
           }
         }
         return x;
@@ -102,14 +107,22 @@ export default (state = [], action = {}) => {
     }
 
     case UPDATE_TRAINER_ADDRESS_SUCCESS: {
+      let update = selectn('payload.update', update);
+
       return state.map(x => {
-        if(x.id === action.id) {
+        if(x.id === update.id) {
           return {...x,
-            street1: action.street1,
-            street2: action.street2,
-            city: action.city,
-            state: action.state,
-            zipCode: action.zipCode}
+            contact: {
+              ...x.contact,
+              address: {
+                ...x.contact.address,
+                street1: update.street1,
+                street2: update.street2,
+                city: update.city,
+                state: update.state,
+                zipCode: update.zipCode}
+            }
+          }
         }
         return x;
       });
@@ -128,7 +141,7 @@ export function updateTrainerInfo(data) {
     birthDate:data.birthDate,
     color: data.color,
     firstName: data.firstName,
-    lastName: data.lastName,
+    lastName: data.lastName
   };
   return {
     [CALL_API]: {
@@ -141,7 +154,7 @@ export function updateTrainerInfo(data) {
         type: UPDATE_TRAINER_INFO_SUCCESS,
         payload: (a, s, r) => {
           return r.json().then(json => {
-            json.updatedInfo = a[CALL_API].body;
+            json.update = item;
             return json
           });
         }
@@ -194,7 +207,7 @@ export function updateTrainerContact(data) {
         type: UPDATE_TRAINER_CONTACT_SUCCESS,
         payload: (a, s, r) => {
           return r.json().then(json => {
-            json.updatedContact= a[CALL_API].body;
+            json.update = item;
             return json
           });
         }
@@ -224,7 +237,7 @@ export function updateTrainerAddress(data) {
         type: UPDATE_TRAINER_ADDRESS_SUCCESS,
         payload: (a, s, r) => {
           return r.json().then(json => {
-            json.updatedAddress = a[CALL_API].body;
+            json.update = item;
             return json
           });
         }
@@ -248,7 +261,7 @@ export function hireTrainer(data) {
         payload: (a, s, r) => {
           browserHistory.push('/trainers');
           return r.json().then(json => {
-            json.hiredTrainer = a[CALL_API].body;
+            json.hiredTrainer = data;
             return json
           });
         }

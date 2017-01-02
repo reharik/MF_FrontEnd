@@ -1,6 +1,7 @@
 import { CALL_API } from 'redux-api-middleware';
 import config from './../utilities/configValues';
 import { browserHistory } from 'react-router';
+import { denormalizeContact } from './../utilities/denormalize';
 import selectn from 'selectn';
 
 export const ADD_CLIENT_REQUEST = 'methodFit/client/ADD_CLIENT_REQUEST';
@@ -61,7 +62,7 @@ export default (state = [], action = {}) => {
       var insertedItem = selectn('payload.insertedItem', action);
       insertedItem.id = selectn('payload.result.handlerResult.clientId',action);
 
-      return insertedItem.id ? [...state, insertedItem] : state;
+      return insertedItem.id ? [...state, {contact: denormalizeContact(insertedItem)}] : state;
     }
     case UPDATE_CLIENT_INFO_FAILURE:
     case ADD_CLIENT_FAILURE: {
@@ -69,21 +70,28 @@ export default (state = [], action = {}) => {
     }
 
     case UPDATE_CLIENT_INFO_SUCCESS: {
+      let update = selectn('payload.update', update);
+
       return state.map(x => {
-        if(x.id === action.id) {
-          return {...x, firstName: action.firstName, lastName: action.lastName}
+        if(x.id === update.id) {
+          return {...x, contact: {...x.contact, firstName: update.firstName, lastName: update.lastName}}
         }
         return x;
       });
     }
 
     case UPDATE_CLIENT_CONTACT_SUCCESS: {
+      let update = selectn('payload.update', update);
+
       return state.map(x => {
-        if(x.id === action.id) {
+        if(x.id === update.id) {
           return {...x,
-            mobilePhone: action.mobilePhone,
-            secondaryPhone: action.secondaryPhone,
-            email:action.email
+            contact: {
+              ...x.contact,
+              secondaryPhone: update.secondaryPhone,
+              mobilePhone: update.mobilePhone,
+              email: update.email
+            }
           }
         }
         return x;
@@ -91,19 +99,26 @@ export default (state = [], action = {}) => {
     }
 
     case UPDATE_CLIENT_ADDRESS_SUCCESS: {
+      let update = selectn('payload.update', update);
+
       return state.map(x => {
-        if(x.id === action.id) {
+        if(x.id === update.id) {
           return {...x,
-            street1: action.street1,
-            street2: action.street2,
-            city: action.city,
-            state: action.state,
-            zipCode: action.zipCode}
+            contact: {
+              ...x.contact,
+              address: {
+                ...x.contact.address,
+                street1: update.street1,
+                street2: update.street2,
+                city: update.city,
+                state: update.state,
+                zipCode: update.zipCode}
+            }
+          }
         }
         return x;
       });
     }
-
 
     default: {
       return state;
@@ -115,7 +130,7 @@ export function updateClientInfo(data) {
   const item = {
     id: data.id,
     firstName: data.firstName,
-    lastName: data.lastName,
+    lastName: data.lastName
   };
   return {
     [CALL_API]: {
@@ -128,7 +143,7 @@ export function updateClientInfo(data) {
         type: UPDATE_CLIENT_INFO_SUCCESS,
         payload: (a, s, r) => {
           return r.json().then(json => {
-            json.updatedInfo = a[CALL_API].body;
+            json.update = item
             return json
           });
         }
@@ -157,7 +172,7 @@ export function updateClientContact(data) {
         type: UPDATE_CLIENT_CONTACT_SUCCESS,
         payload: (a, s, r) => {
           return r.json().then(json => {
-            json.updatedContact = a[CALL_API].body;
+            json.update = item;
             return json
           });
         }
@@ -187,7 +202,7 @@ export function updateClientAddress(data) {
         type: UPDATE_CLIENT_ADDRESS_SUCCESS,
         payload: (a, s, r) => {
           return r.json().then(json => {
-            json.updatedAddress = a[CALL_API].body;
+            json.update = item;
             return json
           });
         }
@@ -210,7 +225,7 @@ export function addClient(data) {
         payload: (a, s, r) => {
           browserHistory.push('/clients');
           return r.json().then(json => {
-            json.insertedItem = a[CALL_API].body;
+            json.insertedItem = data;
             return json
           });
         }
