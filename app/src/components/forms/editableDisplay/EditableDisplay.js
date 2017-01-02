@@ -12,6 +12,12 @@ class EditableDisplay extends Component {
     });
   }
 
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      model: this.addOriginal({...newProps.model})
+    });
+  }
+
   toggleEdit = (rollBack) => {
     this.shouldRefresh = rollBack ? this.shouldRefresh + 1 : 0;
     this.setState({
@@ -47,6 +53,11 @@ class EditableDisplay extends Component {
     });
   };
 
+  submitHandler = (x) => {
+    this.props.submitHandler(x);
+    this.setState({editing: false});
+  };
+
   render() {
     return (
       <div className="editableDisplay">
@@ -54,7 +65,7 @@ class EditableDisplay extends Component {
           <label className="editableDisplay__header__label">{this.props.sectionHeader}</label>
         </div>
         <div className="editableDisplay___content">
-          <Form key={this.shouldRefresh} submitHandler={x => this.props.submitHandler(x)} model={this.state.model}
+          <Form key={this.shouldRefresh} submitHandler={this.submitHandler} model={this.state.model}
                 formName={this.props.formName}
                 className="editableDisplay__content__form">
             {this.setEditing(this.props.children, this.state.editing)}

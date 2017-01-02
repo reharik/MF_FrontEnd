@@ -30,12 +30,8 @@ this.forceUpdate();
     if (this.props.errorMessage) {
       return (<p style={{ 'padding-top': '100px' }}>ERROR! -> {this.props.errorMessage}</p>);
     }
-    console.log('==========this.props.model=========');
-    console.log(this.props);
-    console.log('==========END this.props.model=========');
-    let mf = {...this.props, model:{...this.props.model}};
 
-    return (<UpdateTrainerForm {...mf} />);
+    return (<UpdateTrainerForm {...this.props} />);
   }
 }
 

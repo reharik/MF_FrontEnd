@@ -200,7 +200,7 @@ class TokenAutocomplete extends React.Component {
 
     // this.setState({values});
     this.focus();
-  }
+  };
 
   addSelectedValue = () => {
     const areOptionsAvailable = this.getAvailableOptions().length;
@@ -217,7 +217,7 @@ console.log('==========END this.props.simulateSelect=========');
         ? newValue
         : this.state.values.push(newValue);
 
-      this.props.onChange({target:{name:this.props.name, value:values.value}}, values, newValue);
+      this.props.onChange({target:{name:this.props.name, value:values.label}}, values, newValue);
       this.setState({
         // values,
         inputValue: ''

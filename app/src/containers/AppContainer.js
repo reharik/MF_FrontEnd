@@ -13,9 +13,6 @@ class LayoutContainer extends Component {
   // componentDidUpdate() { this.loadData(); }
 
   loadData() {
-    console.log('=========="loadData"=========');
-    console.log("loadData");
-    console.log('==========END "loadData"=========');
     this.props.getJsonSchema(); }
 
   render() {
