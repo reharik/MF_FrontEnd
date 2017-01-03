@@ -33,8 +33,8 @@ const trainerReducer = (map = new Map, trainer = {}) => {
 };
 
 
-export default (state = [], update = {}) => {
-  switch (update.type) {
+export default (state = [], action = {}) => {
+  switch (action.type) {
     case HIRE_TRAINER_REQUEST:
     case TRAINER_REQUEST:
     case TRAINER_LIST_REQUEST: {
@@ -48,7 +48,7 @@ export default (state = [], update = {}) => {
             m.set(obj.id, obj);
         }
       }
-      trainerReducer(m, update.payload);
+      trainerReducer(m, action.payload);
       return [...m.values()];
     }
     case TRAINER_LIST_SUCCESS: {
@@ -58,12 +58,12 @@ export default (state = [], update = {}) => {
           m.set(obj.id, obj);
         }
       }
-      update.payload.reduce((prev, item) => { return trainerReducer(prev, item) }, m);
+      action.payload.reduce((prev, item) => { return trainerReducer(prev, item) }, m);
       return [...m.values()];
     }
     case HIRE_TRAINER_SUCCESS: {
-      var insertedItem = selectn('payload.hiredTrainer', update);
-      insertedItem.id = selectn('payload.result.handlerResult.trainerId',update);
+      var insertedItem = selectn('payload.hiredTrainer', action);
+      insertedItem.id = selectn('payload.result.handlerResult.trainerId',action);
 
       return insertedItem.id ? [...state, denormalizeTrainer(insertedItem)] : state;
     }
@@ -73,7 +73,7 @@ export default (state = [], update = {}) => {
     }
 
     case UPDATE_TRAINER_INFO_SUCCESS: {
-      let update = selectn('payload.update', update);
+      let update = selectn('payload.update', action);
 
       return state.map(x => {
         if(x.id === update.id) {
@@ -89,7 +89,7 @@ export default (state = [], update = {}) => {
     }
 
     case UPDATE_TRAINER_CONTACT_SUCCESS: {
-      let update = selectn('payload.update', update);
+      let update = selectn('payload.update', action);
 
       return state.map(x => {
         if(x.id === update.id) {
@@ -107,7 +107,7 @@ export default (state = [], update = {}) => {
     }
 
     case UPDATE_TRAINER_ADDRESS_SUCCESS: {
-      let update = selectn('payload.update', update);
+      let update = selectn('payload.update', action);
 
       return state.map(x => {
         if(x.id === update.id) {

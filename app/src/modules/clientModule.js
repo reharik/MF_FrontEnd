@@ -70,7 +70,7 @@ export default (state = [], action = {}) => {
     }
 
     case UPDATE_CLIENT_INFO_SUCCESS: {
-      let update = selectn('payload.update', update);
+      let update = selectn('payload.update', action);
 
       return state.map(x => {
         if(x.id === update.id) {
@@ -81,7 +81,7 @@ export default (state = [], action = {}) => {
     }
 
     case UPDATE_CLIENT_CONTACT_SUCCESS: {
-      let update = selectn('payload.update', update);
+      let update = selectn('payload.update', action);
 
       return state.map(x => {
         if(x.id === update.id) {
@@ -99,7 +99,7 @@ export default (state = [], action = {}) => {
     }
 
     case UPDATE_CLIENT_ADDRESS_SUCCESS: {
-      let update = selectn('payload.update', update);
+      let update = selectn('payload.update', action);
 
       return state.map(x => {
         if(x.id === update.id) {
