@@ -18,8 +18,8 @@ const InputFor = ({data,
     switch (data['x-input'] || data.type) {
       case 'date-time':
       {
-        const onChange = moment => data.onChange({target: {name: data.name, value: moment}});
-        return (<Datepicker selected={data.value || new moment()}
+        const onChange = moment => data.onChange({target: {name: data.name, value: moment.toISOString()}});
+        return (<Datepicker selected={data.value ? moment(data.value) : moment()}
           {...data}
                             onChange={onChange}
                             onBlur={data.onBlur}

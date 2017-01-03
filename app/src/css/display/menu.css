@@ -67,6 +67,7 @@
   width: 92%;
   padding: .3em 3%;
   line-height: 21px;
+  cursor: pointer;
 }
 
 .menu__item__leaf__link{

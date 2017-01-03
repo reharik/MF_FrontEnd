@@ -16,6 +16,9 @@ export const UPDATE_TRAINER_CONTACT_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_
 export const UPDATE_TRAINER_ADDRESS_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_ADDRESS_REQUEST';
 export const UPDATE_TRAINER_ADDRESS_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_ADDRESS_SUCCESS';
 export const UPDATE_TRAINER_ADDRESS_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_ADDRESS_FAILURE';
+export const UPDATE_TRAINER_CLIENTS_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_CLIENTS_REQUEST';
+export const UPDATE_TRAINER_CLIENTS_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_CLIENTS_SUCCESS';
+export const UPDATE_TRAINER_CLIENTS_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_CLIENTS_FAILURE';
 export const UPDATE_TRAINER_INFO_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_INFO_REQUEST';
 export const UPDATE_TRAINER_INFO_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_INFO_SUCCESS';
 export const UPDATE_TRAINER_INFO_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_INFO_FAILURE';
@@ -77,7 +80,10 @@ export default (state = [], action = {}) => {
 
       return state.map(x => {
         if(x.id === update.id) {
-          return {...x, contact: {...x.contact, firstName: update.firstName, lastName: update.lastName}}
+          return {...x,
+            color: update.color,
+            birthDate: update.birthDate,
+            contact: {...x.contact, firstName: update.firstName, lastName: update.lastName}}
         }
         return x;
       });
@@ -128,6 +134,17 @@ export default (state = [], action = {}) => {
       });
     }
 
+    case UPDATE_TRAINER_CLIENTS_SUCCESS: {
+      let update = selectn('payload.update', action);
+
+      return state.map(x => {
+        if(x.id === update.id) {
+          return {...x, clients: update.clients }
+        }
+        return x;
+      });
+    }
+
     default: {
       return state;
     }
@@ -143,6 +160,7 @@ export function updateTrainerInfo(data) {
     firstName: data.firstName,
     lastName: data.lastName
   };
+
   return {
     [CALL_API]: {
       endpoint: config.apiBase + 'trainer/updateTrainerInfo',
@@ -223,7 +241,7 @@ export function updateTrainerAddress(data) {
     street1: data.street1,
     street2: data.street2,
     city: data.city,
-    state: data.state,
+    state: data.state ? data.state.label : undefined,
     zipCode: data.zipCode
   };
   return {
@@ -248,7 +266,36 @@ export function updateTrainerAddress(data) {
 }
 
 
+export function updateTrainerClients(data) {
+  const item = {
+    id: data.id,
+    clients: data.clients.map(x=>x.value)
+  };
+  
+  return {
+    [CALL_API]: {
+      endpoint: config.apiBase + 'trainer/updateTrainerClients',
+      method: 'POST',
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(item),
+      types: [UPDATE_TRAINER_CLIENTS_REQUEST, {
+        type: UPDATE_TRAINER_CLIENTS_SUCCESS,
+        payload: (a, s, r) => {
+          return r.json().then(json => {
+            json.update = item;
+            return json
+          });
+        }
+      },
+        UPDATE_TRAINER_CLIENTS_FAILURE]
+    }
+  };
+}
+
 export function hireTrainer(data) {
+  data.state = data.state ? data.state.label : undefined;
+  data.clients = data.clients.map(x=> x.value);
   return {
     [CALL_API]: {
       endpoint: config.apiBase + 'trainer/hireTrainer',

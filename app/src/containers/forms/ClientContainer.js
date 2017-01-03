@@ -31,10 +31,6 @@ class ClientFormContainer extends Component {
 const mapStateToProps = (state, props) => {
   const client = state.clients.filter(x=>x.id === props.params.clientId)[0];
   const model = formJsonSchema(state.schema.definitions.client, client);
-  console.log('==========model=========');
-  console.log(state.schema.definitions);
-  console.log('==========END model=========');
-
   return {
     model,
     states

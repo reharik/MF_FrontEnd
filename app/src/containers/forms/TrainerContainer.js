@@ -4,6 +4,7 @@ import TrainerForm from '../../components/forms/TrainerForm';
 import formJsonSchema from '../../utilities/formJsonSchema';
 import states from './../../constants/states'
 import { hireTrainer, fetchTrainerAction } from './../../modules/trainerModule';
+import { fetchClientsAction } from './../../modules/clientModule';
 
 
 class TrainerFormContainer extends Component {
@@ -15,6 +16,7 @@ class TrainerFormContainer extends Component {
     if (this.props.params.trainerId) {
       this.props.fetchTrainerAction(this.props.params.trainerId);
     }
+    this.props.fetchClientsAction();
   }
 
   render() {
@@ -30,11 +32,15 @@ class TrainerFormContainer extends Component {
 
 const mapStateToProps = (state, props) => {
   const trainer = state.trainers.filter(x=>x.id === props.params.trainerId)[0];
+  const clients = state.clients.map(x=> ({ value:x.id , label: `${x.contact.lastName} ${x.contact.firstName}` }));
   const model = formJsonSchema(state.schema.definitions.trainer, trainer);
   return {
     model,
-    states
+    states,
+    clients
   }
 };
 
-export default connect(mapStateToProps, { hireTrainer, fetchTrainerAction })(TrainerFormContainer);
+export default connect(mapStateToProps, { hireTrainer,
+  fetchTrainerAction,
+  fetchClientsAction})(TrainerFormContainer);

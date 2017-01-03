@@ -7,7 +7,9 @@ import { updateTrainerInfo,
   updateTrainerContact,
   updateTrainerAddress,
   updateTrainerPassword,
+  updateTrainerClients,
   fetchTrainerAction } from './../../modules/trainerModule';
+import { fetchClientsAction } from './../../modules/clientModule';
 
 class UpdateTrainerFormContainer extends Component {
   componentWillMount() {
@@ -18,6 +20,7 @@ class UpdateTrainerFormContainer extends Component {
     if (this.props.params.trainerId) {
       this.props.fetchTrainerAction(this.props.params.trainerId);
     }
+    this.props.fetchClientsAction();
   }
 
   render() {
@@ -35,10 +38,12 @@ class UpdateTrainerFormContainer extends Component {
 
 const mapStateToProps = (state, props) => {
   const trainer = state.trainers.filter(x=>x.id === props.params.trainerId)[0];
+  const clients = state.clients.map(x=> ({ value:x.id , label: `${x.contact.lastName} ${x.contact.firstName}` }));
   const model = formJsonSchema(state.schema.definitions.trainer, trainer);
   return {
     model,
-    states
+    states,
+    clients
   }
 };
 
@@ -46,4 +51,6 @@ export default connect(mapStateToProps, { updateTrainerInfo,
   updateTrainerContact,
   updateTrainerAddress,
   updateTrainerPassword,
-  fetchTrainerAction })(UpdateTrainerFormContainer);
+  updateTrainerClients,
+  fetchTrainerAction,
+  fetchClientsAction})(UpdateTrainerFormContainer);

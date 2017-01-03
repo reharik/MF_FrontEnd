@@ -132,7 +132,6 @@ class TokenAutocomplete extends React.Component {
   //EVENT HANDLERS
 
   onInputChange = e => {
-
     this.props.onInputChange(e.target.value);
     this.setState({
       inputValue: e.target.value
@@ -209,20 +208,17 @@ class TokenAutocomplete extends React.Component {
     const shouldAddValue = !!newValue && !isAlreadySelected;
 
     if (shouldAddValue) {
-console.log('==========this.props.simulateSelect=========');
-console.log(this.props.simulateSelect);
-console.log('==========END this.props.simulateSelect=========');
-
-      let values = this.props.simulateSelect
-        ? newValue
-        : this.state.values.push(newValue);
-
-      this.props.onChange({target:{name:this.props.name, value:values.label}}, values, newValue);
+      let values;
+      if(this.props.simulateSelect) {
+        values = newValue;
+      } else {
+        this.state.values.push(newValue);
+        values = this.state.values
+      }
+      this.props.onChange({target:{ name:this.props.name, value:values}}, values, newValue);
       this.setState({
-        // values,
         inputValue: ''
       });
-
     }
 
     if (this.props.simulateSelect) {
@@ -230,8 +226,7 @@ console.log('==========END this.props.simulateSelect=========');
     } else {
       this.focus();
     }
-
-  }
+  };
 
   //HELPERS
 

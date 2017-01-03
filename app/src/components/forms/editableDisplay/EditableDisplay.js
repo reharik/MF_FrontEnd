@@ -7,35 +7,21 @@ class EditableDisplay extends Component {
   componentWillMount() {
     this.setState({
       editing: false,
-      model: this.addOriginal({...this.props.model})
+      model: this.props.model
     });
   }
 
   componentWillReceiveProps(newProps) {
     this.setState({
-      model: this.addOriginal({...newProps.model})
+      model: newProps.model
     });
   }
 
   toggleEdit = (rollBack) => {
     this.setState({
       editing: !this.state.editing,
-      model: rollBack ? this.resetOriginal(this.state.model) : this.state.model
+      reset: rollBack ? true : false
     })
-  };
-
-  resetOriginal = (model) => {
-    Object.keys(model).forEach(x => {
-      model[x].value = model[x].originalValue
-    });
-    return model;
-  };
-
-  addOriginal = (model) => {
-    Object.keys(model).forEach(x => {
-      model[x].originalValue = model[x].value
-    });
-    return model;
   };
 
   setEditing = (children, editing) => {
@@ -64,7 +50,7 @@ class EditableDisplay extends Component {
         </div>
         <div className="editableDisplay___content">
           <Form submitHandler={this.submitHandler} model={this.state.model}
-                formName={this.props.formName}
+                formName={this.props.formName} reset={this.state.reset}
                 className="editableDisplay__content__form">
             {this.setEditing(this.props.children, this.state.editing)}
             <div className="editableDisplay__footer">

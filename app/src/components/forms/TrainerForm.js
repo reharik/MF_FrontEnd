@@ -6,6 +6,7 @@ import {browserHistory} from 'react-router';
 
 const TrainerForm = ({model,
   states,
+  clients,
   submitting,
   hireTrainer}) => {
   return (
@@ -26,39 +27,49 @@ const TrainerForm = ({model,
       <div className="form-scroll-inner" >
         <div className="content-inner">
           <Form submitHandler={x=>hireTrainer(x)} model={model} className="form__content">
-            <div className="form__section__header">
-              <label className="form__section__header__label">Contact Info</label>
+            <div>
+              <div className="form__section__header">
+                <label className="form__section__header__label">Contact Info</label>
+              </div>
+              <div className="form__section__row">
+                <SubmissionFor frfProperty={model.firstName} validation="top" />
+                <SubmissionFor frfProperty={model.lastName} validation="top" />
+              </div>
+              <div className="form__section__row">
+                <SubmissionFor frfProperty={model.mobilePhone} />
+                <SubmissionFor frfProperty={model.secondaryPhone} />
+              </div>
+              <div className="form__section__row__single">
+                <SubmissionFor frfProperty={model.email} />
+              </div>
+              <div className="form__section__row">
+                <SubmissionFor frfProperty={model.street1} />
+                <SubmissionFor frfProperty={model.street2} />
+              </div>
+              <div className="form__section__row">
+                <SubmissionFor frfProperty={model.city} containerStyle="form__section__row__address__city" />
+                <SubmissionFor selectOptions={states}
+                       frfProperty={model.state}
+                       containerStyle="form__section__row__address__state"
+                       />
+                <SubmissionFor frfProperty={model.zipCode} containerStyle="form__section__row__address__zip" />
+              </div>
+              <div className="form__section__header">
+                <label className="form__section__header__label">Trainer Info</label>
+              </div>
+              <div className="form__section__row">
+                <SubmissionFor frfProperty={model.birthDate}/>
+                {/*<SubmissionFor frfProperty={model.defaultClientRate} /> */}
+                <SubmissionFor frfProperty={model.color} />
+              </div>
             </div>
-            <div className="form__section__row">
-              <SubmissionFor frfProperty={model.firstName} validation="top" />
-              <SubmissionFor frfProperty={model.lastName} validation="top" />
-            </div>
-            <div className="form__section__row">
-              <SubmissionFor frfProperty={model.mobilePhone} />
-              <SubmissionFor frfProperty={model.secondaryPhone} />
-            </div>
-            <div className="form__section__row__single">
-              <SubmissionFor frfProperty={model.email} />
-            </div>
-            <div className="form__section__row">
-              <SubmissionFor frfProperty={model.street1} />
-              <SubmissionFor frfProperty={model.street2} />
-            </div>
-            <div className="form__section__row">
-              <SubmissionFor frfProperty={model.city} containerStyle="form__section__row__address__city" />
-              <SubmissionFor selectOptions={states}
-                     frfProperty={model.state}
-                     containerStyle="form__section__row__address__state"
-                     />
-              <SubmissionFor frfProperty={model.zipCode} containerStyle="form__section__row__address__zip" />
-            </div>
-            <div className="form__section__header">
-              <label className="form__section__header__label">Trainer Info</label>
-            </div>
-            <div className="form__section__row">
-              <SubmissionFor frfProperty={model.birthDate}/>
-              {/*<SubmissionFor frfProperty={model.defaultClientRate} /> */}
-              <SubmissionFor frfProperty={model.color} />
+            <div>
+              <div className="form__section__header">
+                <label className="form__section__header__label">Trainer's Clients</label>
+              </div>
+              <div className="form__section__row">
+                <SubmissionFor selectOptions={clients} frfProperty={model.clients}/>
+              </div>
             </div>
             <div className="form__footer">
               <button type="submit" className="form__footer__button">

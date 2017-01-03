@@ -188,8 +188,9 @@ export function updateClientAddress(data) {
     street1: data.street1,
     street2: data.street2,
     city: data.city,
-    state: data.state,
-    zipCode: data.zipCode
+    state: data.state ? data.state.label : undefined,
+    zipCode: data.zipCode,
+
   };
   return {
     [CALL_API]: {
@@ -213,6 +214,7 @@ export function updateClientAddress(data) {
 }
 
 export function addClient(data) {
+  data.state = data.state ? data.state.label : undefined;
   return {
     [CALL_API]: {
       endpoint: config.apiBase + 'client/addClient',

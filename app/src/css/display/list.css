@@ -7,3 +7,7 @@
 }
 
 
+.list__cell__link {
+  color:rgb(0, 0, 238);
+  cursor: pointer;
+}

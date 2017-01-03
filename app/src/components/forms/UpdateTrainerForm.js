@@ -7,12 +7,13 @@ import {browserHistory} from 'react-router';
 
 const TrainerForm = ({model,
   states,
+  clients,
   submitting,
   updateTrainerInfo,
   updateTrainerContact,
   updateTrainerAddress,
-  updateTrainerPassword}) => {
-
+  updateTrainerPassword,
+  updateTrainerClients}) => {
   return (
     <div className='form'>
       <ContentHeader >
@@ -30,58 +31,73 @@ const TrainerForm = ({model,
       </ContentHeader>
       <div className="form-scroll-inner" >
         <div className="content-inner">
-          <EditableDisplay model={model}
-                           submitHandler={x=>updateTrainerInfo(x)}
-                           sectionHeader="Trainer Info"
-                           formName="TrainerInfo" >
-            <div className="editableDisplay__content__form__row">
-              <EditableFor frfProperty={model.firstName} />
-              <EditableFor frfProperty={model.lastName} />
-            </div>
-            <div className="editableDisplay__content__form__row">
-              <EditableFor frfProperty={model.birthDate} />
-              <EditableFor frfProperty={model.color} />
-            </div>
-          </EditableDisplay>
-          <EditableDisplay model={model}
-                           submitHandler={x=>updateTrainerContact(x)}
-                           sectionHeader="Trainer Contact"
-                           formName="TrainerContact" >
-            <div className="editableDisplay__content__form__row">
-              <EditableFor frfProperty={model.mobilePhone} />
-              <EditableFor frfProperty={model.secondaryPhone} />
-            </div>
-            <div className="editableDisplay__content__form__row__single">
-              <EditableFor frfProperty={model.email} />
-            </div>
-          </EditableDisplay>
-          <EditableDisplay model={model}
-                           submitHandler={x=>updateTrainerAddress(x)}
-                           sectionHeader="Trainer Address"
-                           formName="TrainerAddress" >
-            <div className="editableDisplay__content__form__row">
-              <EditableFor frfProperty={model.street1} />
-              <EditableFor frfProperty={model.street2} />
-            </div>
-            <div className="editableDisplay__content__form__row">
-              <EditableFor frfProperty={model.city} containerStyle="editableDisplay__content__form__row__address__city" />
-              <EditableFor selectOptions={states}
-                             frfProperty={model.state}
-                             containerStyle="editableDisplay__content__form__row__address__state"
-              />
-              <EditableFor frfProperty={model.zipCode} containerStyle="editableDisplay__content__form__row__address__zip" />
-            </div>
-          </EditableDisplay>
-          <EditableDisplay model={model}
-                           submitHandler={x=>updateTrainerPassword(x)}
-                           sectionHeader="Trainer Password"
-                           formName="TrainerPassword" >
-            <div className="editableDisplay__content__form__row">
-              <EditableFor frfProperty={model.password} />
-              {/*<EditableFor frfProperty={model.confirmPassword} />*/}
-            </div>
-          </EditableDisplay>
-
+          <div>
+            <EditableDisplay model={model}
+                             submitHandler={x=>updateTrainerInfo(x)}
+                             sectionHeader="Trainer Info"
+                             formName="TrainerInfo" >
+              <div className="editableDisplay__content__form__row">
+                <EditableFor frfProperty={model.firstName} />
+                <EditableFor frfProperty={model.lastName} />
+              </div>
+              <div className="editableDisplay__content__form__row">
+                <EditableFor frfProperty={model.birthDate} />
+                <EditableFor frfProperty={model.color} />
+              </div>
+            </EditableDisplay>
+            <EditableDisplay model={model}
+                             submitHandler={x=>updateTrainerContact(x)}
+                             sectionHeader="Trainer Contact"
+                             formName="TrainerContact" >
+              <div className="editableDisplay__content__form__row">
+                <EditableFor frfProperty={model.mobilePhone} />
+                <EditableFor frfProperty={model.secondaryPhone} />
+              </div>
+              <div className="editableDisplay__content__form__row__single">
+                <EditableFor frfProperty={model.email} />
+              </div>
+            </EditableDisplay>
+            <EditableDisplay model={model}
+                             submitHandler={x=>updateTrainerAddress(x)}
+                             sectionHeader="Trainer Address"
+                             formName="TrainerAddress" >
+              <div className="editableDisplay__content__form__row">
+                <EditableFor frfProperty={model.street1} />
+              </div>
+              <div className="editableDisplay__content__form__row">
+                <EditableFor frfProperty={model.street2} />
+              </div>
+              <div className="editableDisplay__content__form__row">
+                <EditableFor frfProperty={model.city} containerStyle="editableDisplay__content__form__row__address__city" />
+                <EditableFor selectOptions={states}
+                               frfProperty={model.state}
+                               containerStyle="editableDisplay__content__form__row__address__state"
+                />
+                <EditableFor frfProperty={model.zipCode} containerStyle="editableDisplay__content__form__row__address__zip" />
+              </div>
+            </EditableDisplay>
+            <EditableDisplay model={model}
+                             submitHandler={x=>updateTrainerPassword(x)}
+                             sectionHeader="Trainer Password"
+                             formName="TrainerPassword" >
+              <div className="editableDisplay__content__form__row">
+                <EditableFor frfProperty={model.password} />
+                {/*<EditableFor frfProperty={model.confirmPassword} />*/}
+              </div>
+            </EditableDisplay>
+          </div>
+          <div>
+            <EditableDisplay model={model}
+                             submitHandler={x=>updateTrainerClients(x)}
+                             sectionHeader="Trainer's Clients"
+                             formName="TrainersClients" >
+              <div className="editableDisplay__content__form__row">
+                <EditableFor
+                  selectOptions={clients}
+                  frfProperty={model.clients} />
+              </div>
+            </EditableDisplay>
+          </div>
         </div>
       </div>
     </div>);
