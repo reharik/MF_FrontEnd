@@ -13,7 +13,7 @@ const TrainerForm = ({model,
   updateTrainerContact,
   updateTrainerAddress,
   updateTrainerPassword,
-  updateTrainerClients}) => {
+  updateTrainersClients}) => {
   return (
     <div className='form'>
       <ContentHeader >
@@ -81,14 +81,16 @@ const TrainerForm = ({model,
                              sectionHeader="Trainer Password"
                              formName="TrainerPassword" >
               <div className="editableDisplay__content__form__row">
-                <EditableFor frfProperty={model.password} />
-                {/*<EditableFor frfProperty={model.confirmPassword} />*/}
+                <EditableFor frfProperty={model.password} noDisplay="true" />
+              </div>
+              <div className="editableDisplay__content__form__row">
+                <EditableFor frfProperty={model.confirmPassword} noDisplay="true" />
               </div>
             </EditableDisplay>
           </div>
           <div>
             <EditableDisplay model={model}
-                             submitHandler={x=>updateTrainerClients(x)}
+                             submitHandler={x=>updateTrainersClients(x)}
                              sectionHeader="Trainer's Clients"
                              formName="TrainersClients" >
               <div className="editableDisplay__content__form__row">

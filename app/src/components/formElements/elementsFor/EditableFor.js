@@ -6,6 +6,9 @@ const EditableFor = (props) => {
   if (props.editing) {
     return <SubmissionFor {...props} />
   }
+  if(props.noDisplay){
+    return null;
+  }
   return <DisplayFor {...props}/>
 };
 

@@ -34,22 +34,23 @@ const InputFor = ({data,
       case 'select':
       {
         // const onChange = option => data.onChange({target: {name: data.name, value: option.target.value}});
-
+        const selected = selectOptions.find(x=>x.value === data.value);
         return (<TokenAutocomplete className={inputStyle} simulateSelect={true}
                                    parseToken={ value => value.label || value }
                                    parseOption={ value => value.label || value }
                                    options={selectOptions} {...data}
-                                   defaultValues={data.value || []}
-                                   filterOptions={false}
+                                   defaultValues={selected || []}
+                                   filterOptions={true}
                                    {...data} />)
       }
       case 'multi-select':
       {
+        const selected = data.value ? data.value.map(x=> selectOptions.find(y=>y.value ===x)) : [];
         return (<TokenAutocomplete className={inputStyle}
-                                   defaultValues={data.value || []}
+                                   defaultValues={selected}
+                                   limitToOptions={true}
                                    parseToken={ value => value.label }
                                    parseOption={ value => value.label }
-                                   parseCustom={ value => value.label }
                                    options={selectOptions} {...data}  />);
       }
       default:

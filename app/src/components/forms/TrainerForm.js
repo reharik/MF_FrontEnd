@@ -9,6 +9,7 @@ const TrainerForm = ({model,
   clients,
   submitting,
   hireTrainer}) => {
+  
   return (
     <div className='form'>
       <ContentHeader >
@@ -61,6 +62,15 @@ const TrainerForm = ({model,
                 <SubmissionFor frfProperty={model.birthDate}/>
                 {/*<SubmissionFor frfProperty={model.defaultClientRate} /> */}
                 <SubmissionFor frfProperty={model.color} />
+              </div>
+              <div className="form__section__header">
+                <label className="form__section__header__label">Password</label>
+              </div>
+              <div className="form__section__row">
+                <SubmissionFor frfProperty={model.password}/>
+              </div>
+              <div className="form__section__row">
+                <SubmissionFor frfProperty={model.confirmPassword}/>
               </div>
             </div>
             <div>

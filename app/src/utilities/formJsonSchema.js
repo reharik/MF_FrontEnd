@@ -16,10 +16,13 @@ const mapProperty = (parent, propertyName) => (
     rules:[] }
 );
 
+// here parent is so you can get the required off of it
 const mapRules = (parent, property) => {
   if (parent.required && parent.required.some(x=> x === property.name)) {
     property.rules.push({rule: 'required'});
   }
+// propbably put the rule in an x-val or x-rule unless the data faker has
+  // some convention for it
   // schemaRules.foreach(r => r(property));
   return property;
 };

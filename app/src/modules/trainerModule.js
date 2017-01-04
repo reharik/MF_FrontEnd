@@ -241,7 +241,7 @@ export function updateTrainerAddress(data) {
     street1: data.street1,
     street2: data.street2,
     city: data.city,
-    state: data.state ? data.state.label : undefined,
+    state: data.state ? data.state.value : undefined,
     zipCode: data.zipCode
   };
   return {
@@ -266,15 +266,15 @@ export function updateTrainerAddress(data) {
 }
 
 
-export function updateTrainerClients(data) {
+export function updateTrainersClients(data) {
   const item = {
     id: data.id,
-    clients: data.clients.map(x=>x.value)
+    clients: data.clients
   };
   
   return {
     [CALL_API]: {
-      endpoint: config.apiBase + 'trainer/updateTrainerClients',
+      endpoint: config.apiBase + 'trainer/updateTrainersClients',
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
@@ -294,8 +294,8 @@ export function updateTrainerClients(data) {
 }
 
 export function hireTrainer(data) {
-  data.state = data.state ? data.state.label : undefined;
-  data.clients = data.clients.map(x=> x.value);
+  data.state = data.state ? data.state.value : undefined;
+  data.clients = data.clients ? data.clients.map(x=> x.value) : [];
   return {
     [CALL_API]: {
       endpoint: config.apiBase + 'trainer/hireTrainer',

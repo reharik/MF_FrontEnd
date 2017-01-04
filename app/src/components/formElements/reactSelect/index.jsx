@@ -108,7 +108,6 @@ class TokenAutocomplete extends React.Component {
   componentWillReceiveProps(nextProps) {
     let values = nextProps.defaultValues;
     values = isArray(values) ? values : [values];
-
     this.setState({values});
   }
 
@@ -136,17 +135,16 @@ class TokenAutocomplete extends React.Component {
     this.setState({
       inputValue: e.target.value
     });
-
-  }
+  };
 
   onKeyDown = e => {
-
     switch (e.keyCode) {
       case keyCodes.ESC:
         this.blur();
         break;
       case keyCodes.ENTER:
         this.addSelectedValue(e);
+        e.preventDefault();
         break;
       case keyCodes.BACKSPACE:
         if (!this.state.inputValue.length) {
@@ -155,11 +153,10 @@ class TokenAutocomplete extends React.Component {
           });
           this.deleteValue(this.state.values.size - 1);
           e.preventDefault();
-
         }
         break;
     }
-  }
+  };
 
   handleClick = e => {
     const clickedOutside = !ReactDOM.findDOMNode(this).contains(e.target);
@@ -180,7 +177,7 @@ class TokenAutocomplete extends React.Component {
     }
     this.bindListeners();
     this.setState({focused: true});
-  }
+  };
 
   blur = () => {
     if (this.refs.input) {
@@ -189,15 +186,15 @@ class TokenAutocomplete extends React.Component {
 
     this.unbindListeners();
     this.setState({focused: false});
-  }
+  };
 
   deleteValue = (index) => {
+    const valueRemoved = this.state.values.splice(index,1);
+    const stateValues = this.state.values;
+    const fieldValues = this.state.values.map(x=>x.value);
+    this.props.onChange({target:{name:this.props.name, value:fieldValues}}, stateValues, valueRemoved);
 
-    const valueRemoved = this.state.values.get(index);
-    const values = this.state.values.delete(index);
-    this.props.onChange({target:{name:this.props.name, value:values}}, values, valueRemoved);
-
-    // this.setState({values});
+    this.setState({stateValues});
     this.focus();
   };
 
@@ -208,15 +205,21 @@ class TokenAutocomplete extends React.Component {
     const shouldAddValue = !!newValue && !isAlreadySelected;
 
     if (shouldAddValue) {
-      let values;
+      let stateValues;
+      let fieldValues;
       if(this.props.simulateSelect) {
-        values = newValue;
+        stateValues = newValue;
+        fieldValues = newValue.value;
       } else {
+        // must be better way to do this.  maybe splice
         this.state.values.push(newValue);
-        values = this.state.values
+        stateValues = this.state.values;
+        fieldValues = this.state.values.map(x=>x.value);
       }
-      this.props.onChange({target:{ name:this.props.name, value:values}}, values, newValue);
+      this.props.onChange({target:{ name:this.props.name, value:fieldValues}}, stateValues, newValue);
+      const valueArray = isArray(stateValues) ? stateValues: [stateValues];
       this.setState({
+        values: valueArray,
         inputValue: ''
       });
     }
@@ -241,14 +244,12 @@ class TokenAutocomplete extends React.Component {
       } else {
         availableOptions = difference(this.props.options, this.state.values);
       }
-
       //filter
       availableOptions = filter(availableOptions, option => {
-        return contains(option, this.state.inputValue);
+        return contains(option.label, this.state.inputValue);
       });
 
     }
-
     if (this.shouldAllowCustomValue() &&
         !isEmpty(this.state.inputValue) &&
         !includes(availableOptions, this.state.inputValue)) {
@@ -272,7 +273,7 @@ class TokenAutocomplete extends React.Component {
   }
 
   shouldShowFakePlaceholder = () => {
-    return !this.shouldShowInput() && !this.state.values.size;
+    return !this.shouldShowInput() && this.state.values.length <= 0;
   }
 
   isTresholdReached = () => {
@@ -312,17 +313,20 @@ class TokenAutocomplete extends React.Component {
 
   renderProcessing = () => {
     return this.props.processing ? <div ref="processing" className="reactSelect__processing" /> : null;
-  }
+  };
 
   renderFakePlaceholder = () => {
     return this.shouldShowFakePlaceholder()
-      ? (<div
-            ref="fakePlaceholder"
-            className="reactSelect__fakePlaceholder" >
-            {this.props.placeholder}
-         </div>)
+      ?
+      (<input
+        onFocus={this.focus}
+        onChange={this.onInputChange}
+        value={this.state.inputValue}
+        placeholder={this.props.placeholder}
+        className="reactSelect__input"
+        ref="input"/>) 
       : null;
-  }
+  };
 
   renderInput = () => {
     return this.shouldShowInput()
@@ -334,13 +338,13 @@ class TokenAutocomplete extends React.Component {
           className="reactSelect__input"
           ref="input"/>)
       : this.renderFakePlaceholder();
-  }
+  };
 
   renderDropdownIndicator = () => {
     return this.props.simulateSelect
       ? <div ref="dropdownIndicator" className="reactSelect__dropdownIndicator" />
       : null;
-  }
+  };
 
   render() {
     return (
@@ -356,8 +360,5 @@ class TokenAutocomplete extends React.Component {
     );
   }
 }
-
-
-
 
 export default TokenAutocomplete;
