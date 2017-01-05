@@ -49,17 +49,17 @@ const getData = function() {
   };
 };
 
-const retrieveData = (startDate, endDate, dispatch) => {
+const retrieveData = (startDate, endDate) => {
   var data = getData();
-    dispatch({type: RETRIEVE_TASKS_SUCCESS, data});
+    return {type: RETRIEVE_TASKS_SUCCESS, data};
 };
 
 const mapStateToProps = function(state) {
   return {
     config: {
-      increment: 15,
-      retrieveDataAction: retrieveData
-    }
+      increment: 15
+    },
+    actions: {retrieveDataAction: retrieveData}
   }
 };
 

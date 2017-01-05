@@ -21,10 +21,13 @@
     width: 100%
 }
 .redux__task__calendar__header__display__date {
-    width: 200px
+    width: 300px
 }
-.redux__task__calendar__header__view__nav {}
+.redux__task__calendar__header__view__nav {
+    margin-right: 10px;
+}
 .redux__task__calendar__header__date__nav {
+    margin-right: 10px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -153,7 +156,9 @@
     text-align: center
 }
 .redux__task__calendar__header__date__nav {
-    width: 150px
+    width: 105px;
+    margin-left: 10px;
+
 }
 .redux__task__calendar__header__date__nav__button {
     box-shadow: inset 0px 0px 14px -3px #f2fadc;
