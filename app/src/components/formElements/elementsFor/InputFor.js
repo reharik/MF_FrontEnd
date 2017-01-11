@@ -53,19 +53,25 @@ const InputFor = ({data,
                                    parseOption={ value => value.label }
                                    options={selectOptions} {...data}  />);
       }
+      case 'textArea': {
+        return (<textarea className={inputStyle}
+                       placeholder={data.placeholder}
+                       name={data.name}
+                       value={data.value}
+                       onChange={data.onChange} />)
+      }
       default:
       case 'number':
       case 'password':
       case 'string':
       {
         const password = data['x-input'] === 'password' ? {type: "password"} : '';
-        return (<input className={inputStyle}
-          {...password}
+        return (<input className={inputStyle} 
+                      {...password}
                        placeholder={data.placeholder}
                        name={data.name}
                        value={data.value}
-                       onChange={data.onChange}
-        />)
+                       onChange={data.onChange} />)
       }
     }
   };

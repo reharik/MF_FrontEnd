@@ -3,6 +3,7 @@ import config from './../utilities/configValues';
 import { browserHistory } from 'react-router';
 import { denormalizeContact } from './../utilities/denormalize';
 import selectn from 'selectn';
+import reducerMerge from './../utilities/reducerMerge';
 
 export const ADD_CLIENT_REQUEST = 'methodFit/client/ADD_CLIENT_REQUEST';
 export const ADD_CLIENT_SUCCESS = 'methodFit/client/ADD_CLIENT_SUCCESS';
@@ -23,13 +24,6 @@ export const CLIENT_LIST_REQUEST = 'methodFit/client/CLIENT_LIST_REQUEST';
 export const CLIENT_LIST_SUCCESS = 'methodFit/client/CLIENT_LIST_SUCCESS';
 export const CLIENT_LIST_FAILURE = 'methodFit/client/CLIENT_LIST_FAILURE';
 
-
-const clientReducer = (map = new Map, client = {}) => {
-  map.set(client.id,client);
-  return map;
-};
-
-
 export default (state = [], action = {}) => {
   switch (action.type) {
     case ADD_CLIENT_REQUEST:
@@ -38,25 +32,9 @@ export default (state = [], action = {}) => {
       console.log('ADD_CLIENT_REQUEST');
       return state;
     }
-    case CLIENT_SUCCESS: {
-      let m = new Map();
-      for(let obj of state) {
-        if (obj && obj.id) {
-            m.set(obj.id, obj);
-        }
-      }
-      clientReducer(m, action.payload);
-      return [...m.values()];
-    }
+    case CLIENT_SUCCESS: 
     case CLIENT_LIST_SUCCESS: {
-      let m = new Map();
-      for(let obj of state) {
-        if (obj && obj.id) {
-          m.set(obj.id, obj);
-        }
-      }
-      action.payload.reduce((prev, item) => { return clientReducer(prev, item) }, m);
-      return [...m.values()];
+      return reducerMerge(state, action.payload);
     }
     case ADD_CLIENT_SUCCESS: {
       var insertedItem = selectn('payload.insertedItem', action);

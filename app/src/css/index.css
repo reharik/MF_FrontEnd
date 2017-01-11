@@ -9,6 +9,7 @@
 @import 'structural/form_structural.css';
 @import 'structural/formElements_structural.css';
 @import 'structural/editableDisplay_structural.css';
+@import 'structural/mfModal_structural.css';
 
 @import 'display/body.css';
 @import 'display/signIn.css';
@@ -21,3 +22,4 @@
 @import 'display/form.css';
 @import 'display/contentHeader.css';
 @import 'display/editableDisplay.css';
+@import 'display/mfModal.css';

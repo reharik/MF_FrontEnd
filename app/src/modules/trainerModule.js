@@ -3,6 +3,7 @@ import config from './../utilities/configValues';
 import { browserHistory } from 'react-router';
 import { denormalizeTrainer } from './../utilities/denormalize';
 import selectn from 'selectn';
+import reducerMerge from './../utilities/reducerMerge';
 
 export const HIRE_TRAINER_REQUEST = 'methodFit/trainer/HIRE_TRAINER_REQUEST';
 export const HIRE_TRAINER_SUCCESS = 'methodFit/trainer/HIRE_TRAINER_SUCCESS';
@@ -29,13 +30,6 @@ export const TRAINER_LIST_REQUEST = 'methodFit/trainer/TRAINER_LIST_REQUEST';
 export const TRAINER_LIST_SUCCESS = 'methodFit/trainer/TRAINER_LIST_SUCCESS';
 export const TRAINER_LIST_FAILURE = 'methodFit/trainer/TRAINER_LIST_FAILURE';
 
-
-const trainerReducer = (map = new Map, trainer = {}) => {
-  map.set(trainer.id,trainer);
-  return map;
-};
-
-
 export default (state = [], action = {}) => {
   switch (action.type) {
     case HIRE_TRAINER_REQUEST:
@@ -44,25 +38,9 @@ export default (state = [], action = {}) => {
       console.log('HIRE_TRAINER_REQUEST');
       return state;
     }
-    case TRAINER_SUCCESS: {
-      let m = new Map();
-      for(let obj of state) {
-        if (obj && obj.id) {
-            m.set(obj.id, obj);
-        }
-      }
-      trainerReducer(m, action.payload);
-      return [...m.values()];
-    }
+    case TRAINER_SUCCESS: 
     case TRAINER_LIST_SUCCESS: {
-      let m = new Map();
-      for(let obj of state) {
-        if (obj && obj.id) {
-          m.set(obj.id, obj);
-        }
-      }
-      action.payload.reduce((prev, item) => { return trainerReducer(prev, item) }, m);
-      return [...m.values()];
+      return reducerMerge(state, action.payload);
     }
     case HIRE_TRAINER_SUCCESS: {
       var insertedItem = selectn('payload.hiredTrainer', action);
