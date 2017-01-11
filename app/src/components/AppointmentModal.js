@@ -16,7 +16,7 @@ const AppointmentModal = ({form, onClose, isOpen, title}) => {
 };
 
 AppointmentModal.propTypes = {
-  form: PropTypes.func,
+  form: PropTypes.object,
   onClose: PropTypes.func,
   isOpen: PropTypes.bool,
   title: PropTypes.string

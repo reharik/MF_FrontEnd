@@ -5,7 +5,7 @@ import formJsonSchema from '../../utilities/formJsonSchema';
 import { scheduleAppointment, fetchAppointmentAction } from './../../modules/appointmentModule';
 import appointmentTypes from './../../constants/appointmentTypes';
 import { generateAllTimes } from './../../utilities/appointmentTimes'; 
-
+import moment from 'moment';
 
 class AppointmentContainer extends Component {
   componentWillMount() { this.loadData(); }
@@ -29,9 +29,15 @@ class AppointmentContainer extends Component {
   }
 }
 
+
 const mapStateToProps = (state, props) => {
+  console.log('=========="MSTP=========');
+  console.log(props);
+  console.log('==========END "MSTP=========');
+
   const appointment = state.appointments.filter(x=>x.id === props.apptId)[0];
   const model = formJsonSchema(state.schema.definitions.appointment, appointment);
+  model.date.value = model.date.value || moment().toISOString();
   const clients = state.clients.map(x=> `${x.lastName}, ${x.firstName}`);
   const times = generateAllTimes(30);
   return {

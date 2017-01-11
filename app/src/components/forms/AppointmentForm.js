@@ -14,7 +14,7 @@ const AppointmentForm = ({model,
     <div className='form'>
       <Notifs containerName="appointmentForm" />
         <div className="content-inner">
-          <Form submitHandler={x=>scheduleAppointment(x)}
+          <Form submitHandler={scheduleAppointment}
                 model={model} 
                 className="form__content"
                 formName="appointmentForm" >
@@ -43,7 +43,7 @@ const AppointmentForm = ({model,
 
             <div className="form__footer">
               <button type="submit" className="form__footer__button">Save</button>
-              <button className="form__footer__button" onClick={cancel}>Cancel</button>
+              <button type="reset" className="form__footer__button" onClick={cancel}>Cancel</button>
             </div>
           </Form>
         </div>

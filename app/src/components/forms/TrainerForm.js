@@ -10,6 +10,9 @@ const TrainerForm = ({model,
   clients,
   submitting,
   hireTrainer, formReset, reset}) => {
+  console.log('=========="rerendering"=========');
+  console.log(reset);
+  console.log('==========END "rerendering"=========');
   return (
     <div className='form'>
       <ContentHeader >
@@ -91,7 +94,7 @@ const TrainerForm = ({model,
               <button type="submit" className="form__footer__button">
                Submit
               </button>
-              <button onClick={formReset} className="form__footer__button">
+              <button type="reset" onClick={formReset} className="form__footer__button">
                 Cancel
               </button>
             </div>

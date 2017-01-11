@@ -67,6 +67,9 @@ const getData = function() {
 };
 
 export function scheduleAppointment(data) {
+  console.log('=========="here"=========');
+  console.log("here");
+  console.log('==========END "here"=========');
   data.appointmentType = data.appointmentType ? data.appointmentType.value : undefined;
   data.startTime = data.startTime ? data.startTime.value : undefined;
   data.clients = data.clients ? data.clients.map( x => x.value ) : [];

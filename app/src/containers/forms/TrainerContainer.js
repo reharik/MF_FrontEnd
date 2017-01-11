@@ -23,7 +23,6 @@ class TrainerFormContainer extends Component {
   }
 
   formReset = () => {
-    this.props.notifClear('trainerForm');
     this.setState({reset:true});
   };
 
