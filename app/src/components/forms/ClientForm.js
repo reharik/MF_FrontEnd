@@ -1,4 +1,5 @@
 import React from 'react';
+import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
 import ContentHeader from '../ContentHeader';
 import SubmissionFor from './../../containers/SubmissionForContainer';
@@ -24,6 +25,7 @@ const ClientForm = ({model,
           </div>
         </div>
       </ContentHeader>
+      <Notifs containerName="clientForm" />
       <div className="form-scroll-inner" >
         <div className="content-inner">
           <Form submitHandler={x=>addClient(x)} model={model} className="form__content">

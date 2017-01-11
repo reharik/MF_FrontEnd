@@ -5,12 +5,27 @@ import formJsonSchema from '../../utilities/formJsonSchema';
 import states from './../../constants/states'
 import { hireTrainer, fetchTrainerAction } from './../../modules/trainerModule';
 import { fetchClientsAction } from './../../modules/clientModule';
-
+import {actions as notifActions} from 'redux-notifications';
+const {notifClear} = notifActions;
+import uuid from 'uuid';
 
 class TrainerFormContainer extends Component {
-  componentWillMount() { this.loadData(); }
+  state = {reset: false};
 
-  // componentWillReceiveProps(newProps) { this.loadData(); }
+  componentWillMount() {
+    this.loadData();
+  }
+
+  componentWillReceiveProps(newProps) {
+    if(this.state.reset){
+      this.setState({reset:false});
+    }
+  }
+
+  formReset = () => {
+    this.props.notifClear('trainerForm');
+    this.setState({reset:true});
+  };
 
   loadData() {
     if (this.props.params.trainerId) {
@@ -26,7 +41,7 @@ class TrainerFormContainer extends Component {
     if (this.props.errorMessage) {
       return (<p style={{ 'padding-top': '100px' }}>ERROR! -> {this.props.errorMessage}</p>);
     }
-    return (<TrainerForm {...this.props} />);
+    return (<TrainerForm formReset={this.formReset} reset={this.state.reset} {...this.props} />);
   }
 }
 
@@ -46,4 +61,5 @@ const mapStateToProps = (state, props) => {
 
 export default connect(mapStateToProps, { hireTrainer,
   fetchTrainerAction,
-  fetchClientsAction})(TrainerFormContainer);
+  fetchClientsAction,
+  notifClear})(TrainerFormContainer);

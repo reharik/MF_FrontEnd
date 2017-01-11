@@ -1,4 +1,5 @@
 import React from 'react';
+import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
 import SubmissionFor from './../../containers/SubmissionForContainer';
 import DisplayFor from './../formElements/elementsFor/DisplayFor';
@@ -11,8 +12,12 @@ const AppointmentForm = ({model,
                         cancel }) => {
   return (
     <div className='form'>
+      <Notifs containerName="appointmentForm" />
         <div className="content-inner">
-          <Form submitHandler={x=>scheduleAppointment(x)} model={model} className="form__content">
+          <Form submitHandler={x=>scheduleAppointment(x)}
+                model={model} 
+                className="form__content"
+                formName="appointmentForm" >
             <div className="form__section__row">
               {/* logic for if admin show dropdown*/}
               <DisplayFor frfProperty={model.trainer} />

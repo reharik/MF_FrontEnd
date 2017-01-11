@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
 import EDFooter from './EDFooter.js';
 
@@ -6,18 +7,15 @@ class EditableDisplay extends Component {
 
   componentWillMount() {
     this.setState({
-      editing: false,
-      model: this.props.model
-    });
-  }
-
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      model: newProps.model
+      editing: false
     });
   }
 
   toggleEdit = (rollBack) => {
+    if(rollBack){
+      this.props.notifClear(this.props.formName);
+    }
+
     this.setState({
       editing: !this.state.editing,
       reset: rollBack ? true : false
@@ -49,7 +47,8 @@ class EditableDisplay extends Component {
           <label className="editableDisplay__header__label">{this.props.sectionHeader}</label>
         </div>
         <div className="editableDisplay___content">
-          <Form submitHandler={this.submitHandler} model={this.state.model}
+          <Notifs containerName={this.props.formName} />
+          <Form submitHandler={this.submitHandler} model={this.props.model}
                 formName={this.props.formName} reset={this.state.reset}
                 className="editableDisplay__content__form">
             {this.setEditing(this.props.children, this.state.editing)}

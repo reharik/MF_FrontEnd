@@ -2,7 +2,7 @@ import React from 'react';
 import {Form} from 'freakin-react-forms';
 import ContentHeader from '../ContentHeader';
 import EditableFor from './../formElements/elementsFor/EditableFor';
-import EditableDisplay from './editableDisplay/EditableDisplay';
+import EditableDisplay from './../../containers/EditableDisplayContainer';
 import {browserHistory} from 'react-router';
 
 const TrainerForm = ({model,

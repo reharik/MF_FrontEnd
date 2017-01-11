@@ -2,7 +2,6 @@ import React from 'react';
 import NavigationContainer from './../../containers/MenuContainer'
 import Header from './../../containers/HeaderContainer';
 import SignInContainer from '../../containers/forms/SignInContainer';
-import {Notifs} from 'redux-notifications';
 
 const Layout = ({isReady, isAuthenticated, userName, children}) => {
   if(!isReady) {
@@ -16,7 +15,6 @@ const Layout = ({isReady, isAuthenticated, userName, children}) => {
     <div className="mainBody">
       <NavigationContainer />
       <div className="mainContent">
-        <Notifs />
         <div className="mainContent__contentInner">
           {children}
         </div>

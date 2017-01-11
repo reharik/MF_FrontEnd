@@ -1,4 +1,5 @@
 import React from 'react';
+import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
 import ContentHeader from '../ContentHeader';
 import SubmissionFor from './../../containers/SubmissionForContainer';
@@ -8,15 +9,14 @@ const TrainerForm = ({model,
   states,
   clients,
   submitting,
-  hireTrainer}) => {
-  
+  hireTrainer, formReset, reset}) => {
   return (
     <div className='form'>
       <ContentHeader >
         <div className="form__header">
           <div className="form__header__left" >
 
-            <button className="contentHeader__button__new" title="New" onClick={() => browserHistory.push('/trainer')} />
+            <button className="contentHeader__button__new" title="New" onClick={() => { formReset(); browserHistory.push('/trainer');}} />
           </div>
           <div className="form__header__center">
             <div className="form__header__center__title">Trainer</div>
@@ -25,9 +25,15 @@ const TrainerForm = ({model,
           </div>
         </div>
       </ContentHeader>
+      <Notifs containerName="trainerForm" />
       <div className="form-scroll-inner" >
         <div className="content-inner">
-          <Form submitHandler={x=>hireTrainer(x)} model={model} className="form__content">
+          <Form
+            submitHandler={x=>hireTrainer(x)}
+            model={model}
+            reset={reset}
+            className="form__content"
+            formName="trainerForm">
             <div>
               <div className="form__section__header">
                 <label className="form__section__header__label">Contact Info</label>
@@ -84,6 +90,9 @@ const TrainerForm = ({model,
             <div className="form__footer">
               <button type="submit" className="form__footer__button">
                Submit
+              </button>
+              <button onClick={formReset} className="form__footer__button">
+                Cancel
               </button>
             </div>
           </Form>

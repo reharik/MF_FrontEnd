@@ -12,8 +12,8 @@ let SignInForm = ({model, loginUser}) =>
       <div className="signIn__outer">
         <div className="signIn__header"></div>
         <div className="signIn__content">
-          <Notifs />
-          <Form submitHandler={x=>loginUser(x)} model={model} >
+          <Notifs containerName="signIn"/>
+          <Form submitHandler={x=>loginUser(x)} model={model} formName="signIn">
             <div className="signIn__form__header">
               <label className="signIn__form__header__label">Sign In</label>
             </div>

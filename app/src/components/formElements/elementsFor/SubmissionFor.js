@@ -9,11 +9,10 @@ class SubmissionFor extends Component {
 
   render() {
     const _containerStyle = classNames('editor__container', this.props.containerStyle);
-    this.currentErrors = NotifValidationFor({data: this.props.data,
+    NotifValidationFor({data: this.props.data,
         notifSend: this.props.notifSend,
         notifDismiss: this.props.notifDismiss,
         currentErrors: this.currentErrors});
-
     return (<div className={_containerStyle}>
       {this.props.noLabel
         ? null

@@ -1,5 +1,3 @@
-
-
 const NotifValidationFor = ({data,
   notifSend,
   notifDismiss,
@@ -14,6 +12,7 @@ const NotifValidationFor = ({data,
     if(!oldErrors.includes(id)) {
       notifSend({
         id,
+        containerName: data.formName,
         formName: data.parent,
         fieldName: data.name,
         rule: x.rule,

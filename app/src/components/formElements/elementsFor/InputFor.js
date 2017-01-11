@@ -83,7 +83,3 @@ const InputFor = ({data,
 };
 
 export default InputFor;
-
-
-
-
