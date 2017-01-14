@@ -36,3 +36,13 @@
 .mf__modal__btn__close {
     position: absolute;
 }
+
+.mf__modal__form__footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.mf__modal__form__footer {
+    padding: 20px 5px;
+}

@@ -7,16 +7,12 @@ import NotifValidationFor from './NotifValidationFor';
 class SubmissionFor extends Component {
   currentErrors = [];
 
-  componentWillReceiveProps() {
+  render() {
     this.currentErrors = NotifValidationFor({data: this.props.data,
       notifSend: this.props.notifSend,
       notifDismiss: this.props.notifDismiss,
       currentErrors: this.currentErrors});
-  }
-
-  render() {
     const _containerStyle = classNames('editor__container', this.props.containerStyle);
-
     return (<div className={_containerStyle}>
       {this.props.noLabel
         ? null

@@ -5,7 +5,6 @@ const NotifValidationFor = ({data,
 
   const newErrors = [];
   const oldErrors = [...currentErrors];
-
   data.errors.forEach(x => {
     const id = data.parent + '_' + data.name + '_' + x.rule;
     newErrors.push(id);

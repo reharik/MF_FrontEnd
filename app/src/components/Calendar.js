@@ -28,8 +28,7 @@ class MFCalendar extends Component {
     });
   };
 
-  onClose = (e) => {
-    e.preventDefault();
+  onClose = () => {
     this.setState({
       isOpen: false
     });

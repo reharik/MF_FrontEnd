@@ -11,17 +11,30 @@ import ClientContainer from './containers/forms/ClientContainer';
 import UpdateClientContainer from './containers/forms/UpdateClientContainer';
 
 //import { App, Home, Foo, Bar } from './components'
+//
+// const routes = (
+//   <Route path="/" component={AppContainer}>
+//     <IndexRoute component={Calendar} />
+//     <Route path="/calendar" component={Calendar} />
+//     <Route path="/clients" component={ClientList} />
+//     <Route path="/client" component={ClientContainer} />
+//     <Route path="/client(/:clientId)" component={UpdateClientContainer} />
+//     <Route path="/trainers" component={TrainersList} />
+//       <Route path="/trainer" component={TrainerContainer} />
+//       <Route path="/trainer(/:trainerId)" component={UpdateTrainerContainer} />
+//   </Route>);
+// module.exports = routes;
 
 const routes = (
   <Route path="/" component={AppContainer}>
-    <IndexRoute component={Calendar} />
-    <Route path="/calendar" component={Calendar} />
-    <Route path="/clients" component={ClientList} />
-    <Route path="/client" component={ClientContainer} />
-    <Route path="/client(/:clientId)" component={UpdateClientContainer} />
-    <Route path="/trainers" component={TrainersList} />
-      <Route path="/trainer" component={TrainerContainer} />
-      <Route path="/trainer(/:trainerId)" component={UpdateTrainerContainer} />
+        <IndexRoute component={Calendar} />
+        <Route path="/calendar" component={Calendar} />
+        <Route path="/trainers" component={TrainersList} />
+        <Route path="/trainer" component={TrainerContainer} />
+        <Route path="/trainer(/:trainerId)" component={UpdateTrainerContainer} />
+        <Route path="/clients" component={ClientList} />
+        <Route path="/client" component={ClientContainer} />
+        <Route path="/client(/:clientId)" component={UpdateClientContainer} />
   </Route>);
 module.exports = routes;
 
