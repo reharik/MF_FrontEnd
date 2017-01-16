@@ -1,0 +1,98 @@
+import {connect} from 'react-redux';
+import TrainerList from '../../components/lists/TrainerList';
+import CellLink from '../../components/GridElements/CellLink.js';
+import EmailLink from '../../components/GridElements/EmailLink.js';
+
+import { fetchTrainersAction } from './../../modules/trainerModule';
+
+const columns = [
+   {
+    property: ({column, row}) => {
+      return CellLink('trainer')({value: `${row.contact.lastName}`, row})
+    },
+    sort:'lastName',
+    display: 'Last Name',
+    width: '10%',
+  },
+  {
+    property: 'contact.firstName',
+    display: 'First Name',
+    width: '10%',
+  },
+  {
+    property: EmailLink,
+    propertyName: 'contact.email',
+    display: 'Email',
+    width: '35%'
+  },
+  {
+<<<<<<< Updated upstream
+    property: 'contact.mobilePhone',
+    display: 'Mobile Phone',
+    width: '10%',
+=======
+    name: 'Charles Barkley',
+    position: 'Power Forward',
+    id:uuid.v4()
+  }
+
+];
+
+const columns = [
+  {
+    property: ({column, row}) => {
+      return CellLink('trainer')(`${row.firstName} ${row.lastName}`, row )
+    },
+    display: 'Name',
+    width: '10%'
+  },
+  {
+    property: ({column, row}) => EmailLink({value:row.emailAddress, row}),
+    display: 'Email',
+    width: '35%'
+>>>>>>> Stashed changes
+  },
+  {
+    property: 'id',
+    hidden : true
+  }
+];
+
+
+<<<<<<< Updated upstream
+=======
+
+const dataSource = function() {
+return {
+  [CALL_API]: {
+    endpoint: configValues.apiBase + 'trainers',
+    method: 'GET',
+    credentials: 'same-origin',
+    types: [DATA_REQUEST,
+      {type:DATA_SUCCESS,
+        payload: (action, state, res) =>
+          res.json().then(json => json.trainers)} , DATA_FAILURE]
+  }
+};
+
+
+  // return Promise.resolve({ok:true, data});
+};
+
+>>>>>>> Stashed changes
+function mapStateToProps(state) {
+  const gridConfig = {
+    tableName: 'trainerList',
+    dataSource: 'trainers',
+    fetchDataAction: fetchTrainersAction,
+  };
+  return {
+    gridConfig,
+    columns,
+    trainers: state.trainers
+
+  };
+}
+
+export default connect(mapStateToProps)(TrainerList);
+

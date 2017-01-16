@@ -1,0 +1,21 @@
+/**
+ * Created by reharik on 4/16/16.
+ */
+import React from 'react';
+import selectn from 'selectn';
+
+<<<<<<< Updated upstream
+export default ({column, row}) => {
+  const value = selectn(column.propertyName,row);
+=======
+export default ({value, row}) => {
+  console.log('==========valud=========');
+  console.log(value);
+  console.log('==========END valud=========');
+
+>>>>>>> Stashed changes
+  return (
+    <div>
+      <a href={'mailto:' + value}>{value}</a>
+    </div>);
+}
