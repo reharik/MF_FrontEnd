@@ -11,29 +11,32 @@ class MFCalendar extends Component {
 
   componentWillMount() {
     this.config = {
-      ...this.props.config, 
-      taskClickedEvent: this.taskClickedEvent, 
+      ...this.props.config,
+      taskClickedEvent: this.taskClickedEvent,
       openSpaceClickedEvent:this.openSpaceClickedEvent }
   }
-  
-  taskClickedEvent = () => {
+
+  taskClickedEvent = (id, task, calendarName) => {
     this.setState({
-      isOpen: true
+      isOpen: true,
+      args: {apptId: id, task, calendarName}
     });
   };
-  
-  openSpaceClickedEvent = () => {
+
+  openSpaceClickedEvent = (day, time, calendarName) => {
     this.setState({
-      isOpen: true
+      isOpen: true,
+      args: {day, time, calendarName}
     });
   };
 
   onClose = () => {
     this.setState({
-      isOpen: false
+      isOpen: false,
+      args: {}
     });
   };
-  
+
   render() {
     return (
       <div id='mainCalendar'>
@@ -55,7 +58,7 @@ class MFCalendar extends Component {
         <AppointmentModal
           isOpen={this.state.isOpen}
           onClose={this.onClose}
-          form={<AppointmentContainer cancel={this.onClose} />}
+          form={<AppointmentContainer args={this.state.args} cancel={this.onClose} />}
           title={this.props.title} />
       </div>);
   };

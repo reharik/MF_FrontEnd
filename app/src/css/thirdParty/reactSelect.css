@@ -59,7 +59,8 @@
     max-height: 275px;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: #fff
+    background-color: #fff;
+    z-index: 1001;
 }
 .reactSelect__options__emptyInfo {
     padding: 10px

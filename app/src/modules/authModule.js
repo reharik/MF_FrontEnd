@@ -5,7 +5,7 @@ export const LOGIN_REQUEST = 'methodFit/auth/LOGIN_REQUEST';
 export const LOGOUT_SUCCESS = 'methodFit/auth/LOGOUT_SUCCESS';
 
 const initialState = {
-    userName: localStorage.getItem('userName') ? localStorage.getItem('userName') : '',
+    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : '',
     isFetching: false,
     isAuthenticated: !!localStorage.getItem('id_token')
 };
@@ -14,9 +14,9 @@ export default (state = initialState, action = {}) => {
     switch (action.type) {
       case LOGIN_SUCCESS:
             localStorage.setItem('id_token', action.payload.user.id);
-            localStorage.setItem('userName', action.payload.user.userName);
+            localStorage.setItem('user', JSON.stringify(action.payload.user));
             return Object.assign({}, state.auth, {
-                userName: action.payload.user.userName,
+                user: action.payload.user,
                 isAuthenticated: true,
                 errorMessage: ''
             });
@@ -39,7 +39,7 @@ export default (state = initialState, action = {}) => {
 
 export function logoutUser() {
   localStorage.removeItem('id_token');
-  localStorage.removeItem('userName');
+  localStorage.removeItem('user');
   localStorage.removeItem('menu_data');
   return {
     type: LOGOUT_SUCCESS,

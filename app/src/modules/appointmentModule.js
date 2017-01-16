@@ -14,6 +14,10 @@ export const SCHEDULE_APPOINTEMENT_FAILURE = 'methodFit/client/SCHEDULE_APPOINTE
 export default (state = [], action = {}) => {
   switch (action.type) {
     case SCHEDULE_APPOINTEMENT_SUCCESS: {
+console.log('==========action=========');
+console.log(action);
+console.log('==========END action=========');
+
       return reducerMerge(state, action.payload);
     }
     case FETCH_APPOINTEMENTS_SUCCESS:
@@ -68,11 +72,8 @@ const getData = function() {
 
 export function scheduleAppointment(data) {
   console.log('=========="here"=========');
-  console.log("here");
+  console.log(data);
   console.log('==========END "here"=========');
-  data.appointmentType = data.appointmentType ? data.appointmentType.value : undefined;
-  data.startTime = data.startTime ? data.startTime.value : undefined;
-  data.clients = data.clients ? data.clients.map( x => x.value ) : [];
 
   return {
     [CALL_API]: {
@@ -81,7 +82,8 @@ export function scheduleAppointment(data) {
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data),
-      types: [SCHEDULE_APPOINTEMENT_REQUEST, {
+      types: [{type: SCHEDULE_APPOINTEMENT_REQUEST,
+        payload:data}, {
         type: SCHEDULE_APPOINTEMENT_SUCCESS,
         payload: (a, s, r) => {
           return r.json().then(json => {

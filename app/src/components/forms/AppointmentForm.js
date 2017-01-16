@@ -9,7 +9,6 @@ class AppointmentForm extends Component {
   componentWillMount() {
     this.loadData();
     const fields = Form.buildModel('appointmentForm',this.props.model, {onChange: this.changeHandler})
-    fields.appointmentType.value = fields.appointmentType.value || 'halfHour';
     this.setState({fields, formIsValid: false})
   }
 
@@ -28,30 +27,22 @@ class AppointmentForm extends Component {
   };
 
   changeHandler = (e) => {
+
     const result = Form.onChangeHandler(this.state.fields)(e);
     this.setState(result);
   };
 
   handleTimeChange = (e) => {
-    this.syncApptTypeAndTime(this.state.fields.appointmentType.value, e.target.value)
+    const endTime = this.props.syncApptTypeAndTime(this.state.fields.appointmentType.value, e.target.value);
     this.state.fields.startTime.onChange(e);
+    this.state.fields.endTime.value = endTime;
+    this.setState({...this.state.fields});
   };
 
   handleAppointmentTypeChange = (e) => {
-    this.syncApptTypeAndTime(this.state.fields.appointmentType.value, e.target.value)
+    const endTime = this.props.syncApptTypeAndTime(e.target.value, this.state.fields.startTime.value );
     this.state.fields.appointmentType.onChange(e);
-  };
-
-  syncApptTypeAndTime = (apptType, startTime) => {
-    const time = moment(`2013-02-08 ${startTime}`);
-    let endTime;
-    if(apptType === 'halfHour'){
-      endTime = time.add(30, 'm');
-    }
-    if(apptType === 'fullHour' || apptType === 'pair'){
-      endTime = time.add(60, 'm');
-    }
-    this.state.fields.endTime.value = endTime.format('h:mm A');
+    this.state.fields.endTime.value = endTime;
     this.setState({...this.state.fields});
   };
 
