@@ -1,7 +1,9 @@
 import { CALL_API } from 'redux-api-middleware';
 import reducerMerge from './../utilities/reducerMerge';
+import {getISODateTime} from './../utilities/appointmentTimes';
 import config from './../utilities/configValues';
-import uuid from 'uuid'
+import uuid from 'uuid';
+import moment from 'moment';
 
 export const FETCH_APPOINTEMENTS_REQUEST = 'methodFit/calendar/FETCH_APPOINTEMENTS_REQUEST';
 export const FETCH_APPOINTEMENTS_SUCCESS = 'methodFit/client/FETCH_APPOINTEMENTS_SUCCESS';
@@ -71,31 +73,39 @@ const getData = function() {
 };
 
 export function scheduleAppointment(data) {
-  console.log('=========="here"=========');
-  console.log(data);
-  console.log('==========END "here"=========');
-
+  const startTime = getISODateTime(data.date, data.startTime);
+  const endTime = getISODateTime(data.date, data.endTime);
+  const formattedData = {...data,
+    date: startTime,
+    startTime: startTime,
+    endTime: endTime,
+    entityName: data.date};
   return {
     [CALL_API]: {
       endpoint: config.apiBase + 'appointment/scheduleAppointment',
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data),
+      body: JSON.stringify(formattedData),
       types: [{type: SCHEDULE_APPOINTEMENT_REQUEST,
-        payload:data}, {
+        payload:formattedData}, {
         type: SCHEDULE_APPOINTEMENT_SUCCESS,
         payload: (a, s, r) => {
-          return r.json().then(json => {
-            json.insertedItem = data;
-            return json
-          });
+           try {
+             return r.json().then(json => {
+              json.insertedItem = formattedData;
+              return json
+            });
+          } catch (ex)
+          {
+            return {success:false, error:ex};
+          }
         }
       },
         SCHEDULE_APPOINTEMENT_FAILURE]
     }
   };
-}
+};
 
 export function fetchAppointmentAction(startDate, endDate) {
   var payload = getData();

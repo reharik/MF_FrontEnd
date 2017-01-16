@@ -1,5 +1,5 @@
 export default  [
-  { value: "halfHour", label: "Half Hour"},
-  { value: "fullHour", label: "Full Hour"},
-  { value: "pair", label: "Pair"}
+  { value: "halfHour", display: "Half Hour"},
+  { value: "fullHour", display: "Full Hour"},
+  { value: "pair", display: "Pair"}
 ]

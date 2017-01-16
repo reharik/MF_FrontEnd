@@ -8,7 +8,10 @@ import moment from 'moment'
 class AppointmentForm extends Component {
   componentWillMount() {
     this.loadData();
-    const fields = Form.buildModel('appointmentForm',this.props.model, {onChange: this.changeHandler})
+    const fields = Form.buildModel('appointmentForm',this.props.model, {onChange: this.changeHandler});
+    console.log('==========fields=========');
+    console.log(fields);
+    console.log('==========END fields=========');
     this.setState({fields, formIsValid: false})
   }
 
@@ -17,7 +20,7 @@ class AppointmentForm extends Component {
     if (this.props.apptId) {
       this.props.fetchAppointmentAction(this.props.apptId);
     }
-    this.props.fetchClientsAction();
+    
   }
 
   onSubmitHandler = (e) => {
@@ -27,7 +30,6 @@ class AppointmentForm extends Component {
   };
 
   changeHandler = (e) => {
-
     const result = Form.onChangeHandler(this.state.fields)(e);
     this.setState(result);
   };

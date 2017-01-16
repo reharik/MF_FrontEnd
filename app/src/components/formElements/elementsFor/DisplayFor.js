@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import moment from 'moment';
 
 const DisplayFor = ({data, displayStyle, selectOptions}) => {
-
   const span = function () {
     switch (data['x-input'] || data.type) {
       case 'color-picker':
@@ -22,7 +21,7 @@ const DisplayFor = ({data, displayStyle, selectOptions}) => {
         }
 
         const find = selectOptions.find(y=> y.value === data.value);
-        const textValue = find.label;
+        const textValue = find.display;
         return (<span className="display__container__value">{textValue}</span>)
       }
       case 'multi-select': {
@@ -30,7 +29,7 @@ const DisplayFor = ({data, displayStyle, selectOptions}) => {
           return;
         }
         // thought about being defensive here but decided if it's not in the values then fuck it throw.
-        const textValues = data.value.map(x => selectOptions.find(y =>  y.value === x).label);
+        const textValues = data.value.map(x => selectOptions.find(y =>  y.value === x).display);
         return (
           <ul>
             {textValues.map((x,i) => (<li key={i}>{x}</li>))}
@@ -39,7 +38,7 @@ const DisplayFor = ({data, displayStyle, selectOptions}) => {
       }
       default:
       {
-        return (<span className="display__container__value">{data.value}</span>)
+        return (<span className="display__container__value">{data.value.display || data.value}</span>)
       }
     }
   };

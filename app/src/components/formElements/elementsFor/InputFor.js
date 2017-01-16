@@ -13,7 +13,7 @@ const InputFor = ({data,
     'editor__success': !data.invalid,
     'editor__error': data.invalid
   });
-  
+
   const input = function () {
     switch (data['x-input'] || data.type) {
       case 'date-time':
@@ -35,12 +35,15 @@ const InputFor = ({data,
       }
       case 'select':
       {
+        console.log('==========data=========');
+        console.log(data);
+        console.log('==========END data=========');
         const _onChange = onChange || data.onChange;
         // const onChange = option => data.onChange({target: {name: data.name, value: option.target.value}});
         const selected = selectOptions.find(x=>x.value === data.value);
         return (<TokenAutocomplete className={inputStyle} simulateSelect={true}
-                                   parseToken={ value => value.label || value }
-                                   parseOption={ value => value.label || value }
+                                   parseToken={ value => value.display || value }
+                                   parseOption={ value => value.display || value }
                                    options={selectOptions} {...data}
                                    defaultValues={selected || []}
                                    filterOptions={true}
@@ -55,13 +58,13 @@ const InputFor = ({data,
         return (<TokenAutocomplete className={inputStyle}
                                    defaultValues={selected}
                                    limitToOptions={true}
-                                   parseToken={ value => value.label }
-                                   parseOption={ value => value.label }
+                                   parseToken={ value => value.display }
+                                   parseOption={ value => value.display}
                                    options={selectOptions}
                                    {...data}
                                    onChange={_onChange}/>);
       }
-      
+
       case 'textArea': {
         const _onChange = onChange || data.onChange;
 
@@ -78,7 +81,7 @@ const InputFor = ({data,
       {
         const _onChange = onChange || data.onChange;
         const password = data['x-input'] === 'password' ? {type: "password"} : '';
-        return (<input className={inputStyle} 
+        return (<input className={inputStyle}
                       {...password}
                        placeholder={data.placeholder}
                        name={data.name}

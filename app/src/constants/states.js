@@ -1,15 +1,15 @@
 export default  [
-    { value: "TX", label: "TX"},
-    { value: "TX1", label: "TX"},
-    { value: "TX2", label: "TX"},
-    { value: "TX3", label: "TX"},
-    { value: "TX4", label: "TX"},
-    { value: "TX5", label: "TX"},
-    { value: "TX6", label: "TX"},
-    { value: "TX7", label: "TX"},
-    { value: "TX8", label: "TX"},
-    { value: "TX9", label: "TX"},
-    { value: "TX0", label: "TX"},
-    { value: "TX10", label: "TX"},
-    { value: "RI", label: "RI"}
+    { value: "TX", display: "TX"},
+    { value: "TX1", display: "TX"},
+    { value: "TX2", display: "TX"},
+    { value: "TX3", display: "TX"},
+    { value: "TX4", display: "TX"},
+    { value: "TX5", display: "TX"},
+    { value: "TX6", display: "TX"},
+    { value: "TX7", display: "TX"},
+    { value: "TX8", display: "TX"},
+    { value: "TX9", display: "TX"},
+    { value: "TX0", display: "TX"},
+    { value: "TX10", display: "TX"},
+    { value: "RI", display: "RI"}
 ]

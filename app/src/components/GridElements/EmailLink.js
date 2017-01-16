@@ -4,7 +4,7 @@
 import React from 'react';
 import selectn from 'selectn';
 
-export default ({value, row}) => {
+export default ({column, row}) => {
   const value = selectn(column.propertyName,row);
   return (
     <div>

@@ -10,6 +10,8 @@ class MFCalendar extends Component {
   };
 
   componentWillMount() {
+    this.props.fetchClientsAction();
+    this.props.fetchTrainersAction();
     this.config = {
       ...this.props.config,
       taskClickedEvent: this.taskClickedEvent,
