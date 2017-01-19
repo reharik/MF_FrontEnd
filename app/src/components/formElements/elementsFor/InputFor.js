@@ -35,9 +35,6 @@ const InputFor = ({data,
       }
       case 'select':
       {
-        console.log('==========data=========');
-        console.log(data);
-        console.log('==========END data=========');
         const _onChange = onChange || data.onChange;
         // const onChange = option => data.onChange({target: {name: data.name, value: option.target.value}});
         const selected = selectOptions.find(x=>x.value === data.value);

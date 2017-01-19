@@ -3,6 +3,7 @@ import ContentHeader from './ContentHeader';
 import AppointmentModal from './AppointmentModal'
 import {Calendar} from 'redux-task-calendar'
 import AppointmentContainer from './../containers/forms/AppointmentContainer'
+import moment from 'moment';
 
 class MFCalendar extends Component {
   state = {
@@ -26,9 +27,10 @@ class MFCalendar extends Component {
   };
 
   openSpaceClickedEvent = (day, time, calendarName) => {
+    const formattedTime = moment(time,'h:mm A').format('hh:mm A');
     this.setState({
       isOpen: true,
-      args: {day, time, calendarName}
+      args: {day, formattedTime, calendarName}
     });
   };
 

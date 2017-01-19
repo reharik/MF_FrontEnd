@@ -20,7 +20,7 @@ console.log('==========action=========');
 console.log(action);
 console.log('==========END action=========');
 
-      return reducerMerge(state, action.payload);
+      return reducerMerge(state, action.payload.insertedItem);
     }
     case FETCH_APPOINTEMENTS_SUCCESS:
     {

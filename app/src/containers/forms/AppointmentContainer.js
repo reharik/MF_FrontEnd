@@ -12,14 +12,8 @@ const {notifClear} = notifActions;
 const mapStateToProps = (state, props) => {
 
   const syncApptTypeAndTime = (apptType, startTime) => {
-    console.log('==========moment(startTime).format)=========');
-    console.log(startTime);
-    console.log('==========END moment(startTime).format');
-    const time = moment(`2013-02-08 ${moment(startTime,'hh:mm').format('hh:mm')}`);
+    const time = moment(startTime,'hh:mm A');
     let endTime;
-    console.log('==========time=========');
-    console.log(time);
-    console.log('==========END time=========');
     if(apptType === 'halfHour'){
       endTime = time.add(30, 'm');
     }
@@ -28,9 +22,8 @@ const mapStateToProps = (state, props) => {
     }
     return endTime.format('h:mm A');
   };
-
   const appointment = state.appointments.filter(x=>x.id === props.args.apptId)[0];
-  const startTime = props.startTime ? props.args.startTime : moment().add(1,'hour').startOf('hour').format('h:mm A');
+  const startTime = props.startTime ? props.args.startTime : moment().add(1,'hour').startOf('hour').format('hh:mm A');
   const model = formJsonSchema(state.schema.definitions.appointment, appointment);
   model.date.value = model.date.value || props.args.day || moment().toISOString();
   model.appointmentType.value = model.appointmentType.value || 'halfHour';
@@ -40,7 +33,8 @@ const mapStateToProps = (state, props) => {
   var trainer = state.trainers.find(x=> x.id === model.trainer.value.id);
   model.trainer.value.display = trainer ? `${trainer.contact.lastName}, ${trainer.contact.firstName}` : '';
   const clients = state.clients.map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
-  const times = generateAllTimes(15);
+  // please put this shit in a config somewhere
+  const times = generateAllTimes(15, 7, 7);
   return {
     model,
     clients,

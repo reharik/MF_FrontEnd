@@ -9,9 +9,6 @@ class AppointmentForm extends Component {
   componentWillMount() {
     this.loadData();
     const fields = Form.buildModel('appointmentForm',this.props.model, {onChange: this.changeHandler});
-    console.log('==========fields=========');
-    console.log(fields);
-    console.log('==========END fields=========');
     this.setState({fields, formIsValid: false})
   }
 
@@ -20,13 +17,15 @@ class AppointmentForm extends Component {
     if (this.props.apptId) {
       this.props.fetchAppointmentAction(this.props.apptId);
     }
-    
   }
 
   onSubmitHandler = (e) => {
     e.preventDefault();
     const result = Form.trySubmitForm(this.state.fields, this.props.scheduleAppointment);
     this.setState(result);
+    if(result.formIsValid) {
+      this.props.cancel()
+    }
   };
 
   changeHandler = (e) => {
@@ -74,7 +73,6 @@ class AppointmentForm extends Component {
             <div className="form__section__row">
               <SubmissionFor data={model.startTime}
                              selectOptions={this.props.times}
-                             selected={[moment().format('h:mm A')]}
                              onChange={this.handleTimeChange}/>
             </div>
             <div className="form__section__row">
