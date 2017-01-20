@@ -22,17 +22,22 @@ const mapStateToProps = (state, props) => {
     }
     return endTime.format('h:mm A');
   };
+
+  console.log(`==========props.args.startTime=========`);
+  console.log(props.args.startTime);
+  console.log(`==========END props.args.startTime=========`);
   const appointment = state.appointments.filter(x=>x.id === props.args.apptId)[0];
-  const startTime = props.startTime ? props.args.startTime : moment().add(1,'hour').startOf('hour').format('hh:mm A');
+  const startTime = props.args.startTime ? props.args.startTime : moment().add(1,'hour').startOf('hour').format('hh:mm A');
   const model = formJsonSchema(state.schema.definitions.appointment, appointment);
   model.date.value = model.date.value || props.args.day || moment().toISOString();
   model.appointmentType.value = model.appointmentType.value || 'halfHour';
-  model.startTime.value = model.startTime.value || props.args.time || startTime;
-  model.endTime.value = model.endTime.value || syncApptTypeAndTime(model.appointmentType.value, model.startTime.value);
+  model.startTime.value = model.startTime.value ? moment(model.startTime.value).format('hh:mm A') : startTime;
+  model.endTime.value = model.endTime.value ? moment(model.endTime.value).format('hh:mm A') : syncApptTypeAndTime(model.appointmentType.value, model.startTime.value);
   model.trainer.value = {id: model.trainer.value ? model.trainer.value.id : state.auth.user.id};
   var trainer = state.trainers.find(x=> x.id === model.trainer.value.id);
   model.trainer.value.display = trainer ? `${trainer.contact.lastName}, ${trainer.contact.firstName}` : '';
   const clients = state.clients.map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
+
   // please put this shit in a config somewhere
   const times = generateAllTimes(15, 7, 7);
   return {

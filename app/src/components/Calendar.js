@@ -13,8 +13,10 @@ class MFCalendar extends Component {
   componentWillMount() {
     this.props.fetchClientsAction();
     this.props.fetchTrainersAction();
+
     this.config = {
       ...this.props.config,
+      retrieveDataAction: this.props.retrieveDataAction,
       taskClickedEvent: this.taskClickedEvent,
       openSpaceClickedEvent:this.openSpaceClickedEvent }
   }
@@ -30,7 +32,7 @@ class MFCalendar extends Component {
     const formattedTime = moment(time,'h:mm A').format('hh:mm A');
     this.setState({
       isOpen: true,
-      args: {day, formattedTime, calendarName}
+      args: {day, startTime:formattedTime, calendarName}
     });
   };
 

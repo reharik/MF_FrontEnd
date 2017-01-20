@@ -29,48 +29,48 @@ console.log('==========END action=========');
   }
   return state;
 }
-
-const a = uuid.v4();
-const b = uuid.v4();
-const c = uuid.v4();
-const d = uuid.v4();
-
-const getData = function() {
-  return [
-    {
-      display: 'fuck you!1',
-      startTime: '8:00 AM',
-      endTime: '9:00 AM',
-      date: new Date(),
-      id: a,
-      color: 'red'
-    },
-    {
-      display: 'fuck you!2',
-      startTime: '8:30 AM',
-      endTime: '9:30 AM',
-      date: new Date(),
-      id: b,
-      color: 'red'
-    },
-    {
-      display: 'fuck you!3',
-      startTime: '8:30 AM',
-      endTime: '9:00 AM',
-      date: new Date(),
-      id: c,
-      color: 'red'
-    },
-    {
-      display: 'fuck you!4',
-      startTime: '9:00 AM',
-      endTime: '10:00 AM',
-      date: new Date(),
-      id: d,
-      color: 'red'
-    }
-  ]
-};
+//
+// const a = uuid.v4();
+// const b = uuid.v4();
+// const c = uuid.v4();
+// const d = uuid.v4();
+//
+// const getData = function() {
+//   return [
+//     {
+//       display: 'fuck you!1',
+//       startTime: '8:00 AM',
+//       endTime: '9:00 AM',
+//       date: new Date(),
+//       id: a,
+//       color: 'red'
+//     },
+//     {
+//       display: 'fuck you!2',
+//       startTime: '8:30 AM',
+//       endTime: '9:30 AM',
+//       date: new Date(),
+//       id: b,
+//       color: 'red'
+//     },
+//     {
+//       display: 'fuck you!3',
+//       startTime: '8:30 AM',
+//       endTime: '9:00 AM',
+//       date: new Date(),
+//       id: c,
+//       color: 'red'
+//     },
+//     {
+//       display: 'fuck you!4',
+//       startTime: '9:00 AM',
+//       endTime: '10:00 AM',
+//       date: new Date(),
+//       id: d,
+//       color: 'red'
+//     }
+//   ]
+// };
 
 export function scheduleAppointment(data) {
   const startTime = getISODateTime(data.date, data.startTime);
@@ -107,12 +107,38 @@ export function scheduleAppointment(data) {
   };
 };
 
-export function fetchAppointmentAction(startDate, endDate) {
-  var payload = getData();
-  return {type: FETCH_APPOINTEMENTS_SUCCESS, payload};
+export function fetchAppointmentAction(appointmentId) {
+  let apiUrl = `${config.apiBase}fetchAppointment/${appointmentId}`;
+  return {
+    [CALL_API]: {
+      endpoint: apiUrl,
+      method: 'GET',
+      credentials: 'include',
+      types: [FETCH_APPOINTEMENTS_REQUEST, {type:FETCH_APPOINTEMENTS_SUCCESS, payload:
+        (action, state, res) => res.json().then((json) => {
+          return json.appointments})},
+        FETCH_APPOINTEMENTS_FAILURE]
+    }
+  };
 };
 
-export function fetchAppointmentsAction(startDate, endDate) {
-  var payload = getData();
-  return {type: FETCH_APPOINTEMENTS_SUCCESS, payload};
+
+export function fetchAppointmentsAction(startDate = moment().startOf('month'),
+                                        endDate = moment().endOf('month'),
+                                        trainerId) {
+  const start = moment(startDate).format('YYYYMMDD');
+  const end = moment(endDate).format('YYYYMMDD');
+  let apiUrl = `${config.apiBase}fetchAppointments/${start}/${end}/${trainerId||''}`;
+  
+  return {
+    [CALL_API]: {
+      endpoint: apiUrl,
+      method: 'GET',
+      credentials: 'include',
+      types: [FETCH_APPOINTEMENTS_REQUEST, {type:FETCH_APPOINTEMENTS_SUCCESS, payload:
+        (action, state, res) => res.json().then((json) => {
+          return json.appointments})},
+        FETCH_APPOINTEMENTS_FAILURE]
+    }
+  };
 };

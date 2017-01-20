@@ -45,6 +45,13 @@ describe('APPOINTMENT TIMES', () => {
         result.should.equal('2017-01-17T13:15:00.000Z');
       });
     });
+
+    describe('when calling with AM date', () => {
+      it('should return properly formatted string', () => {
+        let result = moment('7:15 AM','hh:mm A').format('hh:mm A');
+        result.should.equal('07:15 AM');
+      });
+    });
   });
 
   describe('GENERATE_ALL_TIMES', () => {

@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import Calendar from '../components/Calendar';
-import { retrieveData } from './../modules/appointmentModule';
+import { fetchAppointmentsAction } from './../modules';
 import { fetchClientsAction } from './../modules/clientModule';
 import { fetchTrainersAction } from './../modules/trainerModule';
 
@@ -10,12 +10,13 @@ const mapStateToProps = function(state) {
     config: {
       increment: 15,
       calendarName: 'schedule',
-      dataSource: 'appointments',
-      retrieveDataAction: retrieveData,
-      updateTaskViaDND: retrieveData
+      dataSource: 'appointments'
     }
   }
 };
 
-export default connect(mapStateToProps, { fetchClientsAction, fetchTrainersAction })(Calendar);
+export default connect(mapStateToProps, { 
+  fetchClientsAction, 
+  fetchTrainersAction, 
+  retrieveDataAction:fetchAppointmentsAction })(Calendar);
 
