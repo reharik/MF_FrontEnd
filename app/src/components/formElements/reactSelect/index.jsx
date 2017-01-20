@@ -234,7 +234,6 @@ class TokenAutocomplete extends React.Component {
   //HELPERS
 
   getAvailableOptions = () => {
-
     let availableOptions = [];
 
     if (this.isTresholdReached()) {
@@ -246,7 +245,7 @@ class TokenAutocomplete extends React.Component {
       }
       //filter
       availableOptions = filter(availableOptions, option => {
-        return contains(option.label, this.state.inputValue);
+        return contains(option.display, this.state.inputValue);
       });
 
     }

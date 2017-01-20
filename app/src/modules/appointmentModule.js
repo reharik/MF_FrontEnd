@@ -1,7 +1,9 @@
 import { CALL_API } from 'redux-api-middleware';
 import reducerMerge from './../utilities/reducerMerge';
+import {getISODateTime} from './../utilities/appointmentTimes';
 import config from './../utilities/configValues';
-import uuid from 'uuid'
+import uuid from 'uuid';
+import moment from 'moment';
 
 export const FETCH_APPOINTEMENTS_REQUEST = 'methodFit/calendar/FETCH_APPOINTEMENTS_REQUEST';
 export const FETCH_APPOINTEMENTS_SUCCESS = 'methodFit/client/FETCH_APPOINTEMENTS_SUCCESS';
@@ -14,7 +16,11 @@ export const SCHEDULE_APPOINTEMENT_FAILURE = 'methodFit/client/SCHEDULE_APPOINTE
 export default (state = [], action = {}) => {
   switch (action.type) {
     case SCHEDULE_APPOINTEMENT_SUCCESS: {
-      return reducerMerge(state, action.payload);
+console.log('==========action=========');
+console.log(action);
+console.log('==========END action=========');
+
+      return reducerMerge(state, action.payload.insertedItem);
     }
     case FETCH_APPOINTEMENTS_SUCCESS:
     {
@@ -23,84 +29,116 @@ export default (state = [], action = {}) => {
   }
   return state;
 }
-
-const a = uuid.v4();
-const b = uuid.v4();
-const c = uuid.v4();
-const d = uuid.v4();
-
-const getData = function() {
-  return [
-    {
-      display: 'fuck you!1',
-      startTime: '8:00 AM',
-      endTime: '9:00 AM',
-      date: new Date(),
-      id: a,
-      color: 'red'
-    },
-    {
-      display: 'fuck you!2',
-      startTime: '8:30 AM',
-      endTime: '9:30 AM',
-      date: new Date(),
-      id: b,
-      color: 'red'
-    },
-    {
-      display: 'fuck you!3',
-      startTime: '8:30 AM',
-      endTime: '9:00 AM',
-      date: new Date(),
-      id: c,
-      color: 'red'
-    },
-    {
-      display: 'fuck you!4',
-      startTime: '9:00 AM',
-      endTime: '10:00 AM',
-      date: new Date(),
-      id: d,
-      color: 'red'
-    }
-  ]
-};
+//
+// const a = uuid.v4();
+// const b = uuid.v4();
+// const c = uuid.v4();
+// const d = uuid.v4();
+//
+// const getData = function() {
+//   return [
+//     {
+//       display: 'fuck you!1',
+//       startTime: '8:00 AM',
+//       endTime: '9:00 AM',
+//       date: new Date(),
+//       id: a,
+//       color: 'red'
+//     },
+//     {
+//       display: 'fuck you!2',
+//       startTime: '8:30 AM',
+//       endTime: '9:30 AM',
+//       date: new Date(),
+//       id: b,
+//       color: 'red'
+//     },
+//     {
+//       display: 'fuck you!3',
+//       startTime: '8:30 AM',
+//       endTime: '9:00 AM',
+//       date: new Date(),
+//       id: c,
+//       color: 'red'
+//     },
+//     {
+//       display: 'fuck you!4',
+//       startTime: '9:00 AM',
+//       endTime: '10:00 AM',
+//       date: new Date(),
+//       id: d,
+//       color: 'red'
+//     }
+//   ]
+// };
 
 export function scheduleAppointment(data) {
-  console.log('=========="here"=========');
-  console.log("here");
-  console.log('==========END "here"=========');
-  data.appointmentType = data.appointmentType ? data.appointmentType.value : undefined;
-  data.startTime = data.startTime ? data.startTime.value : undefined;
-  data.clients = data.clients ? data.clients.map( x => x.value ) : [];
-
+  const startTime = getISODateTime(data.date, data.startTime);
+  const endTime = getISODateTime(data.date, data.endTime);
+  const formattedData = {...data,
+    date: startTime,
+    startTime: startTime,
+    endTime: endTime,
+    entityName: data.date};
   return {
     [CALL_API]: {
       endpoint: config.apiBase + 'appointment/scheduleAppointment',
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data),
-      types: [SCHEDULE_APPOINTEMENT_REQUEST, {
+      body: JSON.stringify(formattedData),
+      types: [{type: SCHEDULE_APPOINTEMENT_REQUEST,
+        payload:formattedData}, {
         type: SCHEDULE_APPOINTEMENT_SUCCESS,
         payload: (a, s, r) => {
-          return r.json().then(json => {
-            json.insertedItem = data;
-            return json
-          });
+           try {
+             return r.json().then(json => {
+              json.insertedItem = formattedData;
+              return json
+            });
+          } catch (ex)
+          {
+            return {success:false, error:ex};
+          }
         }
       },
         SCHEDULE_APPOINTEMENT_FAILURE]
     }
   };
-}
-
-export function fetchAppointmentAction(startDate, endDate) {
-  var payload = getData();
-  return {type: FETCH_APPOINTEMENTS_SUCCESS, payload};
 };
 
-export function fetchAppointmentsAction(startDate, endDate) {
-  var payload = getData();
-  return {type: FETCH_APPOINTEMENTS_SUCCESS, payload};
+export function fetchAppointmentAction(appointmentId) {
+  let apiUrl = `${config.apiBase}fetchAppointment/${appointmentId}`;
+  return {
+    [CALL_API]: {
+      endpoint: apiUrl,
+      method: 'GET',
+      credentials: 'include',
+      types: [FETCH_APPOINTEMENTS_REQUEST, {type:FETCH_APPOINTEMENTS_SUCCESS, payload:
+        (action, state, res) => res.json().then((json) => {
+          return json.appointments})},
+        FETCH_APPOINTEMENTS_FAILURE]
+    }
+  };
+};
+
+
+export function fetchAppointmentsAction(startDate = moment().startOf('month'),
+                                        endDate = moment().endOf('month'),
+                                        trainerId) {
+  const start = moment(startDate).format('YYYYMMDD');
+  const end = moment(endDate).format('YYYYMMDD');
+  let apiUrl = `${config.apiBase}fetchAppointments/${start}/${end}/${trainerId||''}`;
+  
+  return {
+    [CALL_API]: {
+      endpoint: apiUrl,
+      method: 'GET',
+      credentials: 'include',
+      types: [FETCH_APPOINTEMENTS_REQUEST, {type:FETCH_APPOINTEMENTS_SUCCESS, payload:
+        (action, state, res) => res.json().then((json) => {
+          return json.appointments})},
+        FETCH_APPOINTEMENTS_FAILURE]
+    }
+  };
 };

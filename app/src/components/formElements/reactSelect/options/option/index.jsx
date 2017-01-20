@@ -26,7 +26,7 @@ export default class Option extends React.Component {
   }
 
   onClick = () => {
-    this.props.handleClick(this.props.index);
+    this.props.handleClick(this.props.value);
   }
 
   render() {

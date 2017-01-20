@@ -13,88 +13,77 @@ const InputFor = ({data,
     'editor__success': !data.invalid,
     'editor__error': data.invalid
   });
-  
+
   const input = function () {
     switch (data['x-input'] || data.type) {
       case 'date-time':
       {
-        onChange = onChange
-          ? onchange
-          : moment => data.onChange({target: {name: data.name, value: moment().toISOString()}});
+        const defaultOnChange = moment => data.onChange({target: {name: data.name, value: moment.toISOString()}});
+        const _onChange = onChange || defaultOnChange;
         return (<Datepicker selected={data.value ? moment(data.value) : moment()}
           {...data}
-                            onChange={onChange}
+                            onChange={_onChange}
                             onBlur={data.onBlur}
                             className={inputStyle}/>)
       }
       case 'color-picker':
       {
-        onChange = onChange
-          ? onchange
-          : color => data.onChange({target: {name: data.name, value: color}});
+        const defaultOnChange = color => data.onChange({target: {name: data.name, value: color}});
+        const _onChange = onChange || defaultOnChange;
         data.value = data.value || "#345678";
-        return (<InputColor {...data} defaultValue={data.value} onChange={onChange}/>)
+        return (<InputColor {...data} defaultValue={data.value} onChange={_onChange}/>)
       }
       case 'select':
       {
-        onChange = onChange
-          ? onchange
-          : data.onChange;
+        const _onChange = onChange || data.onChange;
         // const onChange = option => data.onChange({target: {name: data.name, value: option.target.value}});
         const selected = selectOptions.find(x=>x.value === data.value);
         return (<TokenAutocomplete className={inputStyle} simulateSelect={true}
-                                   parseToken={ value => value.label || value }
-                                   parseOption={ value => value.label || value }
+                                   parseToken={ value => value.display || value }
+                                   parseOption={ value => value.display || value }
                                    options={selectOptions} {...data}
                                    defaultValues={selected || []}
                                    filterOptions={true}
                                    {...data}
-                                   onChange={onChange} />)
+                                   onChange={_onChange} />)
       }
       case 'multi-select':
       {
-        onChange = onChange
-          ? onchange
-          : data.onChange;
+        const _onChange = onChange || data.onChange;
 
         const selected = data.value ? data.value.map(x=> selectOptions.find(y=>y.value === x)) : [];
         return (<TokenAutocomplete className={inputStyle}
                                    defaultValues={selected}
                                    limitToOptions={true}
-                                   parseToken={ value => value.label }
-                                   parseOption={ value => value.label }
+                                   parseToken={ value => value.display }
+                                   parseOption={ value => value.display}
                                    options={selectOptions}
                                    {...data}
-                                   onChange={onChange}/>);
+                                   onChange={_onChange}/>);
       }
-      
+
       case 'textArea': {
-        onChange = onChange
-          ? onchange
-          : data.onChange;
+        const _onChange = onChange || data.onChange;
 
         return (<textarea className={inputStyle}
                        placeholder={data.placeholder}
                        name={data.name}
                        value={data.value}
-                       onChange={onChange} />)
+                       onChange={_onChange} />)
       }
       default:
       case 'number':
       case 'password':
       case 'string':
       {
-        onChange = onChange
-          ? onchange
-          : data.onChange;
-
+        const _onChange = onChange || data.onChange;
         const password = data['x-input'] === 'password' ? {type: "password"} : '';
-        return (<input className={inputStyle} 
+        return (<input className={inputStyle}
                       {...password}
                        placeholder={data.placeholder}
                        name={data.name}
                        value={data.value}
-                       onChange={onChange} />)
+                       onChange={_onChange} />)
       }
     }
   };

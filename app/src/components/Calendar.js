@@ -3,6 +3,7 @@ import ContentHeader from './ContentHeader';
 import AppointmentModal from './AppointmentModal'
 import {Calendar} from 'redux-task-calendar'
 import AppointmentContainer from './../containers/forms/AppointmentContainer'
+import moment from 'moment';
 
 class MFCalendar extends Component {
   state = {
@@ -10,31 +11,38 @@ class MFCalendar extends Component {
   };
 
   componentWillMount() {
+    this.props.fetchClientsAction();
+    this.props.fetchTrainersAction();
+
     this.config = {
-      ...this.props.config, 
-      taskClickedEvent: this.taskClickedEvent, 
+      ...this.props.config,
+      retrieveDataAction: this.props.retrieveDataAction,
+      taskClickedEvent: this.taskClickedEvent,
       openSpaceClickedEvent:this.openSpaceClickedEvent }
   }
-  
-  taskClickedEvent = () => {
+
+  taskClickedEvent = (id, task, calendarName) => {
     this.setState({
-      isOpen: true
-    });
-  };
-  
-  openSpaceClickedEvent = () => {
-    this.setState({
-      isOpen: true
+      isOpen: true,
+      args: {apptId: id, task, calendarName}
     });
   };
 
-  onClose = (e) => {
-    e.preventDefault();
+  openSpaceClickedEvent = (day, time, calendarName) => {
+    const formattedTime = moment(time,'h:mm A').format('hh:mm A');
     this.setState({
-      isOpen: false
+      isOpen: true,
+      args: {day, startTime:formattedTime, calendarName}
     });
   };
-  
+
+  onClose = () => {
+    this.setState({
+      isOpen: false,
+      args: {}
+    });
+  };
+
   render() {
     return (
       <div id='mainCalendar'>
@@ -56,7 +64,7 @@ class MFCalendar extends Component {
         <AppointmentModal
           isOpen={this.state.isOpen}
           onClose={this.onClose}
-          form={<AppointmentContainer cancel={this.onClose} />}
+          form={<AppointmentContainer args={this.state.args} cancel={this.onClose} />}
           title={this.props.title} />
       </div>);
   };
