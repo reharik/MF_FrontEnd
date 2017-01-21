@@ -11,9 +11,8 @@ const {notifClear} = notifActions;
 import uuid from 'uuid';
 
 const mapStateToProps = (state, props) => {
-  const trainer = state.trainers.filter(x=>x.id === props.params.trainerId)[0];
   const clients = state.clients.map(x=> ({ value:x.id , label: `${x.contact.lastName} ${x.contact.firstName}` }));
-  const jsonModel = formJsonSchema(state.schema.definitions.trainer, trainer);
+  const jsonModel = formJsonSchema(state.schema.definitions.trainer);
   jsonModel.confirmPassword = {...jsonModel.password};
   jsonModel.confirmPassword.name  = 'confirmPassword';
   jsonModel.confirmPassword.rules = [{rule:'equalTo', compareField:'password'}];

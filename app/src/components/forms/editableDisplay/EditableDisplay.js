@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
 import EDFooter from './EDFooter.js';
+import {actions as notifActions} from 'redux-notifications';
 
 class EditableDisplay extends Component {
 
@@ -20,7 +21,7 @@ class EditableDisplay extends Component {
   toggleEdit = (e,rollBack) => {
     e.preventDefault();
     if (rollBack) {
-      this.props.notifClear(this.props.formName);
+      this.props.notifClear && this.props.notifClear(this.props.formName);
       const fields = Form.buildModel(this.props.formName, this.props.model, {onChange: this.changeHandler});
       this.setState({fields, editing: !this.state.editing});
     }else {
@@ -37,6 +38,9 @@ class EditableDisplay extends Component {
       }
       if (x.props.data) {
         const data = fields[x.props.data];
+        if(x.props.bindChange){
+          return React.cloneElement(x, {editing, data:data, onChange: x.props.bindChange.bind(this)});
+        }
         return React.cloneElement(x, {editing, data:data});
       }
       let clonedItems = this.setEditing(x.props.children, editing, fields);

@@ -3,11 +3,13 @@ import ContentHeader from './ContentHeader';
 import AppointmentModal from './AppointmentModal'
 import {Calendar} from 'redux-task-calendar'
 import AppointmentContainer from './../containers/forms/AppointmentContainer'
+import UpdateAppointmentContainer from './../containers/forms/UpdateAppointmentContainer'
 import moment from 'moment';
 
 class MFCalendar extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
+    form: null
   };
 
   componentWillMount() {
@@ -21,10 +23,24 @@ class MFCalendar extends Component {
       openSpaceClickedEvent:this.openSpaceClickedEvent }
   }
 
+  updateAppointment = (args) => {
+    return (<AppointmentModal
+
+      isOpen={true}
+      onClose={this.onClose}
+      form={<UpdateAppointmentContainer args={args} cancel={this.onClose} />}
+      title={this.props.title} />)
+  };
+
+  scheduleAppointment = (args) => (<AppointmentModal
+    isOpen={true}
+    onClose={this.onClose}
+    form={<AppointmentContainer args={args} cancel={this.onClose} />}
+    title={this.props.title} />);
+
   taskClickedEvent = (id, task, calendarName) => {
     this.setState({
-      isOpen: true,
-      args: {apptId: id, task, calendarName}
+      form: this.updateAppointment({apptId: id, task, calendarName})
     });
   };
 
@@ -32,14 +48,14 @@ class MFCalendar extends Component {
     const formattedTime = moment(time,'h:mm A').format('hh:mm A');
     this.setState({
       isOpen: true,
-      args: {day, startTime:formattedTime, calendarName}
+      form: this.scheduleAppointment({day, startTime:formattedTime, calendarName})
     });
   };
 
   onClose = () => {
     this.setState({
       isOpen: false,
-      args: {}
+      form: null
     });
   };
 
@@ -61,11 +77,7 @@ class MFCalendar extends Component {
             <Calendar config={this.config}/>
           </div>
         </div>
-        <AppointmentModal
-          isOpen={this.state.isOpen}
-          onClose={this.onClose}
-          form={<AppointmentContainer args={this.state.args} cancel={this.onClose} />}
-          title={this.props.title} />
+        {this.state.form}
       </div>);
   };
 }

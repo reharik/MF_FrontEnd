@@ -6,8 +6,7 @@ import states from './../../constants/states'
 import { addClient, fetchClientAction } from './../../modules/clientModule';
 
 const mapStateToProps = (state, props) => {
-  const client = state.clients.filter(x=>x.id === props.params.clientId)[0];
-  const model = formJsonSchema(state.schema.definitions.client, client);
+  const model = formJsonSchema(state.schema.definitions.client);
   return {
     model,
     states

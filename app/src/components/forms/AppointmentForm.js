@@ -7,16 +7,9 @@ import moment from 'moment'
 
 class AppointmentForm extends Component {
   componentWillMount() {
-    this.loadData();
+    this.props.notifClear('appointmentForm');
     const fields = Form.buildModel('appointmentForm',this.props.model, {onChange: this.changeHandler});
     this.setState({fields, formIsValid: false})
-  }
-
-  loadData() {
-    this.props.notifClear('appointmentForm');
-    if (this.props.apptId) {
-      this.props.fetchAppointmentAction(this.props.apptId);
-    }
   }
 
   onSubmitHandler = (e) => {
