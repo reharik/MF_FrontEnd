@@ -2,6 +2,7 @@ import React, {Component}from 'react';
 import {Notifs} from 'redux-notifications';
 import EditableDisplay from './../../components/forms/editableDisplay/EditableDisplay';
 import DisplayFor from './../formElements/elementsFor/DisplayFor';
+import HiddenFor from './../formElements/elementsFor/HiddenFor';
 import EditableFor from './../formElements/elementsFor/EditableFor';
 import moment from 'moment'
 
@@ -58,11 +59,13 @@ class AppointmentForm extends Component {
     return (
       <div className='form'>
         <EditableDisplay model={this.props.model}
-                         submitHandler={this.props.scheduleAppointment}
+                         submitHandler={this.props.updateAppointment}
                          sectionHeader="Appointment Info"
                          formName="ApointmentInfo">
           <div className="editableDisplay__content__form__row">
-            {/* logic for if admin show dropdown*/}
+            <HiddenFor data="id" />
+            {/*<DisplayFor data="trainer" />
+             logic for if admin show dropdown*/}
           </div>
           <div className="editableDisplay__content__form__row">
             <EditableFor data="clients" selectOptions={this.props.clients}/>

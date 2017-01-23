@@ -28,6 +28,14 @@ export function getISODateTime(date,time) {
     return undefined;
   }
   const formattedTime = moment(time, 'hh:mm A').format('HHmm');
-  let dateTime = `${date}T${formattedTime}`;
+  var moment2 = moment(date, 'YYYYMMDD');
+    const formattedDate = moment2.format('YYYYMMDD');
+  console.log('==========formattedDate=========');
+  console.log(formattedDate);
+  console.log('==========END formattedDate=========');
+  let dateTime = `${formattedDate}T${formattedTime}`;
+console.log('==========dateTime=========');
+console.log(dateTime);
+console.log('==========END dateTime=========');
   return moment(dateTime).toISOString();
 }
