@@ -20,7 +20,10 @@ class TrainerForm extends Component {
 
   onSubmitHandler = (e) => {
     e.preventDefault();
-    const result = Form.trySubmitForm(this.state.fields, this.props.hireTrainer);
+    const result = Form.prepareSubmission(this.state.fields);
+    if(result.formIsValid){
+      this.props.hireTrainer(result.fields);
+    }
     this.setState(result);
   };
 

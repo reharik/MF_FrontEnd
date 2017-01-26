@@ -84,9 +84,6 @@ export function scheduleAppointment(data) {
     startTime: startTime,
     endTime: endTime,
     entityName: data.date};
-  console.log('==========formattedData=========');
-  console.log(formattedData);
-  console.log('==========END formattedData=========');
   return {
     [CALL_API]: {
       endpoint: config.apiBase + 'appointment/scheduleAppointment',
@@ -101,6 +98,7 @@ export function scheduleAppointment(data) {
            try {
              return r.json().then(json => {
               json.upsertedItem = formattedData;
+               json.upsertedItem.id = json.result.appointmentId;
               return json
             });
           } catch (ex)
@@ -124,7 +122,7 @@ export function updateAppointment(data) {
     date: startTime,
     startTime: startTime,
     endTime: endTime,
-    entityName: data.date};
+    entityName: moment(data.date).format('YYYYMMDD')};
   console.log('==========formattedData=========');
   console.log(formattedData);
   console.log('==========END formattedData=========');

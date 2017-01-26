@@ -31,14 +31,14 @@ const DisplayFor = ({data, displayStyle, selectOptions}) => {
         // thought about being defensive here but decided if it's not in the values then fuck it throw.
         const textValues = data.value.map(x => selectOptions.find(y =>  y.value === x).display);
         return (
-          <ul>
+          <ul className="display__container__value">
             {textValues.map((x,i) => (<li key={i}>{x}</li>))}
           </ul>
         )
       }
       default:
       {
-        return (<span className="display__container__value">{data.value.display || data.value}</span>)
+        return (<span className="display__container__value">{data.value.display || data.value.id || data.value}</span>)
       }
     }
   };

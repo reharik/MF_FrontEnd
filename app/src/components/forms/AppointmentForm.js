@@ -14,9 +14,11 @@ class AppointmentForm extends Component {
 
   onSubmitHandler = (e) => {
     e.preventDefault();
-    const result = Form.trySubmitForm(this.state.fields, this.props.scheduleAppointment);
+    const result = Form.prepareSubmission(this.state.fields);
     this.setState(result);
     if(result.formIsValid) {
+      result.fields.trainer = result.fields.trainer.id;
+      this.props.scheduleAppointment(result.fields);
       this.props.cancel()
     }
   };

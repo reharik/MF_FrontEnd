@@ -27,11 +27,10 @@ const mapStateToProps = (state, props) => {
   const model = formJsonSchema(state.schema.definitions.appointment, appointment);
   model.startTime.value = moment(model.startTime.value).format('hh:mm A');
   model.endTime.value = moment(model.endTime.value).format('hh:mm A');
-  // model.trainer.value = {id: model.trainer.value.id };
-  // var trainer = state.trainers.find(x=> x.id === model.trainer.value.id);
-  // model.trainer.value.display = trainer ? `${trainer.contact.lastName}, ${trainer.contact.firstName}` : '';
+  model.trainer.value = {id: model.trainer.value.id };
+  var trainer = state.trainers.find(x=> x.id === model.trainer.value.id);
+  model.trainer.value.display = trainer ? `${trainer.contact.lastName}, ${trainer.contact.firstName}` : '';
   const clients = state.clients.map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
-
   // please put this shit in a config somewhere
   const times = generateAllTimes(15, 7, 7);
   return {

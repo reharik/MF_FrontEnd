@@ -21,7 +21,10 @@ class ClientForm extends Component {
 
   onSubmitHandler = (e) => {
     e.preventDefault();
-    const result = Form.trySubmitForm(this.state.fields, this.props.addClient);
+    const result = Form.prepareSubmission(this.state.fields);
+    if(result.formIsValid){
+      this.props.addClient(result.fields);
+    }
     this.setState(result);
   };
 

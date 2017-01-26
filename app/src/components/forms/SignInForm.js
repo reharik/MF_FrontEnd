@@ -11,7 +11,13 @@ class SignInForm extends Component {
 
   onSubmitHandler = (e) => {
     e.preventDefault();
-    const result = Form.trySubmitForm(this.state.fields, this.props.loginUser);
+    const result = Form.prepareSubmission(this.state.fields);
+    console.log(`==========result=========`);
+    console.log(result);
+    console.log(`==========END result=========`);
+    if(result.formIsValid){
+      this.props.loginUser(result.fields);
+    }
     this.setState(result);
   };
 

@@ -32,7 +32,9 @@ const mapStateToProps = (state, props) => {
   var trainer = state.trainers.find(x=> x.id === model.trainer.value.id);
   model.trainer.value.display = trainer ? `${trainer.contact.lastName}, ${trainer.contact.firstName}` : '';
   const clients = state.clients.map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
-
+console.log(`=========model.trainer.value=========`);
+console.log(model.trainer);
+console.log(`==========END model.trainer.value=========`);
   // please put this shit in a config somewhere
   const times = generateAllTimes(15, 7, 7);
   return {

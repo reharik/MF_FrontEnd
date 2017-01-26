@@ -198,9 +198,9 @@ class TokenAutocomplete extends React.Component {
     this.focus();
   };
 
-  addSelectedValue = () => {
+  addSelectedValue = (value) => {
     const areOptionsAvailable = this.getAvailableOptions().length;
-    const newValue = areOptionsAvailable ? this.refs.options.getSelected() : void 0;
+    const newValue = areOptionsAvailable ? value : void 0;
     const isAlreadySelected = includes(this.state.values, newValue);
     const shouldAddValue = !!newValue && !isAlreadySelected;
 
@@ -208,14 +208,22 @@ class TokenAutocomplete extends React.Component {
       let stateValues;
       let fieldValues;
       if(this.props.simulateSelect) {
+        console.log(`==========newValue1=========`);
+        console.log(newValue);
+        console.log(`==========END newValue=========`);
+
         stateValues = newValue;
         fieldValues = newValue.value;
       } else {
         // must be better way to do this.  maybe splice
+console.log(`==========newValue2=========`);
+console.log(newValue);
+console.log(`==========END newValue=========`);
         this.state.values.push(newValue);
         stateValues = this.state.values;
         fieldValues = this.state.values.map(x=>x.value);
       }
+
       this.props.onChange({target:{ name:this.props.name, value:fieldValues}}, stateValues, newValue);
       const valueArray = isArray(stateValues) ? stateValues: [stateValues];
       this.setState({
@@ -297,6 +305,9 @@ class TokenAutocomplete extends React.Component {
 
   renderTokens = () => {
     return this.state.values.map((value, key) => {
+      console.log(`==========value=========`);
+      console.log(value);
+      console.log(`==========END value=========`);
       return (
         <Token
           key={key}

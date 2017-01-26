@@ -5,14 +5,16 @@ import DisplayFor from './../formElements/elementsFor/DisplayFor';
 import HiddenFor from './../formElements/elementsFor/HiddenFor';
 import EditableFor from './../formElements/elementsFor/EditableFor';
 import moment from 'moment'
+import {Form} from 'freakin-react-forms';
 
 class AppointmentForm extends Component {
+
   componentWillMount() {
     this.loadData();
   }
 
   loadData() {
-    this.props.notifClear('appointmentForm');
+    // this.props.notifClear('appointmentForm');
     if (this.props.apptId) {
       this.props.fetchAppointmentAction(this.props.apptId);
     }
@@ -54,18 +56,29 @@ class AppointmentForm extends Component {
     this.setState({...this.state.fields});
   };
 
+  submitHandler = (fields) => {
+    const result = Form.prepareSubmission(fields);
+    if(result.formIsValid){
+      result.fields.trainer = result.fields.trainer.id;
+      this.props.updateAppointment(result.fields);
+      this.props.cancel();
+    }
+    return result;
+  };
+
   render() {
     // const model = this.state.fields;
     return (
       <div className='form'>
         <EditableDisplay model={this.props.model}
-                         submitHandler={this.props.updateAppointment}
+                         submitHandler={this.submitHandler}
+                         overrideSubmit={true}
                          sectionHeader="Appointment Info"
                          formName="ApointmentInfo">
           <div className="editableDisplay__content__form__row">
             <HiddenFor data="id" />
-            {/*<DisplayFor data="trainer" />
-             logic for if admin show dropdown*/}
+            <DisplayFor data="trainer" />
+             {/* logic for if admin show dropdown*/}
           </div>
           <div className="editableDisplay__content__form__row">
             <EditableFor data="clients" selectOptions={this.props.clients}/>

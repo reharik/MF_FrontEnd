@@ -36,7 +36,7 @@ const InputFor = ({data,
       case 'select':
       {
         const _onChange = onChange || data.onChange;
-        // const onChange = option => data.onChange({target: {name: data.name, value: option.target.value}});
+
         const selected = selectOptions.find(x=>x.value === data.value);
         return (<TokenAutocomplete className={inputStyle} simulateSelect={true}
                                    parseToken={ value => value.display || value }
@@ -50,13 +50,13 @@ const InputFor = ({data,
       case 'multi-select':
       {
         const _onChange = onChange || data.onChange;
+        const selected = data.value ? data.value.map(x=> selectOptions.find(y=> y.value === x)) : [];
 
-        const selected = data.value ? data.value.map(x=> selectOptions.find(y=>y.value === x)) : [];
         return (<TokenAutocomplete className={inputStyle}
                                    defaultValues={selected}
                                    limitToOptions={true}
                                    parseToken={ value => value.display }
-                                   parseOption={ value => value.display}
+                                   parseOption={ value => value.display }
                                    options={selectOptions}
                                    {...data}
                                    onChange={_onChange}/>);
