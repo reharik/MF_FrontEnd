@@ -1,7 +1,7 @@
-import { CALL_API } from 'redux-api-middleware';
+import { requestStates } from '../sagas/requestSaga';
 import configValues from './../utilities/configValues';
-export const LOGIN_SUCCESS = 'methodFit/auth/LOGIN_SUCCESS';
-export const LOGIN_REQUEST = 'methodFit/auth/LOGIN_REQUEST';
+
+export const LOGIN = requestStates('login', 'auth');
 export const LOGOUT_SUCCESS = 'methodFit/auth/LOGOUT_SUCCESS';
 
 const initialState = {
@@ -12,7 +12,7 @@ const initialState = {
 
 export default (state = initialState, action = {}) => {
     switch (action.type) {
-      case LOGIN_SUCCESS:
+      case LOGIN.SUCCESS:
             localStorage.setItem('id_token', action.payload.user.id);
             localStorage.setItem('user', JSON.stringify(action.payload.user));
             return Object.assign({}, state.auth, {
@@ -49,16 +49,32 @@ export function logoutUser() {
 
 export function loginUser(data) {
   return {
-    [CALL_API]: {
-      endpoint: configValues.apiBase+'auth',
+    type: LOGIN.REQUEST,
+    states: LOGIN,
+    url: configValues.apiBase + 'auth',
+    params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: `username=${data.userName}&password=${data.password}`,
-      types: [LOGIN_REQUEST, LOGIN_SUCCESS, 'FAILURE']
+      body: `username=${data.userName}&password=${data.password}`
     }
-  };
-}
+  }
+};
+
+
+
+// export function loginUser(data) {
+//   return {
+//     [CALL_API]: {
+//       endpoint: configValues.apiBase+'auth',
+//       method: 'POST',
+//       credentials: 'include',
+//       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+//       body: `username=${data.userName}&password=${data.password}`,
+//       types: [LOGIN_REQUEST, LOGIN_SUCCESS, 'FAILURE']
+//     }
+//   };
+// }
 
 //
 // export function loginUser(data) {

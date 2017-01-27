@@ -61,7 +61,7 @@ class EditableDisplay extends Component {
     } else {
       result = Form.prepareSubmission(this.state.fields);
       if(result.formIsValid){
-        this.props.submitHandler(result.fields);
+        this.props.submitHandler(result.fieldValues);
       }
     }
     this.setState({...result, editing: !result.formIsValid});

@@ -22,7 +22,7 @@ class TrainerForm extends Component {
     e.preventDefault();
     const result = Form.prepareSubmission(this.state.fields);
     if(result.formIsValid){
-      this.props.hireTrainer(result.fields);
+      this.props.hireTrainer(result.fieldValues);
     }
     this.setState(result);
   };
@@ -102,6 +102,11 @@ class TrainerForm extends Component {
                 </div>
                 <div className="form__section__row">
                   <SubmissionFor data={model.confirmPassword}/>
+                </div>
+                <div className="form__section__row">
+                  <SubmissionFor selectOptions={this.props.roles}
+                                data={model.role} 
+                 />
                 </div>
               </div>
               <div>

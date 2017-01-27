@@ -6,9 +6,9 @@ import formJsonSchema from '../../utilities/formJsonSchema';
 import states from './../../constants/states'
 import { hireTrainer, fetchTrainerAction } from './../../modules/trainerModule';
 import { fetchClientsAction } from './../../modules/clientModule';
+import roles from './../../constants/roles';
 import {actions as notifActions} from 'redux-notifications';
 const {notifClear} = notifActions;
-import uuid from 'uuid';
 
 const mapStateToProps = (state, props) => {
   const clients = state.clients.map(x=> ({ value:x.id , label: `${x.contact.lastName} ${x.contact.firstName}` }));
@@ -17,11 +17,12 @@ const mapStateToProps = (state, props) => {
   jsonModel.confirmPassword.name  = 'confirmPassword';
   jsonModel.confirmPassword.rules = [{rule:'equalTo', compareField:'password'}];
   const model = Form.buildModel('trainerForm', jsonModel);
-
+  
   return {
     model,
     states,
-    clients
+    clients,
+    roles
   }
 };
 

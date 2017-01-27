@@ -1,11 +1,11 @@
-import { CALL_API } from 'redux-api-middleware';
 import config from './../utilities/configValues';
+import { requestStates } from '../sagas/requestSaga';
 
-export const SCHEMA_SUCCESS = 'methodFit/schema/SCHEMA_SUCCESS';
+export const SCHEMA = requestStates('schema');
 
 export default (state = {definitions: {}}, action = {}) => {
   switch (action.type) {
-    case SCHEMA_SUCCESS:
+    case SCHEMA.SUCCESS:
       return action.payload;
     default:
       return state;
@@ -14,11 +14,12 @@ export default (state = {definitions: {}}, action = {}) => {
 
 export function getJsonSchema() {
   return {
-    [CALL_API]: {
-      endpoint: config.apiBase + 'swagger',
+    type: SCHEMA.REQUEST,
+    states: SCHEMA,
+    url: config.apiBase + 'swagger',
+    params: {
       method: 'GET',
-      headers: {'Content-Type': 'application/json'},
-      types: ['REQUEST', SCHEMA_SUCCESS, 'FAILURE']
+      headers: {'Content-Type': 'application/json'}
     }
   };
 }

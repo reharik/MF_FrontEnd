@@ -30,12 +30,18 @@ export function getISODateTime(date,time) {
   const formattedTime = moment(time, 'hh:mm A').format('HHmm');
   var moment2 = moment(date, 'YYYYMMDD');
     const formattedDate = moment2.format('YYYYMMDD');
-  console.log('==========formattedDate=========');
-  console.log(formattedDate);
-  console.log('==========END formattedDate=========');
   let dateTime = `${formattedDate}T${formattedTime}`;
-console.log('==========dateTime=========');
-console.log(dateTime);
-console.log('==========END dateTime=========');
   return moment(dateTime).toISOString();
+}
+
+export function syncApptTypeAndTime (apptType, startTime) {
+  const time = moment(startTime,'hh:mm A');
+  let endTime;
+  if(apptType === 'halfHour'){
+    endTime = time.add(30, 'm');
+  }
+  if(apptType === 'fullHour' || apptType === 'pair'){
+    endTime = time.add(60, 'm');
+  }
+  return endTime.format('h:mm A');
 }

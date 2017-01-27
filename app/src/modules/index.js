@@ -8,7 +8,8 @@ export {loginUser, logoutUser} from './authModule';
 export {menuItemClicked, navBreadCrumbClicked } from './menuModule';
 export {scheduleAppointment,
         fetchAppointmentAction,
-        fetchAppointmentsAction } from './appointmentModule';
+        fetchAppointmentsAction,
+  updateTaskViaDND} from './appointmentModule';
 
 export default { 
   auth: authReducer, 

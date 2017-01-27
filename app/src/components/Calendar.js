@@ -19,6 +19,7 @@ class MFCalendar extends Component {
     this.config = {
       ...this.props.config,
       retrieveDataAction: this.props.retrieveDataAction,
+      updateTaskViaDND: this.props.updateTaskViaDND,
       taskClickedEvent: this.taskClickedEvent,
       openSpaceClickedEvent:this.openSpaceClickedEvent }
   }

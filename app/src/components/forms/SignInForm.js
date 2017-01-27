@@ -16,7 +16,7 @@ class SignInForm extends Component {
     console.log(result);
     console.log(`==========END result=========`);
     if(result.formIsValid){
-      this.props.loginUser(result.fields);
+      this.props.loginUser(result.fieldValues);
     }
     this.setState(result);
   };

@@ -4,57 +4,44 @@ import { browserHistory } from 'react-router';
 import { denormalizeTrainer } from './../utilities/denormalize';
 import selectn from 'selectn';
 import reducerMerge from './../utilities/reducerMerge';
+import { requestStates } from '../sagas/requestSaga';
 
-export const HIRE_TRAINER_REQUEST = 'methodFit/trainer/HIRE_TRAINER_REQUEST';
-export const HIRE_TRAINER_SUCCESS = 'methodFit/trainer/HIRE_TRAINER_SUCCESS';
-export const HIRE_TRAINER_FAILURE = 'methodFit/trainer/HIRE_TRAINER_FAILURE';
-export const UPDATE_TRAINER_PASSWORD_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_PASSWORD_REQUEST';
-export const UPDATE_TRAINER_PASSWORD_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_PASSWORD_SUCCESS';
-export const UPDATE_TRAINER_PASSWORD_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_PASSWORD_FAILURE';
-export const UPDATE_TRAINER_CONTACT_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_CONTACT_REQUEST';
-export const UPDATE_TRAINER_CONTACT_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_CONTACT_SUCCESS';
-export const UPDATE_TRAINER_CONTACT_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_CONTACT_FAILURE';
-export const UPDATE_TRAINER_ADDRESS_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_ADDRESS_REQUEST';
-export const UPDATE_TRAINER_ADDRESS_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_ADDRESS_SUCCESS';
-export const UPDATE_TRAINER_ADDRESS_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_ADDRESS_FAILURE';
-export const UPDATE_TRAINER_CLIENTS_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_CLIENTS_REQUEST';
-export const UPDATE_TRAINER_CLIENTS_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_CLIENTS_SUCCESS';
-export const UPDATE_TRAINER_CLIENTS_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_CLIENTS_FAILURE';
-export const UPDATE_TRAINER_INFO_REQUEST = 'methodFit/trainer/UPDATE_TRAINER_INFO_REQUEST';
-export const UPDATE_TRAINER_INFO_SUCCESS = 'methodFit/trainer/UPDATE_TRAINER_INFO_SUCCESS';
-export const UPDATE_TRAINER_INFO_FAILURE = 'methodFit/trainer/UPDATE_TRAINER_INFO_FAILURE';
-export const TRAINER_REQUEST = 'methodFit/trainer/TRAINER_REQUEST';
-export const TRAINER_SUCCESS = 'methodFit/trainer/TRAINER_SUCCESS';
-export const TRAINER_FAILURE = 'methodFit/trainer/TRAINER_FAILURE';
-export const TRAINER_LIST_REQUEST = 'methodFit/trainer/TRAINER_LIST_REQUEST';
-export const TRAINER_LIST_SUCCESS = 'methodFit/trainer/TRAINER_LIST_SUCCESS';
-export const TRAINER_LIST_FAILURE = 'methodFit/trainer/TRAINER_LIST_FAILURE';
+export const HIRE_TRAINER = requestStates('hire_trainer', 'trainer');
+export const UPDATE_TRAINER_PASSWORD = requestStates('update_trainer_password', 'trainer');
+export const UPDATE_TRAINER_CONTACT = requestStates('update_trainer_contact', 'trainer');
+export const UPDATE_TRAINER_ADDRESS = requestStates('update_trainer_address', 'trainer');
+export const UPDATE_TRAINER_CLIENTS = requestStates('update_trainer_clients', 'trainer');
+export const UPDATE_TRAINER_INFO = requestStates('update_trainer_info', 'trainer');
+export const TRAINER_LIST = requestStates('trainer_list', 'trainer');
+export const TRAINER = requestStates('trainer');
 
 export default (state = [], action = {}) => {
   switch (action.type) {
-    case HIRE_TRAINER_REQUEST:
-    case TRAINER_REQUEST:
-    case TRAINER_LIST_REQUEST: {
+    case HIRE_TRAINER.REQUEST:
+    case TRAINER.REQUEST:
+    case TRAINER_LIST.REQUEST: {
       console.log('HIRE_TRAINER_REQUEST');
       return state;
     }
-    case TRAINER_SUCCESS: 
-    case TRAINER_LIST_SUCCESS: {
+    case TRAINER.SUCCESS: {
       return reducerMerge(state, action.payload);
     }
-    case HIRE_TRAINER_SUCCESS: {
-      var insertedItem = selectn('payload.hiredTrainer', action);
+    case TRAINER_LIST.SUCCESS: {
+      return reducerMerge(state, action.payload.trainers);
+    }
+    case HIRE_TRAINER.SUCCESS: {
+      var insertedItem = selectn('action.insertedItem', action);
       insertedItem.id = selectn('payload.result.handlerResult.trainerId',action);
 
       return insertedItem.id ? [...state, denormalizeTrainer(insertedItem)] : state;
     }
-    case UPDATE_TRAINER_INFO_FAILURE:
-    case HIRE_TRAINER_FAILURE: {
+    case UPDATE_TRAINER_INFO.FAILURE:
+    case HIRE_TRAINER.FAILURE: {
       return state;
     }
 
-    case UPDATE_TRAINER_INFO_SUCCESS: {
-      let update = selectn('payload.update', action);
+    case UPDATE_TRAINER_INFO.SUCCESS: {
+      let update = selectn('action.update', action);
 
       return state.map(x => {
         if(x.id === update.id) {
@@ -67,13 +54,13 @@ export default (state = [], action = {}) => {
       });
     }
 
-    case UPDATE_TRAINER_PASSWORD_SUCCESS: {
+    case UPDATE_TRAINER_PASSWORD.SUCCESS: {
       // don't store the password in state
       return state;
     }
 
-    case UPDATE_TRAINER_CONTACT_SUCCESS: {
-      let update = selectn('payload.update', action);
+    case UPDATE_TRAINER_CONTACT.SUCCESS: {
+      let update = selectn('action.update', action);
 
       return state.map(x => {
         if(x.id === update.id) {
@@ -90,8 +77,8 @@ export default (state = [], action = {}) => {
       });
     }
 
-    case UPDATE_TRAINER_ADDRESS_SUCCESS: {
-      let update = selectn('payload.update', action);
+    case UPDATE_TRAINER_ADDRESS.SUCCESS: {
+      let update = selectn('action.update', action);
 
       return state.map(x => {
         if(x.id === update.id) {
@@ -112,8 +99,8 @@ export default (state = [], action = {}) => {
       });
     }
 
-    case UPDATE_TRAINER_CLIENTS_SUCCESS: {
-      let update = selectn('payload.update', action);
+    case UPDATE_TRAINER_CLIENTS.SUCCESS: {
+      let update = selectn('action.update', action);
 
       return state.map(x => {
         if(x.id === update.id) {
@@ -129,7 +116,6 @@ export default (state = [], action = {}) => {
   }
 }
 
-
 export function updateTrainerInfo(data) {
   const item = {
     id: data.id,
@@ -140,22 +126,15 @@ export function updateTrainerInfo(data) {
   };
 
   return {
-    [CALL_API]: {
-      endpoint: config.apiBase + 'trainer/updateTrainerInfo',
+    type: UPDATE_TRAINER_INFO.REQUEST,
+    states: UPDATE_TRAINER_INFO,
+    url: config.apiBase + 'trainer/updateTrainerInfo',
+    update:data,
+    params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(item),
-      types: [UPDATE_TRAINER_INFO_REQUEST, {
-        type: UPDATE_TRAINER_INFO_SUCCESS,
-        payload: (a, s, r) => {
-          return r.json().then(json => {
-            json.update = item;
-            return json
-          });
-        }
-      },
-        UPDATE_TRAINER_INFO_FAILURE]
+      body: JSON.stringify(item)
     }
   };
 }
@@ -166,21 +145,14 @@ export function updateTrainerPassword(data) {
     password:data.password
   };
   return {
-    [CALL_API]: {
-      endpoint: config.apiBase + 'trainer/updateTrainerPassword',
+    type: UPDATE_TRAINER_PASSWORD.REQUEST,
+    states: UPDATE_TRAINER_PASSWORD,
+    url: config.apiBase + 'trainer/updateTrainerPassword',
+    params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(item),
-      types: [UPDATE_TRAINER_PASSWORD_REQUEST, {
-        type: UPDATE_TRAINER_PASSWORD_SUCCESS,
-        payload: (a, s, r) => {
-          return r.json().then(json => {
-            return json
-          });
-        }
-      },
-        UPDATE_TRAINER_PASSWORD_FAILURE]
+      body: JSON.stringify(item)
     }
   };
 }
@@ -193,22 +165,15 @@ export function updateTrainerContact(data) {
     email: data.email
   };
   return {
-    [CALL_API]: {
-      endpoint: config.apiBase + 'trainer/updateTrainerContact',
+    type: UPDATE_TRAINER_CONTACT.REQUEST,
+    states: UPDATE_TRAINER_CONTACT,
+    url: config.apiBase + 'trainer/updateTrainerContact',
+    update:data,
+    params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(item),
-      types: [UPDATE_TRAINER_CONTACT_REQUEST, {
-        type: UPDATE_TRAINER_CONTACT_SUCCESS,
-        payload: (a, s, r) => {
-          return r.json().then(json => {
-            json.update = item;
-            return json
-          });
-        }
-      },
-        UPDATE_TRAINER_CONTACT_FAILURE]
+      body: JSON.stringify(item)
     }
   };
 }
@@ -223,26 +188,18 @@ export function updateTrainerAddress(data) {
     zipCode: data.zipCode
   };
   return {
-    [CALL_API]: {
-      endpoint: config.apiBase + 'trainer/updateTrainerAddress',
+    type: UPDATE_TRAINER_ADDRESS.REQUEST,
+    states: UPDATE_TRAINER_ADDRESS,
+    url: config.apiBase + 'trainer/updateTrainerAddress',
+    update:data,
+    params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(item),
-      types: [UPDATE_TRAINER_ADDRESS_REQUEST, {
-        type: UPDATE_TRAINER_ADDRESS_SUCCESS,
-        payload: (a, s, r) => {
-          return r.json().then(json => {
-            json.update = item;
-            return json
-          });
-        }
-      },
-        UPDATE_TRAINER_ADDRESS_FAILURE]
+      body: JSON.stringify(item)
     }
   };
 }
-
 
 export function updateTrainersClients(data) {
   const item = {
@@ -251,47 +208,37 @@ export function updateTrainersClients(data) {
   };
   
   return {
-    [CALL_API]: {
-      endpoint: config.apiBase + 'trainer/updateTrainersClients',
+    type: UPDATE_TRAINER_CLIENTS.REQUEST,
+    states: UPDATE_TRAINER_CLIENTS,
+    url: config.apiBase + 'trainer/updateTrainersClients',
+    params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(item),
-      types: [UPDATE_TRAINER_CLIENTS_REQUEST, {
-        type: UPDATE_TRAINER_CLIENTS_SUCCESS,
-        payload: (a, s, r) => {
-          return r.json().then(json => {
-            json.update = item;
-            return json
-          });
-        }
-      },
-        UPDATE_TRAINER_CLIENTS_FAILURE]
+      body: JSON.stringify(item)
     }
   };
 }
+
+const successFunction = (action, payload) => {
+  browserHistory.push('/trainers');
+  return {type: action.states.SUCCESS, action, payload};
+};
 
 export function hireTrainer(data) {
   data.state = data.state ? data.state.value : undefined;
   data.clients = data.clients ? data.clients.map(x=> x.value) : [];
   return {
-    [CALL_API]: {
-      endpoint: config.apiBase + 'trainer/hireTrainer',
+    type: HIRE_TRAINER.REQUEST,
+    states: HIRE_TRAINER,
+    url: config.apiBase + 'trainer/hireTrainer',
+    insertedItem: data,
+    successFunction,
+    params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data),
-      types: [HIRE_TRAINER_REQUEST, {
-        type: HIRE_TRAINER_SUCCESS,
-        payload: (a, s, r) => {
-          browserHistory.push('/trainers');
-          return r.json().then(json => {
-            json.hiredTrainer = data;
-            return json
-          });
-        }
-      },
-        HIRE_TRAINER_FAILURE]
+      body: JSON.stringify(data)
     }
   };
 }
@@ -299,13 +246,12 @@ export function hireTrainer(data) {
 export function fetchTrainerAction(id){
   let apiUrl = config.apiBase + 'trainer/' + id;
   return {
-    [CALL_API]: {
-      endpoint: apiUrl,
+    type: TRAINER.REQUEST,
+    states: TRAINER,
+    url: apiUrl,
+    params: {
       method: 'GET',
-      credentials: 'include',
-      types: [TRAINER_REQUEST, {type:TRAINER_SUCCESS, payload:
-        (action, state, res) => res.json()},
-        TRAINER_FAILURE]
+      credentials: 'include'
     }
   };
 }
@@ -313,15 +259,12 @@ export function fetchTrainerAction(id){
 export function fetchTrainersAction() {
   let apiUrl = config.apiBase + 'trainers';
   return {
-    [CALL_API]: {
-      endpoint: apiUrl,
+    type: TRAINER_LIST.REQUEST,
+    states: TRAINER_LIST,
+    url: apiUrl,
+    params: {
       method: 'GET',
-      credentials: 'include',
-      types: [TRAINER_LIST_REQUEST, {type:TRAINER_LIST_SUCCESS, payload:
-        (action, state, res) => res.json().then((json) => {
-          return json.trainers})},
-
-        TRAINER_LIST_FAILURE]
+      credentials: 'include'
     }
   };
 }

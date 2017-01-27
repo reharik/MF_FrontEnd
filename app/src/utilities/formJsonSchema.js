@@ -37,7 +37,7 @@ export default function(schema, obj) {
         return val;
       } else if(parent.properties[p].title === 'entity') {
         let val = mapRules(parent, mapProperty(parent, p));
-        if(nestObj) {val.value = {id:nestObj[p]};}
+        if(nestObj) {val.value = nestObj[p];}
         return val;
       }
       return recurseProps(parent.properties[p], nestObj ? nestObj[p] : undefined);

@@ -1,82 +1,32 @@
-import { CALL_API } from 'redux-api-middleware';
 import reducerMerge from './../utilities/reducerMerge';
 import {getISODateTime} from './../utilities/appointmentTimes';
 import config from './../utilities/configValues';
 import uuid from 'uuid';
 import moment from 'moment';
+import { requestStates } from '../sagas/requestSaga';
+import selectn from 'selectn';
 
-export const FETCH_APPOINTEMENTS_REQUEST = 'methodFit/calendar/FETCH_APPOINTEMENTS_REQUEST';
-export const FETCH_APPOINTEMENTS_SUCCESS = 'methodFit/client/FETCH_APPOINTEMENTS_SUCCESS';
-export const FETCH_APPOINTEMENTS_FAILURE = 'methodFit/client/FETCH_APPOINTEMENTS_FAILURE';
-export const SCHEDULE_APPOINTEMENT_REQUEST = 'methodFit/calendar/SCHEDULE_APPOINTEMENT_REQUEST';
-export const SCHEDULE_APPOINTEMENT_SUCCESS = 'methodFit/client/SCHEDULE_APPOINTEMENT_SUCCESS';
-export const SCHEDULE_APPOINTEMENT_FAILURE = 'methodFit/client/SCHEDULE_APPOINTEMENT_FAILURE';
-export const UPDATE_APPOINTEMENT_REQUEST = 'methodFit/calendar/UPDATE_APPOINTEMENT_REQUEST';
-export const UPDATE_APPOINTEMENT_SUCCESS = 'methodFit/client/UPDATE_APPOINTEMENT_SUCCESS';
-export const UPDATE_APPOINTEMENT_FAILURE = 'methodFit/client/UPDATE_APPOINTEMENT_FAILURE';
-
-
+export const FETCH_APPOINTMENTS = requestStates('fetch_appointments', 'appointments');
+export const SCHEDULE_APPOINTMENT = requestStates('schedule_appointment', 'appointments');
+export const UPDATE_APPOINTMENT = requestStates('update_appointment', 'appointments');
 
 export default (state = [], action = {}) => {
   switch (action.type) {
-    case UPDATE_APPOINTEMENT_SUCCESS:
-    case SCHEDULE_APPOINTEMENT_SUCCESS: {
-      return reducerMerge(state, action.payload.upsertedItem);
+    case UPDATE_APPOINTMENT.SUCCESS:
+    case SCHEDULE_APPOINTMENT.SUCCESS: {
+      var upsertedItem = selectn('action.upsertedItem', action);
+      upsertedItem.id = selectn('payload.result.appointmentId',action);
+      return reducerMerge(state, upsertedItem);
     }
-    case FETCH_APPOINTEMENTS_SUCCESS:
+    case FETCH_APPOINTMENTS.SUCCESS:
     {
-      return reducerMerge(state, action.payload);
+      return reducerMerge(state, action.payload.appointments);
     }
   }
   return state;
 }
-//
-// const a = uuid.v4();
-// const b = uuid.v4();
-// const c = uuid.v4();
-// const d = uuid.v4();
-//
-// const getData = function() {
-//   return [
-//     {
-//       display: 'fuck you!1',
-//       startTime: '8:00 AM',
-//       endTime: '9:00 AM',
-//       date: new Date(),
-//       id: a,
-//       color: 'red'
-//     },
-//     {
-//       display: 'fuck you!2',
-//       startTime: '8:30 AM',
-//       endTime: '9:30 AM',
-//       date: new Date(),
-//       id: b,
-//       color: 'red'
-//     },
-//     {
-//       display: 'fuck you!3',
-//       startTime: '8:30 AM',
-//       endTime: '9:00 AM',
-//       date: new Date(),
-//       id: c,
-//       color: 'red'
-//     },
-//     {
-//       display: 'fuck you!4',
-//       startTime: '9:00 AM',
-//       endTime: '10:00 AM',
-//       date: new Date(),
-//       id: d,
-//       color: 'red'
-//     }
-//   ]
-// };
 
 export function scheduleAppointment(data) {
-  console.log('==========data=========');
-  console.log(data);
-  console.log('==========END data=========');
   const startTime = getISODateTime(data.date, data.startTime);
   const endTime = getISODateTime(data.date, data.endTime);
   const formattedData = {...data,
@@ -85,37 +35,25 @@ export function scheduleAppointment(data) {
     endTime: endTime,
     entityName: data.date};
   return {
-    [CALL_API]: {
-      endpoint: config.apiBase + 'appointment/scheduleAppointment',
+    type: SCHEDULE_APPOINTMENT.REQUEST,
+    states: SCHEDULE_APPOINTMENT,
+    url: config.apiBase + 'appointment/scheduleAppointment',
+    upsertedItem: formattedData,
+    params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(formattedData),
-      types: [{type: SCHEDULE_APPOINTEMENT_REQUEST,
-        payload:formattedData}, {
-        type: SCHEDULE_APPOINTEMENT_SUCCESS,
-        payload: (a, s, r) => {
-           try {
-             return r.json().then(json => {
-              json.upsertedItem = formattedData;
-               json.upsertedItem.id = json.result.appointmentId;
-              return json
-            });
-          } catch (ex)
-          {
-            return {success:false, error:ex};
-          }
-        }
-      },
-        SCHEDULE_APPOINTEMENT_FAILURE]
+      body: JSON.stringify(formattedData)
     }
   };
-};
+}
+
+export function updateTaskViaDND(data){
+  const submitData = {...data.orig, date:data.date, startTime: data.startTime, endTime: data.endTime};
+  return updateAppointment(submitData);
+}
 
 export function updateAppointment(data) {
-  console.log('==========data=========');
-  console.log(data);
-  console.log('==========END data=========');
   const startTime = getISODateTime(data.date, data.startTime);
   const endTime = getISODateTime(data.date, data.endTime);
   const formattedData = {...data,
@@ -123,52 +61,32 @@ export function updateAppointment(data) {
     startTime: startTime,
     endTime: endTime,
     entityName: moment(data.date).format('YYYYMMDD')};
-  console.log('==========formattedData=========');
-  console.log(formattedData);
-  console.log('==========END formattedData=========');
   return {
-    [CALL_API]: {
-      endpoint: config.apiBase + 'appointment/updateAppointment',
+    type: UPDATE_APPOINTMENT.REQUEST,
+    states: UPDATE_APPOINTMENT,
+    url: config.apiBase + 'appointment/updateAppointment',
+    upsertedItem: formattedData,
+    params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(formattedData),
-      types: [{type: UPDATE_APPOINTEMENT_REQUEST,
-        payload:formattedData}, {
-        type: UPDATE_APPOINTEMENT_SUCCESS,
-        payload: (a, s, r) => {
-          try {
-            return r.json().then(json => {
-              json.upsertedItem = formattedData;
-              return json
-            });
-          } catch (ex)
-          {
-            return {success:false, error:ex};
-          }
-        }
-      },
-        UPDATE_APPOINTEMENT_FAILURE]
+      body: JSON.stringify(formattedData)
     }
   };
-};
-
+}
 
 export function fetchAppointmentAction(appointmentId) {
   let apiUrl = `${config.apiBase}fetchAppointment/${appointmentId}`;
   return {
-    [CALL_API]: {
-      endpoint: apiUrl,
+    type: FETCH_APPOINTMENTS.REQUEST,
+    states: FETCH_APPOINTMENTS,
+    url: apiUrl,
+    params: {
       method: 'GET',
-      credentials: 'include',
-      types: [FETCH_APPOINTEMENTS_REQUEST, {type:FETCH_APPOINTEMENTS_SUCCESS, payload:
-        (action, state, res) => res.json().then((json) => {
-          return json.appointments})},
-        FETCH_APPOINTEMENTS_FAILURE]
+      credentials: 'include'
     }
   };
-};
-
+}
 
 export function fetchAppointmentsAction(startDate = moment().startOf('month'),
                                         endDate = moment().endOf('month'),
@@ -178,14 +96,12 @@ export function fetchAppointmentsAction(startDate = moment().startOf('month'),
   let apiUrl = `${config.apiBase}fetchAppointments/${start}/${end}/${trainerId||''}`;
 
   return {
-    [CALL_API]: {
-      endpoint: apiUrl,
+    type: FETCH_APPOINTMENTS.REQUEST,
+    states: FETCH_APPOINTMENTS,
+    url: apiUrl,
+    params: {
       method: 'GET',
-      credentials: 'include',
-      types: [FETCH_APPOINTEMENTS_REQUEST, {type:FETCH_APPOINTEMENTS_SUCCESS, payload:
-        (action, state, res) => res.json().then((json) => {
-          return json.appointments})},
-        FETCH_APPOINTEMENTS_FAILURE]
+      credentials: 'include'
     }
   };
-};
+}
