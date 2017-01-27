@@ -19,7 +19,7 @@ const mapStateToProps = (state, ownProps) => {
     appointmentTypes,
     times,
     cancel: ownProps.cancel,
-    isAdmin: state.auth.user.isAdmin
+    isAdmin: state.auth.user.role === 'admin'
   };
   if(props.isAdmin){
     props.trainers = state.trainers.map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));

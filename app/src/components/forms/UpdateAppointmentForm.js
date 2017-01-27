@@ -68,7 +68,7 @@ class AppointmentForm extends Component {
             <HiddenFor data="id" />
             {
               this.props.isAdmin
-                ? <SubmissionFor data="trainer" selectOptions={this.props.trainers}/>
+                ? <EditableFor data="trainer" selectOptions={this.props.trainers}/>
                 : <DisplayFor data="trainer"/>
             }
           </div>

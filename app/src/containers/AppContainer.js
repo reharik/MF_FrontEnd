@@ -30,7 +30,7 @@ function mapStateToProps(state = []) {
   return {
     isReady: Object.keys(state.schema.definitions).length > 0,
     isAuthenticated: state.auth.isAuthenticated,
-    userName: state.auth.userName
+    userName: state.auth.user.userName
   };
 }
 

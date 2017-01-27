@@ -17,6 +17,9 @@ class AppointmentForm extends Component {
     const result = Form.prepareSubmission(this.state.fields);
     this.setState(result);
     if(result.formIsValid) {
+      console.log(`==========result=========`);
+      console.log(result);
+      console.log(`==========END result=========`);
       result.fields.trainer = result.fields.trainer.id;
       this.props.scheduleAppointment(result.fieldValues);
       this.props.cancel()
