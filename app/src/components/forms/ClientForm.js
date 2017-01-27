@@ -3,7 +3,6 @@ import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
 import ContentHeader from '../ContentHeader';
 import SubmissionFor from './../../containers/SubmissionForContainer';
-import HiddenFor from './../formElements/elementsFor/HiddenFor';
 import {browserHistory} from 'react-router';
 
 class ClientForm extends Component {
@@ -23,7 +22,7 @@ class ClientForm extends Component {
     e.preventDefault();
     const result = Form.prepareSubmission(this.state.fields);
     if(result.formIsValid){
-      this.props.addClient(result.fields);
+      this.props.addClient(result.fieldValues);
     }
     this.setState(result);
   };

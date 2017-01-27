@@ -42,7 +42,7 @@ const webpackConfig = {
   devtool: 'eval-source-map', //javascript sourcemaps
 
   entry: {
-    app: [
+    app: ['babel-polyfill',
       'react-hot-loader/patch',
       './index.js'
     ]

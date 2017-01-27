@@ -11,18 +11,22 @@ import { updateTrainerInfo,
   fetchTrainerAction } from './../../modules/trainerModule';
 import { fetchClientsAction } from './../../modules/clientModule';
 
-const mapStateToProps = (state, props) => {
-  const trainer = state.trainers.filter(x=>x.id === props.params.trainerId)[0];
+const mapStateToProps = (state, ownProps) => {
+  const trainer = state.trainers.filter(x=>x.id === ownProps.params.trainerId)[0];
   const clients = state.clients.map(x=> ({ value:x.id , label: `${x.contact.lastName} ${x.contact.firstName}` }));
   const model = formJsonSchema(state.schema.definitions.trainer, trainer);
-  model.confirmPassword = {...model.password};
-  model.confirmPassword.name  = 'confirmPassword';
-  model.confirmPassword.rules = [{rule:'equalTo', compareField:'password'}];
-  return {
+  
+  let props = {
     model,
     states,
-    clients
+    clients,
+    isAdmin: state.auth.user.isAdmin
+  };
+  
+  if(props.isAdmin){
+    props.trainers = state.trainers.map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
   }
+  return props
 };
 
 export default connect(mapStateToProps, { updateTrainerInfo,

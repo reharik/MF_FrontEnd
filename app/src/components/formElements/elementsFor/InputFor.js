@@ -36,7 +36,6 @@ const InputFor = ({data,
       case 'select':
       {
         const _onChange = onChange || data.onChange;
-
         const selected = selectOptions.find(x=>x.value === data.value);
         return (<TokenAutocomplete className={inputStyle} simulateSelect={true}
                                    parseToken={ value => value.display || value }

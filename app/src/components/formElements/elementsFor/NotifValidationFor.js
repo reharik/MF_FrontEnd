@@ -2,7 +2,6 @@ const NotifValidationFor = ({data,
   notifSend,
   notifDismiss,
   currentErrors}) => {
-
   const newErrors = [];
   const oldErrors = [...currentErrors];
   data.errors.forEach(x => {

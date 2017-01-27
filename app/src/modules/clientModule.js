@@ -1,54 +1,44 @@
-import { CALL_API } from 'redux-api-middleware';
 import config from './../utilities/configValues';
 import { browserHistory } from 'react-router';
 import { denormalizeContact } from './../utilities/denormalize';
 import selectn from 'selectn';
 import reducerMerge from './../utilities/reducerMerge';
+import { requestStates } from '../sagas/requestSaga';
 
-export const ADD_CLIENT_REQUEST = 'methodFit/client/ADD_CLIENT_REQUEST';
-export const ADD_CLIENT_SUCCESS = 'methodFit/client/ADD_CLIENT_SUCCESS';
-export const ADD_CLIENT_FAILURE = 'methodFit/client/ADD_CLIENT_FAILURE';
-export const UPDATE_CLIENT_CONTACT_REQUEST = 'methodFit/client/UPDATE_CLIENT_CONTACT_REQUEST';
-export const UPDATE_CLIENT_CONTACT_SUCCESS = 'methodFit/client/UPDATE_CLIENT_CONTACT_SUCCESS';
-export const UPDATE_CLIENT_CONTACT_FAILURE = 'methodFit/client/UPDATE_CLIENT_CONTACT_FAILURE';
-export const UPDATE_CLIENT_ADDRESS_REQUEST = 'methodFit/client/UPDATE_CLIENT_ADDRESS_REQUEST';
-export const UPDATE_CLIENT_ADDRESS_SUCCESS = 'methodFit/client/UPDATE_CLIENT_ADDRESS_SUCCESS';
-export const UPDATE_CLIENT_ADDRESS_FAILURE = 'methodFit/client/UPDATE_CLIENT_ADDRESS_FAILURE';
-export const UPDATE_CLIENT_INFO_REQUEST = 'methodFit/client/UPDATE_CLIENT_INFO_REQUEST';
-export const UPDATE_CLIENT_INFO_SUCCESS = 'methodFit/client/UPDATE_CLIENT_INFO_SUCCESS';
-export const UPDATE_CLIENT_INFO_FAILURE = 'methodFit/client/UPDATE_CLIENT_INFO_FAILURE';
-export const CLIENT_REQUEST = 'methodFit/client/CLIENT_REQUEST';
-export const CLIENT_SUCCESS = 'methodFit/client/CLIENT_SUCCESS';
-export const CLIENT_FAILURE = 'methodFit/client/CLIENT_FAILURE';
-export const CLIENT_LIST_REQUEST = 'methodFit/client/CLIENT_LIST_REQUEST';
-export const CLIENT_LIST_SUCCESS = 'methodFit/client/CLIENT_LIST_SUCCESS';
-export const CLIENT_LIST_FAILURE = 'methodFit/client/CLIENT_LIST_FAILURE';
+export const ADD_CLIENT = requestStates('add_client', 'client');
+export const UPDATE_CLIENT_CONTACT = requestStates('update_client_contact', 'client');
+export const UPDATE_CLIENT_ADDRESS = requestStates('update_client_address', 'client');
+export const UPDATE_CLIENT_INFO = requestStates('update_client_info', 'client');
+export const CLIENT_LIST = requestStates('client_list', 'client');
+export const CLIENT = requestStates('client');
+
 
 export default (state = [], action = {}) => {
   switch (action.type) {
-    case ADD_CLIENT_REQUEST:
-    case CLIENT_REQUEST:
-    case CLIENT_LIST_REQUEST: {
+    case ADD_CLIENT.REQUEST:
+    case CLIENT.REQUEST:
+    case CLIENT_LIST.REQUEST: {
       console.log('ADD_CLIENT_REQUEST');
       return state;
     }
-    case CLIENT_SUCCESS: 
-    case CLIENT_LIST_SUCCESS: {
+    case CLIENT.SUCCESS: {
       return reducerMerge(state, action.payload);
     }
-    case ADD_CLIENT_SUCCESS: {
-      var insertedItem = selectn('payload.insertedItem', action);
-      insertedItem.id = selectn('payload.result.handlerResult.clientId',action);
-
-      return insertedItem.id ? [...state, {contact: denormalizeContact(insertedItem)}] : state;
+    case CLIENT_LIST.SUCCESS: {
+      return reducerMerge(state, action.payload.clients);
     }
-    case UPDATE_CLIENT_INFO_FAILURE:
-    case ADD_CLIENT_FAILURE: {
+    case ADD_CLIENT.SUCCESS: {
+      var insertedItem = selectn('action.insertedItem', action);
+      insertedItem.id = selectn('payload.result.handlerResult.clientId',action);
+      return insertedItem.id ? [...state, {id:insertedItem.id, contact: denormalizeContact(insertedItem)}] : state;
+    }
+    case UPDATE_CLIENT_INFO.FAILURE:
+    case ADD_CLIENT.FAILURE: {
       return state;
     }
 
-    case UPDATE_CLIENT_INFO_SUCCESS: {
-      let update = selectn('payload.update', action);
+    case UPDATE_CLIENT_INFO.SUCCESS: {
+      let update = selectn('action.update', action);
 
       return state.map(x => {
         if(x.id === update.id) {
@@ -58,8 +48,8 @@ export default (state = [], action = {}) => {
       });
     }
 
-    case UPDATE_CLIENT_CONTACT_SUCCESS: {
-      let update = selectn('payload.update', action);
+    case UPDATE_CLIENT_CONTACT.SUCCESS: {
+      let update = selectn('action.update', action);
 
       return state.map(x => {
         if(x.id === update.id) {
@@ -76,8 +66,8 @@ export default (state = [], action = {}) => {
       });
     }
 
-    case UPDATE_CLIENT_ADDRESS_SUCCESS: {
-      let update = selectn('payload.update', action);
+    case UPDATE_CLIENT_ADDRESS.SUCCESS: {
+      let update = selectn('action.update', action);
 
       return state.map(x => {
         if(x.id === update.id) {
@@ -111,22 +101,15 @@ export function updateClientInfo(data) {
     lastName: data.lastName
   };
   return {
-    [CALL_API]: {
-      endpoint: config.apiBase + 'client/updateClientInfo',
+    type: UPDATE_CLIENT_INFO.REQUEST,
+    states: UPDATE_CLIENT_INFO,
+    url: config.apiBase + 'client/updateClientInfo',
+    update:data,
+    params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(item),
-      types: [UPDATE_CLIENT_INFO_REQUEST, {
-        type: UPDATE_CLIENT_INFO_SUCCESS,
-        payload: (a, s, r) => {
-          return r.json().then(json => {
-            json.update = item
-            return json
-          });
-        }
-      },
-        UPDATE_CLIENT_INFO_FAILURE]
+      body: JSON.stringify(item)
     }
   };
 }
@@ -140,22 +123,15 @@ export function updateClientContact(data) {
   };
 
   return {
-    [CALL_API]: {
-      endpoint: config.apiBase + 'client/updateClientContact',
+    type: UPDATE_CLIENT_CONTACT.REQUEST,
+    states: UPDATE_CLIENT_CONTACT,
+    url: config.apiBase + 'client/updateClientContact',
+    update:data,
+    params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(item),
-      types: [UPDATE_CLIENT_CONTACT_REQUEST, {
-        type: UPDATE_CLIENT_CONTACT_SUCCESS,
-        payload: (a, s, r) => {
-          return r.json().then(json => {
-            json.update = item;
-            return json
-          });
-        }
-      },
-        UPDATE_CLIENT_CONTACT_FAILURE]
+      body: JSON.stringify(item)
     }
   };
 }
@@ -167,50 +143,40 @@ export function updateClientAddress(data) {
     street2: data.street2,
     city: data.city,
     state: data.state ? data.state.value : undefined,
-    zipCode: data.zipCode,
-
+    zipCode: data.zipCode
   };
   return {
-    [CALL_API]: {
-      endpoint: config.apiBase + 'client/updateClientAddress',
+    type: UPDATE_CLIENT_ADDRESS.REQUEST,
+    states: UPDATE_CLIENT_ADDRESS,
+    url: config.apiBase + 'client/updateClientAddress',
+    update:data,
+    params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(item),
-      types: [UPDATE_CLIENT_ADDRESS_REQUEST, {
-        type: UPDATE_CLIENT_ADDRESS_SUCCESS,
-        payload: (a, s, r) => {
-          return r.json().then(json => {
-            json.update = item;
-            return json
-          });
-        }
-      },
-        UPDATE_CLIENT_ADDRESS_FAILURE]
+      body: JSON.stringify(item)
     }
   };
 }
 
+const successFunction = (action, payload) => {
+  browserHistory.push('/clients');
+  return {type: action.states.SUCCESS, action, payload};
+};
+
 export function addClient(data) {
   data.state = data.state ? data.state.value : undefined;
   return {
-    [CALL_API]: {
-      endpoint: config.apiBase + 'client/addClient',
+    type: ADD_CLIENT.REQUEST,
+    states: ADD_CLIENT,
+    url: config.apiBase + 'client/addClient',
+    insertedItem: data,
+    successFunction,
+    params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data),
-      types: [ADD_CLIENT_REQUEST, {
-        type: ADD_CLIENT_SUCCESS,
-        payload: (a, s, r) => {
-          browserHistory.push('/clients');
-          return r.json().then(json => {
-            json.insertedItem = data;
-            return json
-          });
-        }
-      },
-        ADD_CLIENT_FAILURE]
+      body: JSON.stringify(data)
     }
   };
 }
@@ -218,13 +184,12 @@ export function addClient(data) {
 export function fetchClientAction(id){
   let apiUrl = config.apiBase + 'client/' + id;
   return {
-    [CALL_API]: {
-      endpoint: apiUrl,
+    type: CLIENT.REQUEST,
+    states: CLIENT,
+    url: apiUrl,
+    params: {
       method: 'GET',
-      credentials: 'include',
-      types: [CLIENT_REQUEST, {type:CLIENT_SUCCESS, payload:
-        (action, state, res) => res.json()},
-        CLIENT_FAILURE]
+      credentials: 'include'
     }
   };
 }
@@ -232,15 +197,12 @@ export function fetchClientAction(id){
 export function fetchClientsAction() {
   let apiUrl = config.apiBase + 'clients';
   return {
-    [CALL_API]: {
-      endpoint: apiUrl,
+    type: CLIENT_LIST.REQUEST,
+    states: CLIENT_LIST,
+    url: apiUrl,
+    params: {
       method: 'GET',
-      credentials: 'include',
-      types: [CLIENT_LIST_REQUEST, {type:CLIENT_LIST_SUCCESS, payload:
-        (action, state, res) => res.json().then((json) => {
-          return json.clients})},
-
-        CLIENT_LIST_FAILURE]
+      credentials: 'include'
     }
   };
 }
