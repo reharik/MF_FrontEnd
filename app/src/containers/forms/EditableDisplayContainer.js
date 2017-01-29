@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import EditableDisplay from './../components/forms/editableDisplay/EditableDisplay';
+import EditableDisplay from '../../components/forms/editableDisplay/EditableDisplay';
 import {actions as notifActions} from 'redux-notifications';
 const {notifClear} = notifActions;
 

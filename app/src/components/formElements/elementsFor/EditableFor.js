@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import SubmissionFor from './../../../containers/SubmissionForContainer';
+import SubmissionFor from '../../../containers/forms/SubmissionForContainer';
 import DisplayFor from './DisplayFor'
 
 const EditableFor = (props) => {

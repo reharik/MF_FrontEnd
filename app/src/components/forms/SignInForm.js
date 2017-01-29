@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import SubmissionFor from './../../containers/SubmissionForContainer';
+import SubmissionFor from '../../containers/forms/SubmissionForContainer';
 import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
 

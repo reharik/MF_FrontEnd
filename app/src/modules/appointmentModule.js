@@ -93,7 +93,7 @@ export function fetchAppointmentsAction(startDate = moment().startOf('month'),
                                         trainerId) {
   const start = moment(startDate).format('YYYYMMDD');
   const end = moment(endDate).format('YYYYMMDD');
-  let apiUrl = `${config.apiBase}fetchAppointments/${start}/${end}/${trainerId||''}`;
+  let apiUrl = `${config.apiBase}fetchAppointments/${start}/${end}}`;
 
   return {
     type: FETCH_APPOINTMENTS.REQUEST,
@@ -101,6 +101,7 @@ export function fetchAppointmentsAction(startDate = moment().startOf('month'),
     url: apiUrl,
     params: {
       method: 'GET',
+      body:{ trainerIds: trainerId },
       credentials: 'include'
     }
   };

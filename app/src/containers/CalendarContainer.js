@@ -6,17 +6,24 @@ import { fetchTrainersAction } from './../modules/trainerModule';
 
 
 const mapStateToProps = function(state) {
+  let config = {
+    increment: 15,
+    calendarName: 'schedule',
+    dataSource: 'appointments'
+  };
+  config.taskFilter = state.auth.user.role === 'admin'
+    ? (x, calState) => {
+    return calState.toggleTrainerListForCalendar.includes( x.trainer )}
+    : (x) => x.trainer === state.auth.user.id;
+
   return {
-    config: {
-      increment: 15,
-      calendarName: 'schedule',
-      dataSource: 'appointments'
-    }
+    isAdmin: state.auth.user.role === 'admin',
+    config
   }
 };
 
-export default connect(mapStateToProps, { 
-  fetchClientsAction, 
+export default connect(mapStateToProps, {
+  fetchClientsAction,
   fetchTrainersAction,
   retrieveDataAction:fetchAppointmentsAction,
   updateTaskViaDND})(Calendar);

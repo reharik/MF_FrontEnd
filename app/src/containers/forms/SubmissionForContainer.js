@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import SubmissionFor from './../components/formElements/elementsFor/SubmissionFor';
+import SubmissionFor from '../../components/formElements/elementsFor/SubmissionFor';
 import {actions as notifActions} from 'redux-notifications';
 const {notifSend, notifDismiss} = notifActions;
 

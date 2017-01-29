@@ -1,7 +1,7 @@
 import React, {Component}from 'react';
 import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
-import SubmissionFor from './../../containers/SubmissionForContainer';
+import SubmissionFor from '../../containers/forms/SubmissionForContainer';
 import DisplayFor from './../formElements/elementsFor/DisplayFor';
 import { syncApptTypeAndTime } from './../../utilities/appointmentTimes';
 

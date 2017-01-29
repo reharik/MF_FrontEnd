@@ -3,6 +3,7 @@ import schemaReducer from './schemaModule';
 import menuReducer from './menuModule';
 import trainerReducer from './trainerModule';
 import clientReducer from './clientModule';
+import toggleTrainerListForCalendar from './toggleTrainerListForCalendarModule';
 
 export {loginUser, logoutUser} from './authModule';
 export {menuItemClicked, navBreadCrumbClicked } from './menuModule';
@@ -16,6 +17,7 @@ export default {
   menu: menuReducer, 
   schema: schemaReducer, 
   trainers: trainerReducer, 
-  clients: clientReducer 
+  clients: clientReducer ,
+  toggleTrainerListForCalendar
 };
 

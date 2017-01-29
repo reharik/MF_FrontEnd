@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
 import ContentHeader from '../ContentHeader';
-import SubmissionFor from './../../containers/SubmissionForContainer';
+import SubmissionFor from '../../containers/forms/SubmissionForContainer';
 import {browserHistory} from 'react-router';
 
 class ClientForm extends Component {

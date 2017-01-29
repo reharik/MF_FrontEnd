@@ -2,7 +2,7 @@ import React, {Component}from 'react';
 import {Form} from 'freakin-react-forms';
 import ContentHeader from '../ContentHeader';
 import EditableFor from './../formElements/elementsFor/EditableFor';
-import EditableDisplay from './../../containers/EditableDisplayContainer';
+import EditableDisplay from '../../containers/forms/EditableDisplayContainer';
 import {browserHistory} from 'react-router';
 
 

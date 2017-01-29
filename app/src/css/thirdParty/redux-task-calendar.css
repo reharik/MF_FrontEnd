@@ -145,7 +145,7 @@
     -ms-flex-flow: column nowrap;
         flex-flow: column nowrap
 }
-.redux__task__calendar__calendar {}
+.redux__task__calendar__calendar { width: 100%; }
 .redux__task__calendar__header {
     height: 28px;
     margin-top: 10px

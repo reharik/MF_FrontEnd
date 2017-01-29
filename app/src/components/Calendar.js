@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import ContentHeader from './ContentHeader';
-import AppointmentModal from './AppointmentModal'
-import {Calendar} from 'redux-task-calendar'
-import AppointmentContainer from './../containers/forms/AppointmentContainer'
-import UpdateAppointmentContainer from './../containers/forms/UpdateAppointmentContainer'
+import AppointmentModal from './AppointmentModal';
+import {Calendar} from 'redux-task-calendar';
+import AppointmentContainer from './../containers/forms/AppointmentContainer';
+import UpdateAppointmentContainer from './../containers/forms/UpdateAppointmentContainer';
+import ToggleTrainerListForCalendarContainer from './../containers/ToggleTrainerListContainer';
 import moment from 'moment';
 
 class MFCalendar extends Component {
@@ -74,7 +75,11 @@ class MFCalendar extends Component {
           </div>
         </ContentHeader>
         <div className="form-scroll-inner">
-          <div className="content-inner">
+          <div className="mainCalendar__content__inner">
+            {this.props.isAdmin
+              ? (<ToggleTrainerListForCalendarContainer />)
+              : null
+            }
             <Calendar config={this.config}/>
           </div>
         </div>
