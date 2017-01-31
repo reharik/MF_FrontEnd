@@ -56,7 +56,7 @@ export function loginUser(data) {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: `username=${data.userName}&password=${data.password}`
+      body: `userName=${data.userName}&password=${data.password}`
     }
   }
 };
