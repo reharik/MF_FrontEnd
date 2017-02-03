@@ -182,7 +182,7 @@ export function addClient(data) {
 }
 
 export function fetchClientAction(id){
-  let apiUrl = config.apiBase + 'client/' + id;
+  let apiUrl = config.apiBase + 'client/getClient/' + id;
   return {
     type: CLIENT.REQUEST,
     states: CLIENT,

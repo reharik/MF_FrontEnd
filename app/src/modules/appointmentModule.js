@@ -9,6 +9,7 @@ import selectn from 'selectn';
 export const FETCH_APPOINTMENTS = requestStates('fetch_appointments', 'appointments');
 export const SCHEDULE_APPOINTMENT = requestStates('schedule_appointment', 'appointments');
 export const UPDATE_APPOINTMENT = requestStates('update_appointment', 'appointments');
+export const DELETE_APPOINTMENT = requestStates('delete_appointment', 'appointments');
 
 export default (state = [], action = {}) => {
   switch (action.type) {
@@ -75,6 +76,21 @@ export function updateAppointment(data) {
   };
 }
 
+export function deleteAppointment(appointmentId, date) {
+  let apiUrl = `${config.apiBase}appointment/cancelAppointment`;
+  return {
+    type: DELETE_APPOINTMENT.REQUEST,
+    states: DELETE_APPOINTMENT,
+    url: apiUrl,
+    params: {
+      method: 'POST',
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({appointmentId, entityName:moment(date).format('YYYYMMDD') })
+    }
+  };
+}
+
 export function fetchAppointmentAction(appointmentId) {
   let apiUrl = `${config.apiBase}fetchAppointment/${appointmentId}`;
   return {
@@ -91,8 +107,8 @@ export function fetchAppointmentAction(appointmentId) {
 export function fetchAppointmentsAction(startDate = moment().startOf('month'),
                                         endDate = moment().endOf('month'),
                                         trainerId) {
-  const start = moment(startDate).format('YYYYMMDD');
-  const end = moment(endDate).format('YYYYMMDD');
+  const start = moment(startDate).format('YYYY-MM-DD');
+  const end = moment(endDate).format('YYYY-MM-DD');
   let apiUrl = `${config.apiBase}fetchAppointments/${start}/${end}}`;
 
   return {

@@ -1,12 +1,12 @@
 import React, {Component}from 'react';
 import EditableDisplay from './../../components/forms/editableDisplay/EditableDisplay';
+import AppointmentFooter from './../../components/forms/editableDisplay/AppointmentFooter';
 import DisplayFor from './../formElements/elementsFor/DisplayFor';
-import HiddenFor from './../formElements/elementsFor/HiddenFor';
 import EditableFor from './../formElements/elementsFor/EditableFor';
 import {Form} from 'freakin-react-forms';
 import { syncApptTypeAndTime } from './../../utilities/appointmentTimes';
 
-class AppointmentForm extends Component {
+class UpdateAppointmentForm extends Component {
 
   componentWillMount() {
     this.loadData();
@@ -57,15 +57,22 @@ class AppointmentForm extends Component {
   };
 
   render() {
+    console.log(`==========this.model=========`);
+    console.log(this.model);
+    console.log(`==========END this.model=========`);
     return (
       <div className='form'>
         <EditableDisplay model={this.props.model}
                          submitHandler={this.submitHandler}
                          overrideSubmit={true}
                          sectionHeader="Appointment Info"
-                         formName="ApointmentInfo">
+                         formName="ApointmentInfo"
+                         footer={AppointmentFooter}
+                         params={{copy:this.props.copy, 
+                         deleteAppointment:this.props.deleteAppointment,
+                         appointmentId: this.props.model.id.value,
+                         date: this.props.model.date.value}} >
           <div className="editableDisplay__content__form__row">
-            <HiddenFor data="id" />
             {
               this.props.isAdmin
                 ? <EditableFor data="trainer" selectOptions={this.props.trainers}/>
@@ -100,4 +107,4 @@ class AppointmentForm extends Component {
   };
 }
 
-export default AppointmentForm;
+export default UpdateAppointmentForm;

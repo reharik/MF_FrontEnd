@@ -3,13 +3,15 @@ import {connect} from 'react-redux';
 import ClientForm from '../../components/forms/ClientForm';
 import formJsonSchema from '../../utilities/formJsonSchema';
 import states from './../../constants/states'
+import sources from './../../constants/sources'
 import { addClient, fetchClientAction } from './../../modules/clientModule';
 
 const mapStateToProps = (state, props) => {
   const model = formJsonSchema(state.schema.definitions.client);
   return {
     model,
-    states
+    states,
+    sources
   }
 };
 

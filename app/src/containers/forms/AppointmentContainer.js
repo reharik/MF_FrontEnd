@@ -4,7 +4,7 @@ import AppointmentForm from '../../components/forms/AppointmentForm';
 import { scheduleAppointment } from './../../modules/appointmentModule';
 import appointmentTypes from './../../constants/appointmentTypes';
 import { generateAllTimes } from './../../utilities/appointmentTimes';
-import { appointmentModel } from './../../selectors/appointmentModelSelector';
+import { appointmentModel, copyAppointmentModel } from './../../selectors/appointmentModelSelector';
 import {actions as notifActions} from 'redux-notifications';
 const {notifClear} = notifActions;
 
@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
   const times = generateAllTimes(15, 7, 7);
 
   const props = {
-    model: appointmentModel(state, ownProps.args),
+    model: ownProps.copy ? copyAppointmentModel(state, ownProps.args) : appointmentModel(state, ownProps.args),
     clients,
     appointmentTypes,
     times,
@@ -23,7 +23,7 @@ const mapStateToProps = (state, ownProps) => {
   };
   if(props.isAdmin){
     props.trainers = state.trainers.map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
-  }  
+  }
   return props
 };
 

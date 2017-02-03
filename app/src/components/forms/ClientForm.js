@@ -70,8 +70,9 @@ class ClientForm extends Component {
                 <SubmissionFor data={model.mobilePhone}/>
                 <SubmissionFor data={model.secondaryPhone}/>
               </div>
-              <div className="form__section__row__single">
+              <div className="form__section__row">
                 <SubmissionFor data={model.email}/>
+                <SubmissionFor data={model.birthDate}/>
               </div>
               <div className="form__section__row">
                 <SubmissionFor data={model.street1}/>
@@ -85,6 +86,17 @@ class ClientForm extends Component {
                 />
                 <SubmissionFor data={model.zipCode} containerStyle="form__section__row__address__zip"/>
               </div>
+                <div className="form__section__header">
+                  <label className="form__section__header__label">Client Info</label>
+                </div>
+                <div className="form__section__row">
+                  <SubmissionFor data={model.source} selectOptions={this.props.sources}/>
+                  <SubmissionFor data={model.startDate}/>
+                </div>
+                <div className="form__section__row">
+                  <SubmissionFor data={model.sourceNotes}/>
+                </div>
+
               <div className="form__footer">
                 <button type="submit" className="form__footer__button">
                   Submit

@@ -27,10 +27,9 @@ class MFCalendar extends Component {
 
   updateAppointment = (args) => {
     return (<AppointmentModal
-
       isOpen={true}
       onClose={this.onClose}
-      form={<UpdateAppointmentContainer args={args} cancel={this.onClose} />}
+      form={<UpdateAppointmentContainer args={args} cancel={this.onClose} copy={this.copyAppointment} />}
       title={this.props.title} />)
   };
 
@@ -39,6 +38,16 @@ class MFCalendar extends Component {
     onClose={this.onClose}
     form={<AppointmentContainer args={args} cancel={this.onClose} />}
     title={this.props.title} />);
+
+  copyAppointment = (args) => {
+    this.setState({
+      form: (<AppointmentModal
+        isOpen={true}
+        onClose={this.onClose}
+        form={<AppointmentContainer args={args} cancel={this.onClose} copy={true} />}
+        title={this.props.title}/>)
+    });
+  };
 
   taskClickedEvent = (id, task, calendarName) => {
     this.setState({

@@ -8,13 +8,16 @@ class EditableDisplay extends Component {
 
   componentWillMount() {
     const fields = Form.buildModel(this.props.formName, this.props.model, {onChange: this.changeHandler});
-    this.setState({fields, formIsValid: false, editing: false});
+    const relevantFields = this.getRelevantFieldsFromModel(this.props.children, fields);
+
+    this.setState({fields: relevantFields, formIsValid: false, editing: false});
   }
 
   componentWillReceiveProps(newProps) {
     if(!this.state.editing) {
         const fields = Form.buildModel(newProps.formName, newProps.model, {onChange: this.changeHandler});
-        this.setState({fields});
+        const relevantFields = this.getRelevantFieldsFromModel(this.props.children, fields);
+        this.setState({fields:relevantFields});
     }
   }
 
@@ -29,6 +32,24 @@ class EditableDisplay extends Component {
         editing: !this.state.editing
       })
     }
+  };
+
+  getRelevantFieldsFromModel = (children, model)  => {
+    let result = {};
+    let it = (children) => {
+      React.Children.forEach(children, x => {
+        if (x.props) {
+          if (x.props.data) {
+            result[x.props.data] = model[x.props.data];
+          } else {
+            it(x.props.children)
+          }
+        }
+      });
+    };
+    it(children);
+    result.id = model.id;
+    return result;
   };
 
   setEditing = (children, editing, fields) => {
@@ -60,11 +81,16 @@ class EditableDisplay extends Component {
       result = this.props.submitHandler(this.state.fields)
     } else {
       result = Form.prepareSubmission(this.state.fields);
+
       if(result.formIsValid){
         this.props.submitHandler(result.fieldValues);
       }
     }
     this.setState({...result, editing: !result.formIsValid});
+  };
+
+  deleteAppointment = () => {
+    this.props.deleteAppointment(this.state.fields.id)
   };
 
   render() {
@@ -77,15 +103,13 @@ class EditableDisplay extends Component {
           <Notifs containerName={this.props.formName}/>
           <form onSubmit={this.submitHandler} className="editableDisplay__content__form">
             {this.setEditing(this.props.children, this.state.editing, this.state.fields)}
-            <div className="editableDisplay__footer">
-              {this.state.editing ?
-                <div>
-                  <button type="submit" className="editableDisplay__footer__button"> Submit</button>
-                  <button onClick={(e) => this.toggleEdit(e,true)}>Cancel</button>
-                </div>
-                : ( <a className="editableDisplay__footer_edit" onClick={(e) => this.toggleEdit(e, false)}>edit</a>)
-              }
-            </div>
+            {this.props.footer
+                ? <this.props.footer 
+              editing={this.state.editing} 
+              toggleEdit={this.toggleEdit}
+              params={this.props.params} />
+                : <EDFooter editing={this.state.editing} toggleEdit={this.toggleEdit}/>
+            }
           </form>
         </div>
       </div>

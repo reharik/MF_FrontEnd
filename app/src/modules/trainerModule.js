@@ -117,6 +117,9 @@ export default (state = [], action = {}) => {
 }
 
 export function updateTrainerInfo(data) {
+  console.log(`==========data=========`);
+  console.log(data);
+  console.log(`==========END data=========`);
   const item = {
     id: data.id,
     birthDate:data.birthDate,
@@ -244,7 +247,7 @@ export function hireTrainer(data) {
 }
 
 export function fetchTrainerAction(id){
-  let apiUrl = config.apiBase + 'trainer/' + id;
+  let apiUrl = config.apiBase + 'trainer/getTrainer/' + id;
   return {
     type: TRAINER.REQUEST,
     states: TRAINER,

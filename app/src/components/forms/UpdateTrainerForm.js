@@ -12,6 +12,8 @@ class UpdateTrainerForm extends Component {
   }
 
   loadData() {
+    // this.props.notifClear('appointmentForm');
+
     if (this.props.params.trainerId) {
       this.props.fetchTrainerAction(this.props.params.trainerId);
     }
