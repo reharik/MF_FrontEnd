@@ -26,7 +26,10 @@ function* request(action) {
       throw new Error(response);
     }
     payload = yield response.json();
-
+    if(payload && payload.result && payload.result.success === 'Failure'){
+      throw new Error('Server was unable to complete the request');
+    }
+    
     const success = action.successFunction ? action.successFunction : standardSuccessResponse;
     yield put(success(action, payload))
 

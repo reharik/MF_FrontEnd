@@ -34,7 +34,7 @@ export function scheduleAppointment(data) {
     date: startTime,
     startTime: startTime,
     endTime: endTime,
-    entityName: data.date};
+    entityName: moment(data.date).format('YYYYMMDD')};
   return {
     type: SCHEDULE_APPOINTMENT.REQUEST,
     states: SCHEDULE_APPOINTMENT,
