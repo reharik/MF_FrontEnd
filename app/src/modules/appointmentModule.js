@@ -23,6 +23,9 @@ export default (state = [], action = {}) => {
     {
       return reducerMerge(state, action.payload.appointments);
     }
+    case  DELETE_APPOINTMENT.SUCCESS: {
+      return state.filter(x=> x.id !== action.payload.result.appointmentId);
+    }
   }
   return state;
 }

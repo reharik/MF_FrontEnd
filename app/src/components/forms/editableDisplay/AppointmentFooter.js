@@ -1,6 +1,11 @@
 import React from 'react';
 
 const AppointmentFooter = ({editing, toggleEdit, params}) => {
+  const deleteAppointment = (e) => {
+    e.preventDefault();
+    params.deleteAppointment(params.appointmentId, params.date);
+    params.cancel();
+  };
   return (<div className="editableDisplay__footer">
     {editing ?
       <div>
@@ -11,9 +16,7 @@ const AppointmentFooter = ({editing, toggleEdit, params}) => {
       <div>
         <button onClick={(e) => toggleEdit(e,false)}>Edit</button>
         <button onClick={(e) => { e.preventDefault(); params.copy(params.appointmentId); }}>Copy</button>
-        <button onClick={(e) => { e.preventDefault(); 
-                                  params.deleteAppointment(params.appointmentId, params.date);
-                                }}>Delete
+        <button onClick={deleteAppointment}>Delete
         </button>
       </div>)
     }

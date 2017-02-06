@@ -57,9 +57,6 @@ class UpdateAppointmentForm extends Component {
   };
 
   render() {
-    console.log(`==========this.model=========`);
-    console.log(this.model);
-    console.log(`==========END this.model=========`);
     return (
       <div className='form'>
         <EditableDisplay model={this.props.model}
@@ -71,7 +68,8 @@ class UpdateAppointmentForm extends Component {
                          params={{copy:this.props.copy, 
                          deleteAppointment:this.props.deleteAppointment,
                          appointmentId: this.props.model.id.value,
-                         date: this.props.model.date.value}} >
+                         date: this.props.model.date.value,
+                         cancel:this.props.cancel}} >
           <div className="editableDisplay__content__form__row">
             {
               this.props.isAdmin
