@@ -3,7 +3,12 @@ export function denormalizeTrainer(flat) {
   return {
     color: flat.color,
     birthDate: flat.birthDate,
-    contact: denormalizeContact(flat)
+    contact: denormalizeContact(flat),
+    clients: flat.clients,
+    account: {
+      password: flat.password,
+      role: flat.role
+    }
   }
 }
 

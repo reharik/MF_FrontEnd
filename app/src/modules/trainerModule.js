@@ -33,7 +33,7 @@ export default (state = [], action = {}) => {
       var insertedItem = selectn('action.insertedItem', action);
       insertedItem.id = selectn('payload.result.handlerResult.trainerId',action);
 
-      return insertedItem.id ? [...state, denormalizeTrainer(insertedItem)] : state;
+      return insertedItem.id ? [...state, insertedItem] : state;
     }
     case UPDATE_TRAINER_INFO.FAILURE:
     case HIRE_TRAINER.FAILURE: {
@@ -231,17 +231,18 @@ const successFunction = (action, payload) => {
 export function hireTrainer(data) {
   data.state = data.state ? data.state.value : undefined;
   data.clients = data.clients ? data.clients.map(x=> x.value) : [];
+  const trainer = denormalizeTrainer(data);
   return {
     type: HIRE_TRAINER.REQUEST,
     states: HIRE_TRAINER,
     url: config.apiBase + 'trainer/hireTrainer',
-    insertedItem: data,
+    insertedItem: trainer,
     successFunction,
     params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data)
+      body: JSON.stringify(trainer)
     }
   };
 }

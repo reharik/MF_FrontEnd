@@ -22,10 +22,11 @@ function* request(action) {
   let payload;
   try {
     response = yield call(fetch, action.url, action.params);
+    payload = yield response.json();
+
     if (!response.ok) {
       throw new Error(response);
     }
-    payload = yield response.json();
     if(payload && payload.result && payload.result.success === 'Failure'){
       throw new Error('Server was unable to complete the request');
     }

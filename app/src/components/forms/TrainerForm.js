@@ -8,7 +8,10 @@ import {browserHistory} from 'react-router';
 class TrainerForm extends Component {
   componentWillMount() {
     this.loadData();
-    const fields = Form.buildModel('trainerForm',this.props.model, {onChange: this.changeHandler})
+    const fields = Form.buildModel('trainerForm',this.props.model, {onChange: this.changeHandler});
+    console.log(`==========fields=========`);
+    console.log(fields);
+    console.log(`==========END fields=========`);
     this.setState({fields, formIsValid: false})
   }
 
@@ -21,9 +24,9 @@ class TrainerForm extends Component {
   onSubmitHandler = (e) => {
     e.preventDefault();
     const result = Form.prepareSubmission(this.state.fields);
-    if(result.formIsValid){
+    // if(result.formIsValid){
       this.props.hireTrainer(result.fieldValues);
-    }
+    // }
     this.setState(result);
   };
 
