@@ -24,10 +24,10 @@ export default (state = [], action = {}) => {
       return state;
     }
     case TRAINER.SUCCESS: {
-      return reducerMerge(state, action.payload);
+      return reducerMerge(state, action.response);
     }
     case TRAINER_LIST.SUCCESS: {
-      return reducerMerge(state, action.payload.trainers);
+      return reducerMerge(state, action.response.trainers);
     }
     case HIRE_TRAINER.SUCCESS: {
       var insertedItem = selectn('action.insertedItem', action);
@@ -117,9 +117,6 @@ export default (state = [], action = {}) => {
 }
 
 export function updateTrainerInfo(data) {
-  console.log(`==========data=========`);
-  console.log(data);
-  console.log(`==========END data=========`);
   const item = {
     id: data.id,
     birthDate:data.birthDate,
@@ -209,7 +206,7 @@ export function updateTrainersClients(data) {
     id: data.id,
     clients: data.clients
   };
-  
+
   return {
     type: UPDATE_TRAINER_CLIENTS.REQUEST,
     states: UPDATE_TRAINER_CLIENTS,
@@ -238,6 +235,7 @@ export function hireTrainer(data) {
     url: config.apiBase + 'trainer/hireTrainer',
     insertedItem: trainer,
     successFunction,
+    startAjaxState:true,
     params: {
       method: 'POST',
       credentials: 'include',

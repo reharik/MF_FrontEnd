@@ -4,14 +4,12 @@ import {Form} from 'freakin-react-forms';
 import ContentHeader from '../ContentHeader';
 import SubmissionFor from '../../containers/forms/SubmissionForContainer';
 import {browserHistory} from 'react-router';
+import AjaxState from './../AjaxStateComponent';
 
 class TrainerForm extends Component {
   componentWillMount() {
     this.loadData();
     const fields = Form.buildModel('trainerForm',this.props.model, {onChange: this.changeHandler});
-    console.log(`==========fields=========`);
-    console.log(fields);
-    console.log(`==========END fields=========`);
     this.setState({fields, formIsValid: false})
   }
 
@@ -19,14 +17,15 @@ class TrainerForm extends Component {
     if (this.props.params.trainerId) {
       this.props.fetchTrainerAction(this.props.params.trainerId);
     }
+    this.props.fetchClientsAction();
   }
 
   onSubmitHandler = (e) => {
     e.preventDefault();
     const result = Form.prepareSubmission(this.state.fields);
-    // if(result.formIsValid){
+    if(result.formIsValid){
       this.props.hireTrainer(result.fieldValues);
-    // }
+    }
     this.setState(result);
   };
 
@@ -36,7 +35,7 @@ class TrainerForm extends Component {
   };
 
   formReset = () => {
-    const fields = Form.buildModel('trainerForm',this.props.model, {onChange: this.changeHandler})
+    const fields = Form.buildModel('trainerForm',this.props.model, {onChange: this.changeHandler});
     this.setState({fields, formIsValid: false})
   };
 
@@ -44,6 +43,7 @@ class TrainerForm extends Component {
     const model = this.state.fields;
     return (
       <div className='form'>
+        <AjaxState state={this.props.ajaxState} />
         <ContentHeader >
           <div className="form__header">
             <div className="form__header__left">
@@ -108,7 +108,7 @@ class TrainerForm extends Component {
                 </div>
                 <div className="form__section__row">
                   <SubmissionFor selectOptions={this.props.roles}
-                                data={model.role} 
+                                data={model.role}
                  />
                 </div>
               </div>

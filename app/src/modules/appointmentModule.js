@@ -13,18 +13,28 @@ export const DELETE_APPOINTMENT = requestStates('delete_appointment', 'appointme
 
 export default (state = [], action = {}) => {
   switch (action.type) {
-    case UPDATE_APPOINTMENT.SUCCESS:
+    case UPDATE_APPOINTMENT.SUCCESS:{
+      var response = selectn('response.payload', action);
+      if(response.updateType === 'rescheduleAppointmentToNewDay'){
+        const newState = state.filter(x=> x.id !== response.oldAppointmentId).map(x=> ({...x}));
+        var newItem = selectn('action.upsertedItem', action);
+        newItem.id = response.newAppointmentId;
+        return reducerMerge(newState, newItem);
+      }
+    }
+    // fallback intentional for non new day updates
     case SCHEDULE_APPOINTMENT.SUCCESS: {
       var upsertedItem = selectn('action.upsertedItem', action);
-      upsertedItem.id = selectn('payload.result.appointmentId',action);
+      upsertedItem.id = selectn('response.payload.appointmentId',action);
       return reducerMerge(state, upsertedItem);
     }
     case FETCH_APPOINTMENTS.SUCCESS:
     {
-      return reducerMerge(state, action.payload.appointments);
+      return reducerMerge(state, action.response.appointments);
     }
     case  DELETE_APPOINTMENT.SUCCESS: {
-      return state.filter(x=> x.id !== action.payload.result.appointmentId);
+      var response = selectn('response.payload', action);
+      return state.filter(x=> x.id !== response.appointmentId);
     }
   }
   return state;

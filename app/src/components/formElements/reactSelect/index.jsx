@@ -7,33 +7,6 @@ import {contains} from 'underscore.string';
 import keyCodes from './utils/keyCodes';
 
 
-// function defaultValuesPropType(props, propName, component) {
-//   const prop = props[propName];
-// console.log('==========prop=========');
-// console.log(prop);
-// console.log('==========END prop=========');
-//
-//   if (props.simulateSelect && isArray(prop) && prop.length > 1) {
-//       return new Error(
-//         'when props.simulateSelect is set to TRUE, you should NOT pass more than a single value in props.defaultValues'
-//       );
-//   }
-//
-//   return React.PropTypes.array(props, propName, component);
-// }
-//
-// function tresholdPropType(props, propName, component) {
-//   const prop = props[propName];
-//
-//   if (props.simulateSelect && prop > 0) {
-//       return new Error(
-//         'when props.simulateSelect is set to TRUE, you should not pass non-zero treshold'
-//       );
-//   }
-//
-//   return React.PropTypes.number(props, propName, component);
-// }
-
 class TokenAutocomplete extends React.Component {
 
   static displayName = 'TokenAutocomplete';
@@ -142,8 +115,9 @@ class TokenAutocomplete extends React.Component {
       case keyCodes.ESC:
         this.blur();
         break;
+      case keyCodes.TAB:
       case keyCodes.ENTER:
-        this.addSelectedValue(e);
+        this.addSelectedValue(this.refs.options.getSelected());
         e.preventDefault();
         break;
       case keyCodes.BACKSPACE:
@@ -226,11 +200,7 @@ class TokenAutocomplete extends React.Component {
       });
     }
 
-    if (this.props.simulateSelect) {
       this.blur();
-    } else {
-      this.focus();
-    }
   };
 
   //HELPERS
@@ -247,8 +217,9 @@ class TokenAutocomplete extends React.Component {
       }
       //filter
       availableOptions = filter(availableOptions, option => {
-        return contains(option.display, this.state.inputValue);
-      });
+        return contains(option.display.toLowerCase(), this.state.inputValue.toLowerCase());
+      })
+        .map(x=> ({...x, filter:this.state.inputValue}));
 
     }
     if (this.shouldAllowCustomValue() &&
@@ -325,7 +296,7 @@ class TokenAutocomplete extends React.Component {
         value={this.state.inputValue}
         placeholder={this.props.placeholder}
         className="reactSelect__input"
-        ref="input"/>) 
+        ref="input"/>)
       : null;
   };
 

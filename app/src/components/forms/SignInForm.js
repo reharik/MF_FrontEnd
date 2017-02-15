@@ -2,19 +2,32 @@ import React, {Component} from 'react';
 import SubmissionFor from '../../containers/forms/SubmissionForContainer';
 import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
+import AjaxState, {handleNewState} from './../AjaxStateComponent';
+import {LOGIN} from '../../modules/authModule';
 
 class SignInForm extends Component {
   componentWillMount() {
-    const fields = Form.buildModel('signIn',this.props.fields, {onChange: this.changeHandler})
+    const fields = Form.buildModel('signIn',this.props.fields, {onChange: this.changeHandler});
     this.setState({fields, formIsValid: false})
+  }
+
+  componentDidMount() {
+    console.log('==========this.state.fields.userName=========');
+    console.log(this.state.fields.userName);
+    console.log('==========END this.state.fields.userName=========');
+
+    this.state.fields.userName.ref.focus();
+  }
+  componentWillReceiveProps(newProps) {
+    const result = handleNewState(this.props.ajaxState, newProps.ajaxState, LOGIN, this.state.fields, "signIn");
+    if(result.update){
+      this.setState({ajaxState: result.ajaxState, fields: result.fields});
+    }
   }
 
   onSubmitHandler = (e) => {
     e.preventDefault();
     const result = Form.prepareSubmission(this.state.fields);
-    console.log(`==========result=========`);
-    console.log(result);
-    console.log(`==========END result=========`);
     if(result.formIsValid){
       this.props.loginUser(result.fieldValues);
     }
@@ -28,13 +41,14 @@ class SignInForm extends Component {
   };
 
   render() {
-    const model = this.state.fields
+    const model = this.state.fields;
     if (!model) {
       return null;
     }
-    
+
     return (
       <div className="signIn">
+        <AjaxState state={this.state.ajaxState} />
         <div className="signIn__outer">
           <div className="signIn__header"></div>
           <div className="signIn__content">
@@ -44,7 +58,7 @@ class SignInForm extends Component {
                 <label className="signIn__form__header__label">Sign In</label>
               </div>
               <div className="signIn__form__row">
-                <SubmissionFor data={model.userName} />
+                <SubmissionFor ref="subForUserName" data={model.userName} />
               </div>
               <div className="signIn__form__row">
                 <SubmissionFor data={model.password} />

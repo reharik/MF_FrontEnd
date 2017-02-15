@@ -16,12 +16,12 @@ const InputFor = ({data,
 
   const input = function () {
     switch (data['x-input'] || data.type) {
-      case 'date-time':
-      {
-        const defaultOnChange = moment => data.onChange({target: {name: data.name, value: moment.toISOString()}});
+      case 'date-time': {
+        const defaultOnChange = moment => data.onChange({target: {name: data.name, value: moment().toISOString()}});
         const _onChange = onChange || defaultOnChange;
-        return (<Datepicker selected={data.value ? moment(data.value) : moment()}
-          {...data}
+        data.value = data.value ? data.value : moment().toISOString();
+        return (<Datepicker selected={moment(data.value)}
+                            {...data}
                             onChange={_onChange}
                             onBlur={data.onBlur}
                             className={inputStyle}/>)
@@ -77,7 +77,7 @@ const InputFor = ({data,
       {
         const _onChange = onChange || data.onChange;
         const password = data['x-input'] === 'password' ? {type: "password"} : '';
-        return (<input className={inputStyle}
+        return (<input ref={node => data.ref = node} className={inputStyle}
                       {...password}
                        placeholder={data.placeholder}
                        name={data.name}

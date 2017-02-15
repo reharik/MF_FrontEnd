@@ -63,6 +63,7 @@ export default class OptionList extends React.Component {
   renderOption = (option, index) => {
     return (
       <Option
+  filter={option.filter}
         key={index}
         ref={ 'option' + index}
         index={index}

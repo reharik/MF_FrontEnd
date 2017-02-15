@@ -1,8 +1,9 @@
-import authReducer from './authModule';
-import schemaReducer from './schemaModule';
-import menuReducer from './menuModule';
-import trainerReducer from './trainerModule';
-import clientReducer from './clientModule';
+import auth from './authModule';
+import schema from './schemaModule';
+import menu from './menuModule';
+import trainers from './trainerModule';
+import clients from './clientModule';
+import ajaxState from './ajaxStateModule';
 import toggleTrainerListForCalendar from './toggleTrainerListForCalendarModule';
 
 export {loginUser, logoutUser} from './authModule';
@@ -13,11 +14,12 @@ export {scheduleAppointment,
   updateTaskViaDND} from './appointmentModule';
 
 export default { 
-  auth: authReducer, 
-  menu: menuReducer, 
-  schema: schemaReducer, 
-  trainers: trainerReducer, 
-  clients: clientReducer ,
-  toggleTrainerListForCalendar
+  auth, 
+  menu, 
+  schema, 
+  trainers, 
+  clients,
+  toggleTrainerListForCalendar,
+  ajaxState
 };
 

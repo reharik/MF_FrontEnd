@@ -73,7 +73,7 @@ class EditableDisplay extends Component {
     const result = Form.onChangeHandler(this.state.fields)(e);
     this.setState(result);
   };
-  
+
   submitHandler = (e) => {
     e.preventDefault();
     let result;
@@ -86,6 +86,7 @@ class EditableDisplay extends Component {
         this.props.submitHandler(result.fieldValues);
       }
     }
+
     this.setState({...result, editing: !result.formIsValid});
   };
 
@@ -104,8 +105,8 @@ class EditableDisplay extends Component {
           <form onSubmit={this.submitHandler} className="editableDisplay__content__form">
             {this.setEditing(this.props.children, this.state.editing, this.state.fields)}
             {this.props.footer
-                ? <this.props.footer 
-              editing={this.state.editing} 
+                ? <this.props.footer
+              editing={this.state.editing}
               toggleEdit={this.toggleEdit}
               params={this.props.params} />
                 : <EDFooter editing={this.state.editing} toggleEdit={this.toggleEdit}/>

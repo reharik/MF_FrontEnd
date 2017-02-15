@@ -5,7 +5,7 @@ export function denormalizeTrainer(flat) {
     birthDate: flat.birthDate,
     contact: denormalizeContact(flat),
     clients: flat.clients,
-    account: {
+    credentials: {
       password: flat.password,
       role: flat.role
     }

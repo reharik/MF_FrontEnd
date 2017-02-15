@@ -6,7 +6,7 @@ export const SCHEMA = requestStates('schema');
 export default (state = {definitions: {}}, action = {}) => {
   switch (action.type) {
     case SCHEMA.SUCCESS:
-      return action.payload;
+      return action.response;
     default:
       return state;
   }

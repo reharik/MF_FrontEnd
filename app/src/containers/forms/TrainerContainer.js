@@ -4,25 +4,26 @@ import TrainerForm from '../../components/forms/TrainerForm';
 import {Form} from 'freakin-react-forms';
 import formJsonSchema from '../../utilities/formJsonSchema';
 import states from './../../constants/states'
-import { hireTrainer, fetchTrainerAction } from './../../modules/trainerModule';
+import { hireTrainer, fetchTrainerAction, HIRE_TRAINER } from './../../modules/trainerModule';
 import { fetchClientsAction } from './../../modules/clientModule';
 import roles from './../../constants/roles';
 import {actions as notifActions} from 'redux-notifications';
 const {notifClear} = notifActions;
 
 const mapStateToProps = (state, props) => {
-  const clients = state.clients.map(x=> ({ value:x.id , label: `${x.contact.lastName} ${x.contact.firstName}` }));
+  const clients = state.clients.map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
   const jsonModel = formJsonSchema(state.schema.definitions.trainer);
   jsonModel.confirmPassword = {...jsonModel.password};
   jsonModel.confirmPassword.name  = 'confirmPassword';
   jsonModel.confirmPassword.rules = [{rule:'equalTo', compareField:'password'}];
   const model = Form.buildModel('trainerForm', jsonModel);
-  
+  const ajaxState = state.ajaxState[HIRE_TRAINER.request];
   return {
     model,
     states,
     clients,
-    roles
+    roles,
+    ajaxState
   }
 };
 

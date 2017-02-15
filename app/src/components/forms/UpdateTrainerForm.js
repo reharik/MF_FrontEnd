@@ -5,7 +5,6 @@ import EditableFor from './../formElements/elementsFor/EditableFor';
 import EditableDisplay from '../../containers/forms/EditableDisplayContainer';
 import {browserHistory} from 'react-router';
 
-
 class UpdateTrainerForm extends Component {
   componentWillMount() {
     this.loadData();
@@ -114,5 +113,5 @@ class UpdateTrainerForm extends Component {
     );
   }
 };
-  
+
 export default UpdateTrainerForm;

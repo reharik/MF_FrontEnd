@@ -22,10 +22,10 @@ export default (state = [], action = {}) => {
       return state;
     }
     case CLIENT.SUCCESS: {
-      return reducerMerge(state, action.payload);
+      return reducerMerge(state, action.response);
     }
     case CLIENT_LIST.SUCCESS: {
-      return reducerMerge(state, action.payload.clients);
+      return reducerMerge(state, action.response.clients);
     }
     case ADD_CLIENT.SUCCESS: {
       var insertedItem = selectn('action.insertedItem', action);

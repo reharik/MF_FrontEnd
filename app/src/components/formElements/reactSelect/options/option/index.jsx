@@ -31,13 +31,21 @@ export default class Option extends React.Component {
 
   render() {
     let className = `reactSelect__options__option__wrapper ${this.props.selected? 'reactSelect__options__option__selected' : ''}`;
+
+    let val = this.props.parse(this.props.value);
+    const filter = this.props.filter;
+    if(filter) {
+      var re = new RegExp(filter,"gi");
+      val = val.replace(re, m => `<b>${m}</b>`);
+    }
+    const final = {__html: val};
+
     return (
       <div
         ref="wrapper"
         className={ className }
         onClick={this.onClick}
-        onMouseEnter={this.onMouseEnter} >
-          {this.props.parse(this.props.value)}
+        onMouseEnter={this.onMouseEnter} dangerouslySetInnerHTML={final}>
       </div>
     );
   }
