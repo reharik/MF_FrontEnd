@@ -43,7 +43,6 @@ const webpackConfig = {
 
   entry: {
     app: ['babel-polyfill',
-      'react-hot-loader/patch',
       './index.js'
     ]
   },

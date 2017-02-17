@@ -10,8 +10,9 @@ export default class Option extends React.Component {
     index: React.PropTypes.number,
     handleSelect: React.PropTypes.func,
     handleClick: React.PropTypes.func,
-    parse: React.PropTypes.func
-  }
+    parse: React.PropTypes.func,
+    filter: React.PropTypes.string
+  };
 
   static defaultProps = {
     handleSelect: noop,
@@ -19,7 +20,7 @@ export default class Option extends React.Component {
     selected: false,
     index: 0,
     parse: identity
-  }
+  };
 
   onMouseEnter = () => {
     this.props.handleSelect(this.props.index);

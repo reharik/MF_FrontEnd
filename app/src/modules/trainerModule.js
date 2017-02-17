@@ -211,6 +211,7 @@ export function updateTrainersClients(data) {
     type: UPDATE_TRAINER_CLIENTS.REQUEST,
     states: UPDATE_TRAINER_CLIENTS,
     url: config.apiBase + 'trainer/updateTrainersClients',
+    update:data,
     params: {
       method: 'POST',
       credentials: 'include',

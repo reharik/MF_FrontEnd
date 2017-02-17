@@ -1,6 +1,6 @@
 import config from './../utilities/configValues';
 import { browserHistory } from 'react-router';
-import { denormalizeContact } from './../utilities/denormalize';
+import { denormalizeClient } from './../utilities/denormalize';
 import selectn from 'selectn';
 import reducerMerge from './../utilities/reducerMerge';
 import { requestStates } from '../sagas/requestSaga';
@@ -9,6 +9,7 @@ export const ADD_CLIENT = requestStates('add_client', 'client');
 export const UPDATE_CLIENT_CONTACT = requestStates('update_client_contact', 'client');
 export const UPDATE_CLIENT_ADDRESS = requestStates('update_client_address', 'client');
 export const UPDATE_CLIENT_INFO = requestStates('update_client_info', 'client');
+export const UPDATE_CLIENT_SOURCE = requestStates('update_client_Source', 'client');
 export const CLIENT_LIST = requestStates('client_list', 'client');
 export const CLIENT = requestStates('client');
 
@@ -30,7 +31,7 @@ export default (state = [], action = {}) => {
     case ADD_CLIENT.SUCCESS: {
       var insertedItem = selectn('action.insertedItem', action);
       insertedItem.id = selectn('payload.result.handlerResult.clientId',action);
-      return insertedItem.id ? [...state, {id:insertedItem.id, contact: denormalizeContact(insertedItem)}] : state;
+      return insertedItem.id ? [...state, insertedItem] : state;
     }
     case UPDATE_CLIENT_INFO.FAILURE:
     case ADD_CLIENT.FAILURE: {
@@ -42,7 +43,21 @@ export default (state = [], action = {}) => {
 
       return state.map(x => {
         if(x.id === update.id) {
-          return {...x, contact: {...x.contact, firstName: update.firstName, lastName: update.lastName}}
+          return {...x,
+            contact: {...x.contact, firstName: update.firstName, lastName: update.lastName},
+            birthDate: update.birthDate }
+        }
+        return x;
+      });
+    }
+
+
+    case UPDATE_CLIENT_SOURCE.SUCCESS: {
+      let update = selectn('action.update', action);
+
+      return state.map(x => {
+        if(x.id === update.id) {
+          return {...x, source: update.source, sourceNotes: update.sourceNotes, startDate: update.startDate}
         }
         return x;
       });
@@ -98,7 +113,8 @@ export function updateClientInfo(data) {
   const item = {
     id: data.id,
     firstName: data.firstName,
-    lastName: data.lastName
+    lastName: data.lastName,
+    birthDate: data.birthDate
   };
   return {
     type: UPDATE_CLIENT_INFO.REQUEST,
@@ -126,6 +142,28 @@ export function updateClientContact(data) {
     type: UPDATE_CLIENT_CONTACT.REQUEST,
     states: UPDATE_CLIENT_CONTACT,
     url: config.apiBase + 'client/updateClientContact',
+    update:data,
+    params: {
+      method: 'POST',
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(item)
+    }
+  };
+}
+
+export function updateClientSource(data) {
+  const item = {
+    id: data.id,
+    source: data.source,
+    sourceNotes: data.sourceNotes,
+    startDate: data.startDate
+  };
+
+  return {
+    type: UPDATE_CLIENT_SOURCE.REQUEST,
+    states: UPDATE_CLIENT_SOURCE,
+    url: config.apiBase + 'client/updateClientSource',
     update:data,
     params: {
       method: 'POST',
@@ -165,18 +203,19 @@ const successFunction = (action, payload) => {
 };
 
 export function addClient(data) {
+  const client = denormalizeClient(data);
   data.state = data.state ? data.state.value : undefined;
   return {
     type: ADD_CLIENT.REQUEST,
     states: ADD_CLIENT,
     url: config.apiBase + 'client/addClient',
-    insertedItem: data,
+    insertedItem: client,
     successFunction,
     params: {
       method: 'POST',
       credentials: 'include',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data)
+      body: JSON.stringify(client)
     }
   };
 }

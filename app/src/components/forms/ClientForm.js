@@ -60,11 +60,14 @@ class ClientForm extends Component {
           <div className="content-inner">
             <form onSubmit={this.onSubmitHandler} className="form__content">
               <div className="form__section__header">
-                <label className="form__section__header__label">Contact Info</label>
+                <label className="form__section__header__label">Client Info</label>
               </div>
               <div className="form__section__row">
                 <SubmissionFor data={model.firstName}/>
                 <SubmissionFor data={model.lastName}/>
+              </div>
+              <div className="form__section__header">
+                <label className="form__section__header__label">Contact Info</label>
               </div>
               <div className="form__section__row">
                 <SubmissionFor data={model.mobilePhone}/>
@@ -87,7 +90,7 @@ class ClientForm extends Component {
                 <SubmissionFor data={model.zipCode} containerStyle="form__section__row__address__zip"/>
               </div>
                 <div className="form__section__header">
-                  <label className="form__section__header__label">Client Info</label>
+                  <label className="form__section__header__label">Source Info</label>
                 </div>
                 <div className="form__section__row">
                   <SubmissionFor data={model.source} selectOptions={this.props.sources}/>

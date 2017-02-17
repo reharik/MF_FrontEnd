@@ -3,9 +3,10 @@ import {connect} from 'react-redux';
 import UpdateClientForm from '../../components/forms/UpdateClientForm';
 import formJsonSchema from '../../utilities/formJsonSchema';
 import states from './../../constants/states'
+import sources from './../../constants/sources'
 import { updateClientInfo,
   updateClientAddress,
-  updateClientContact, 
+  updateClientContact,
   fetchClientAction } from './../../modules/clientModule';
 import {actions as notifActions} from 'redux-notifications';
 const {notifClear} = notifActions;
@@ -38,7 +39,8 @@ const mapStateToProps = (state, props) => {
   const model = formJsonSchema(state.schema.definitions.client, client);
   return {
     model,
-    states
+    states,
+    sources
   }
 };
 

@@ -12,6 +12,15 @@ export function denormalizeTrainer(flat) {
   }
 }
 
+export function denormalizeClient(flat) {
+  return {
+    source: flat.source,
+    sourceNotes: flat.sourceNotes,
+    startDate: flat.startDate,
+    birthDate: flat.birthDate,
+    contact: denormalizeContact(flat)
+  }
+}
 
 export function denormalizeContact(flat) {
   return {

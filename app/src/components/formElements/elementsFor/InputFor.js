@@ -17,7 +17,7 @@ const InputFor = ({data,
   const input = function () {
     switch (data['x-input'] || data.type) {
       case 'date-time': {
-        const defaultOnChange = moment => data.onChange({target: {name: data.name, value: moment().toISOString()}});
+        const defaultOnChange = mom => data.onChange({target: {name: data.name, value: mom.toISOString()}});
         const _onChange = onChange || defaultOnChange;
         data.value = data.value ? data.value : moment().toISOString();
         return (<Datepicker selected={moment(data.value)}
