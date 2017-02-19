@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import UpdateTrainerForm from '../../components/forms/UpdateTrainerForm';
 import formJsonSchema from '../../utilities/formJsonSchema';
 import states from './../../constants/states'
+import roles from './../../constants/roles'
 import { updateTrainerInfo,
   updateTrainerContact,
   updateTrainerAddress,
@@ -16,13 +17,19 @@ const {notifClear} = notifActions;
 
 const mapStateToProps = (state, ownProps) => {
   const trainer = state.trainers.filter(x=>x.id === ownProps.params.trainerId)[0];
-  const clients = state.clients.map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
+  const clients = state.clients
+    .fetch(x => !x.archived)
+    .map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
   const model = formJsonSchema(state.schema.definitions.trainer, trainer);
+  model.confirmPassword = {...model.password};
+  model.confirmPassword.name  = 'confirmPassword';
+  model.confirmPassword.rules = [{rule:'equalTo', compareField:'password'}];
 
   return {
     model,
     states,
-    clients
+    clients,
+    roles
   }
 };
 

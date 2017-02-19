@@ -98,7 +98,7 @@ class TrainerForm extends Component {
                   <SubmissionFor data={model.color}/>
                 </div>
                 <div className="form__section__header">
-                  <label className="form__section__header__label">Password</label>
+                  <label className="form__section__header__label">Trainer Credentials</label>
                 </div>
                 <div className="form__section__row">
                   <SubmissionFor data={model.password}/>

@@ -10,6 +10,7 @@ export const UPDATE_CLIENT_CONTACT = requestStates('update_client_contact', 'cli
 export const UPDATE_CLIENT_ADDRESS = requestStates('update_client_address', 'client');
 export const UPDATE_CLIENT_INFO = requestStates('update_client_info', 'client');
 export const UPDATE_CLIENT_SOURCE = requestStates('update_client_Source', 'client');
+export const ARCHIVE_CLIENT = requestStates('archive_client', 'client');
 export const CLIENT_LIST = requestStates('client_list', 'client');
 export const CLIENT = requestStates('client');
 
@@ -38,6 +39,16 @@ export default (state = [], action = {}) => {
       return state;
     }
 
+    case ARCHIVE_CLIENT.SUCCESS: {
+      return state.map(x => {
+        if(x.id === update.id) {
+          return {...x,
+            archived: !update.archived }
+        }
+        return x;
+      });
+    }
+
     case UPDATE_CLIENT_INFO.SUCCESS: {
       let update = selectn('action.update', action);
 
@@ -50,7 +61,6 @@ export default (state = [], action = {}) => {
         return x;
       });
     }
-
 
     case UPDATE_CLIENT_SOURCE.SUCCESS: {
       let update = selectn('action.update', action);
@@ -220,6 +230,21 @@ export function addClient(data) {
   };
 }
 
+export function archiveClient(data) {
+  return {
+    type: ARCHIVE_CLIENT.REQUEST,
+    states: ARCHIVE_CLIENT,
+    url: config.apiBase + 'client/archiveClient',
+    update: data,
+    params: {
+      method: 'POST',
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    }
+  };
+}
+
 export function fetchClientAction(id){
   let apiUrl = config.apiBase + 'client/getClient/' + id;
   return {
@@ -233,8 +258,21 @@ export function fetchClientAction(id){
   };
 }
 // put paging sorting etc params here
+export function fetchAllClientsAction() {
+  let apiUrl = config.apiBase + 'fetchAllClients';
+  return {
+    type: CLIENT_LIST.REQUEST,
+    states: CLIENT_LIST,
+    url: apiUrl,
+    params: {
+      method: 'GET',
+      credentials: 'include'
+    }
+  };
+}
+
 export function fetchClientsAction() {
-  let apiUrl = config.apiBase + 'clients';
+  let apiUrl = config.apiBase + 'fetchClients';
   return {
     type: CLIENT_LIST.REQUEST,
     states: CLIENT_LIST,

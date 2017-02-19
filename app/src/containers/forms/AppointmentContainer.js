@@ -9,7 +9,9 @@ import {actions as notifActions} from 'redux-notifications';
 const {notifClear} = notifActions;
 
 const mapStateToProps = (state, ownProps) => {
-  const clients = state.clients.map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
+  const clients = state.clients
+    .fetch(x => !x.archived)
+    .map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
   // please put this shit in a config somewhere
   const times = generateAllTimes(15, 7, 7);
 
@@ -22,7 +24,9 @@ const mapStateToProps = (state, ownProps) => {
     isAdmin: state.auth.user.role === 'admin'
   };
   if(props.isAdmin){
-    props.trainers = state.trainers.map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
+    props.trainers = state.trainers
+      .fetch(x => !x.archived)
+      .map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
   }
   return props
 };

@@ -93,6 +93,9 @@ class UpdateTrainerForm extends Component {
                 <div className="editableDisplay__content__form__row">
                   <EditableFor data="confirmPassword" noDisplay="true"/>
                 </div>
+                <div className="editableDisplay__content__form__row">
+                  <EditableFor data="role" noDisplay="true" selectOptions={this.props.roles}/>
+                </div>
               </EditableDisplay>
             </div>
             <div>

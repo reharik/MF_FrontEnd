@@ -2,10 +2,11 @@ import {connect} from 'react-redux';
 import ClientList from '../../components/lists/ClientList';
 import CellLink from '../../components/GridElements/CellLink.js';
 import EmailLink from '../../components/GridElements/EmailLink.js';
+import ActionLink from '../../components/GridElements/ActionLink.js';
 
-import { fetchClientsAction } from './../../modules/clientModule';
+import { fetchAllClientsAction, archiveClient } from './../../modules/clientModule';
 
-const columns = [
+const columns = (archiveClient) => [
   {
     property: ({column, row}) => {
       return CellLink('client')({value: `${row.contact.lastName}`, row})
@@ -31,6 +32,14 @@ const columns = [
     width: '10%',
   },
   {
+    property: ({column, row}) => {
+      return ActionLink(archiveClient)({value: `${row.archived}`, row})
+    },
+    sort:'Archived',
+    display: 'Archived',
+    width: '10%',
+  },
+  {
     property: 'id',
     hidden : true
   }
@@ -41,7 +50,7 @@ function mapStateToProps(state) {
   const gridConfig = {
     tableName: 'clientList',
     dataSource: 'clients',
-    fetchDataAction: fetchClientsAction,
+    fetchDataAction: fetchAllClientsAction,
   };
   return {
     gridConfig,
@@ -51,5 +60,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(ClientList);
+export default connect(mapStateToProps, {archiveClient})(ClientList);
 

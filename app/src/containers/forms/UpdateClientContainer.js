@@ -7,6 +7,7 @@ import sources from './../../constants/sources'
 import { updateClientInfo,
   updateClientAddress,
   updateClientContact,
+  updateClientSource,
   fetchClientAction } from './../../modules/clientModule';
 import {actions as notifActions} from 'redux-notifications';
 const {notifClear} = notifActions;
@@ -47,5 +48,6 @@ const mapStateToProps = (state, props) => {
 export default connect(mapStateToProps, { updateClientInfo,
   updateClientAddress,
   updateClientContact,
+  updateClientSource,
   fetchClientAction,
   notifClear})(UpdateClientFormContainer);

@@ -13,6 +13,7 @@ export const UPDATE_TRAINER_ADDRESS = requestStates('update_trainer_address', 't
 export const UPDATE_TRAINER_CLIENTS = requestStates('update_trainer_clients', 'trainer');
 export const UPDATE_TRAINER_INFO = requestStates('update_trainer_info', 'trainer');
 export const TRAINER_LIST = requestStates('trainer_list', 'trainer');
+export const ARCHIVE_TRAINER = requestStates('archive_trainer', 'trainer');
 export const TRAINER = requestStates('trainer');
 
 export default (state = [], action = {}) => {
@@ -246,6 +247,21 @@ export function hireTrainer(data) {
   };
 }
 
+export function archiveTrainer(data) {
+  return {
+    type: ARCHIVE_TRAINER.REQUEST,
+    states: ARCHIVE_TRAINER,
+    url: config.apiBase + 'trainer/archiveTrainer',
+    update: data,
+    params: {
+      method: 'POST',
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    }
+  };
+}
+
 export function fetchTrainerAction(id){
   let apiUrl = config.apiBase + 'trainer/getTrainer/' + id;
   return {
@@ -259,8 +275,21 @@ export function fetchTrainerAction(id){
   };
 }
 // put paging sorting etc params here
+export function fetchAllTrainersAction() {
+  let apiUrl = config.apiBase + 'fetchAllTrainers';
+  return {
+    type: TRAINER_LIST.REQUEST,
+    states: TRAINER_LIST,
+    url: apiUrl,
+    params: {
+      method: 'GET',
+      credentials: 'include'
+    }
+  };
+}
+
 export function fetchTrainersAction() {
-  let apiUrl = config.apiBase + 'trainers';
+  let apiUrl = config.apiBase + 'fetchTrainers';
   return {
     type: TRAINER_LIST.REQUEST,
     states: TRAINER_LIST,

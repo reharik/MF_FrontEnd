@@ -4,7 +4,7 @@ import ContentHeaderSearch from '../ContentHeaderSearch';
 import {Table}  from 'redux-datatable'
 import {browserHistory} from 'react-router';
 
-const TrainerList = ({ gridConfig, columns }) => {
+const TrainerList = ({ gridConfig, columns, archiveClient }) => {
   return (
     <div id='trainerList'>
       <ContentHeader >
@@ -22,7 +22,7 @@ const TrainerList = ({ gridConfig, columns }) => {
       </ContentHeader>
       <div className="form-scroll-inner" >
         <div className="content-inner">
-          <Table columns={columns} config={gridConfig} />
+          <Table columns={columns(archiveClient)} config={gridConfig} />
         </div>
       </div>
     </div>);

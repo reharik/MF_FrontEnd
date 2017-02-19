@@ -2,10 +2,11 @@ import {connect} from 'react-redux';
 import TrainerList from '../../components/lists/TrainerList';
 import CellLink from '../../components/GridElements/CellLink.js';
 import EmailLink from '../../components/GridElements/EmailLink.js';
+import ActionLink from '../../components/GridElements/ActionLink.js';
 
-import { fetchTrainersAction } from './../../modules/trainerModule';
+import { fetchAllTrainersAction, archiveTrainer } from './../../modules/trainerModule';
 
-const columns = [
+const columns = (archiveTrainer) => [
    {
     property: ({column, row}) => {
       return CellLink('trainer')({value: `${row.contact.lastName}`, row})
@@ -31,25 +32,30 @@ const columns = [
     width: '10%',
   },
   {
+    property: ({column, row}) => {
+      return ActionLink(archiveTrainer)({value: `${row.archived}`, row})
+    },
+    sort:'Archived',
+    display: 'Archived',
+    width: '10%',
+  },
+  {
     property: 'id',
     hidden : true
   }
 ];
 
-
 function mapStateToProps(state) {
   const gridConfig = {
     tableName: 'trainerList',
     dataSource: 'trainers',
-    fetchDataAction: fetchTrainersAction,
+    fetchDataAction: fetchAllTrainersAction,
   };
   return {
     gridConfig,
     columns,
     trainers: state.trainers
-
   };
 }
 
-export default connect(mapStateToProps)(TrainerList);
-
+export default connect(mapStateToProps, {archiveTrainer})(TrainerList);
