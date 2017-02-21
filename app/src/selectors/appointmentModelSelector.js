@@ -8,9 +8,7 @@ export function appointmentModel(state, args) {
   model.appointmentType.value = 'halfHour';
   model.startTime.value = args.startTime;
   model.endTime.value = syncApptTypeAndTime(model.appointmentType.value, model.startTime.value);
-  model.trainer.value = {id: state.auth.user.id};
-  var trainer = state.trainers.find(x=> x.id === model.trainer.value.id);
-  model.trainer.value.display = trainer ? `${trainer.contact.lastName}, ${trainer.contact.firstName}` : '';
+  model.trainer.value = state.auth.user.id;
   return model;
 }
 
@@ -19,7 +17,6 @@ export function copyAppointmentModel(state, args) {
   const model = formJsonSchema(state.schema.definitions.appointment, appointment);
   model.startTime.value = moment(model.startTime.value).format('hh:mm A');
   model.endTime.value = moment(model.endTime.value).format('hh:mm A');
-  model.date.value = '';
   model.id = '';
   return model;
 }

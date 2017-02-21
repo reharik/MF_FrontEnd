@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
 import EDFooter from './EDFooter.js';
-import {actions as notifActions} from 'redux-notifications';
 
 class EditableDisplay extends Component {
 

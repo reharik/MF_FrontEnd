@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import TrainerList from '../../components/lists/TrainerList';
 import CellLink from '../../components/GridElements/CellLink.js';
 import EmailLink from '../../components/GridElements/EmailLink.js';
-import ActionLink from '../../components/GridElements/ActionLink.js';
+import ArchiveLink from '../../components/GridElements/ArchiveLink.js';
 
 import { fetchAllTrainersAction, archiveTrainer } from './../../modules/trainerModule';
 
@@ -33,7 +33,7 @@ const columns = (archiveTrainer) => [
   },
   {
     property: ({column, row}) => {
-      return ActionLink(archiveTrainer)({value: `${row.archived}`, row})
+      return ArchiveLink(archiveTrainer)({value: `${row.archived}`, row})
     },
     sort:'Archived',
     display: 'Archived',

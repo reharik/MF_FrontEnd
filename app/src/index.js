@@ -13,57 +13,8 @@ import './css/thirdParty/notif-styles.css';
 import './css/thirdParty/reactSelect.css';
 import './css/thirdParty/react-datepicker.css';
 
-// const menu = {
-//   menuItems: item ? JSON.parse(item).menuItems : [],
-//   path: [],
-//   breadCrumbItems: ['Home'],
-//   currentItem: ''
-// };
 
-// TODO these will come from api
-const  menuItems = [
-  {text: 'Calendar', path:'/calendar'},
-  {text: 'Trainers', path:'/trainers'},
-  {text: 'Clients', path:'/clients'}
-  ];
-
-// const  menuItems = [
-//           {text: 'Animal', children: [
-//                 {text: 'Land', children: [
-//                       {text: 'Cheetah', path: 'Cheetah'},
-//                       {text: 'Ant', path: 'Ant'}
-//                   ]},
-//                 {text: 'Air', children: [
-//                       {text: 'Eagle', path: 'Eagle'}
-//                   ]},
-//                 {text: 'Water', children: [
-//                       {text: 'Nessy', children: [
-//                         {text: 'Nessy', path: 'Nessy'}
-//                       ]}
-//                   ]}
-//             ]},
-//           {text: 'Vegetable', children: [
-//                 {text: 'Broccoli', path: 'Broccoli'},
-//                 {text: 'IE6', path: 'IE6'}
-//             ]},
-//           {text: 'Mineral', children: [
-//                 {text: 'Granite', path: 'Granite'},
-//                 {text: 'Uraninite', path: 'Uraninite'}
-//             ]}
-//       ];
-
-const menu = {
-  menuItems,
-  path: [],
-  breadCrumbItems: ['Home'],
-  currentItem: ''
-};
-
-const state = {
-  menu: menu
-};
-
-const store = configureStore(state);
+const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 render(

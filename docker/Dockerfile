@@ -5,6 +5,7 @@ MAINTAINER reharik@gmail.com
 ADD ./package.json ./package.json
 #ADD ./config ./config
 
-RUN npm install -q
+ADD ./yarn.lock ./yarn.lock
+RUN yarn install
 
 ADD ./app /$HOME/app

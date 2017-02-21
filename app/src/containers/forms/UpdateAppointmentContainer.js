@@ -10,7 +10,7 @@ const {notifClear} = notifActions;
 
 const mapStateToProps = (state, ownProps) => {
   const clients = state.clients
-    .fetch(x => !x.archived)
+    .filter(x => !x.archived)
     .map(x=> ({value: x.id, display: `${x.contact.lastName} ${x.contact.firstName}`}));
   // please put this shit in a config somewhere
   const times = generateAllTimes(15, 7, 7);
@@ -21,12 +21,17 @@ const mapStateToProps = (state, ownProps) => {
     times,
     cancel: ownProps.cancel,
     isAdmin: state.auth.user.role === 'admin',
-    copy: ownProps.copy
+    copy: ownProps.copy,
+    trainers:state.trainers.map(x=> ({value: x.id, display: `${x.contact.lastName} ${x.contact.firstName}`}))
   };
-  if (props.isAdmin) {
-    props.trainers = state.trainers.map(x=> ({value: x.id, display: `${x.contact.lastName} ${x.contact.firstName}`}));
+
+  if(!props.isAdmin){
+    var user = state.trainers.find(x=>x.id === state.auth.user.id);
+    let clients = !props.model.clients.value ? user.clients : user.clients.concat(props.model.clients.value);
+    props.clients = props.clients.filter(x=> clients.some(c=>x.value === c));
   }
-  return props
+
+  return props;
 };
 
 

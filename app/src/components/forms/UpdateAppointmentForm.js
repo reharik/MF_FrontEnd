@@ -65,7 +65,7 @@ class UpdateAppointmentForm extends Component {
                          sectionHeader="Appointment Info"
                          formName="ApointmentInfo"
                          footer={AppointmentFooter}
-                         params={{copy:this.props.copy, 
+                         params={{copy:this.props.copy,
                          deleteAppointment:this.props.deleteAppointment,
                          appointmentId: this.props.model.id.value,
                          date: this.props.model.date.value,
@@ -74,7 +74,7 @@ class UpdateAppointmentForm extends Component {
             {
               this.props.isAdmin
                 ? <EditableFor data="trainer" selectOptions={this.props.trainers}/>
-                : <DisplayFor data="trainer"/>
+                : <DisplayFor data="trainer" selectOptions={this.props.trainers}/>
             }
           </div>
           <div className="editableDisplay__content__form__row">

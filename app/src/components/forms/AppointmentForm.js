@@ -7,7 +7,7 @@ import { syncApptTypeAndTime } from './../../utilities/appointmentTimes';
 
 class AppointmentForm extends Component {
   componentWillMount() {
-    this.props.notifClear('appointmentForm');
+    // this.props.notifClear('appointmentForm');
     const fields = Form.buildModel('appointmentForm',this.props.model, {onChange: this.changeHandler});
     this.setState({fields, formIsValid: false})
   }
@@ -17,9 +17,6 @@ class AppointmentForm extends Component {
     const result = Form.prepareSubmission(this.state.fields);
     this.setState(result);
     if(result.formIsValid) {
-      console.log(`==========result=========`);
-      console.log(result);
-      console.log(`==========END result=========`);
       result.fields.trainer = result.fields.trainer.id;
       this.props.scheduleAppointment(result.fieldValues);
       this.props.cancel()
@@ -72,7 +69,7 @@ class AppointmentForm extends Component {
               {
                 this.props.isAdmin
                   ? <SubmissionFor data={model.trainer} selectOptions={this.props.trainers}/>
-                  : <DisplayFor data={model.trainer}/>
+                  : <DisplayFor data={model.trainer} selectOptions={this.props.trainers}/>
               }
             </div>
             <div className="form__section__row">

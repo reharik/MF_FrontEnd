@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import ClientList from '../../components/lists/ClientList';
 import CellLink from '../../components/GridElements/CellLink.js';
 import EmailLink from '../../components/GridElements/EmailLink.js';
-import ActionLink from '../../components/GridElements/ActionLink.js';
+import ArchiveLink from '../../components/GridElements/ArchiveLink.js';
 
 import { fetchAllClientsAction, archiveClient } from './../../modules/clientModule';
 
@@ -33,7 +33,7 @@ const columns = (archiveClient) => [
   },
   {
     property: ({column, row}) => {
-      return ActionLink(archiveClient)({value: `${row.archived}`, row})
+      return ArchiveLink(archiveClient)({value: `${row.archived}`, row})
     },
     sort:'Archived',
     display: 'Archived',

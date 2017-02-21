@@ -16,8 +16,8 @@ const AppointmentFooter = ({editing, toggleEdit, params}) => {
       <div>
         <button onClick={(e) => toggleEdit(e,false)}>Edit</button>
         <button onClick={(e) => { e.preventDefault(); params.copy(params.appointmentId); }}>Copy</button>
-        <button onClick={deleteAppointment}>Delete
-        </button>
+        <button onClick={deleteAppointment}>Delete</button>
+        <button onClick={(e) => { e.preventDefault(); params.cancel();}}>Cancel</button>
       </div>)
     }
   </div>)

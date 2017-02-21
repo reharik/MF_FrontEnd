@@ -56,8 +56,15 @@ function* request(action) {
     if(response.status === 401) {
       return yield put(logoutUser());
     }
+    const success = action.successFunction ? action.successFunction : standardSuccessResponse;
+    if(response.status === 204) {
+      yield put(success(action, payload));
+      yield ajaxStateFunctions.success();
+      return;
+    }
 
     payload = yield response.json();
+
     if (!response.ok) {
       throw new Error(response);
     }
@@ -65,7 +72,6 @@ function* request(action) {
       throw new Error('Server was unable to complete the request');
     }
 
-    const success = action.successFunction ? action.successFunction : standardSuccessResponse;
     yield put(success(action, payload));
     yield ajaxStateFunctions.success();
 

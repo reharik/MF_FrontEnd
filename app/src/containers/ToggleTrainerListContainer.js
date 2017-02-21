@@ -5,7 +5,7 @@ import { toggleTrainerListForCalendar } from './../modules/toggleTrainerListForC
 function mapStateToProps(state) {
   return {
     items: state.trainers
-      .fetch(x => !x.archived)
+      .filter(x => !x.archived)
       .map(x=> ({name: `${x.contact.lastName}, ${x.contact.firstName.substr(0,1)}`, id:x.id}))
   };
 }

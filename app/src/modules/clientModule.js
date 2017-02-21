@@ -40,6 +40,7 @@ export default (state = [], action = {}) => {
     }
 
     case ARCHIVE_CLIENT.SUCCESS: {
+      let update = selectn('action.update', action);
       return state.map(x => {
         if(x.id === update.id) {
           return {...x,

@@ -18,7 +18,7 @@ const {notifClear} = notifActions;
 const mapStateToProps = (state, ownProps) => {
   const trainer = state.trainers.filter(x=>x.id === ownProps.params.trainerId)[0];
   const clients = state.clients
-    .fetch(x => !x.archived)
+    .filter(x => !x.archived)
     .map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
   const model = formJsonSchema(state.schema.definitions.trainer, trainer);
   model.confirmPassword = {...model.password};

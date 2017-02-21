@@ -10,25 +10,31 @@ const {notifClear} = notifActions;
 
 const mapStateToProps = (state, ownProps) => {
   const clients = state.clients
-    .fetch(x => !x.archived)
+    .filter(x => !x.archived)
     .map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
+
   // please put this shit in a config somewhere
   const times = generateAllTimes(15, 7, 7);
 
-  const props = {
+  let props = {
     model: ownProps.copy ? copyAppointmentModel(state, ownProps.args) : appointmentModel(state, ownProps.args),
     clients,
     appointmentTypes,
     times,
     cancel: ownProps.cancel,
-    isAdmin: state.auth.user.role === 'admin'
+    isAdmin: state.auth.user.role === 'admin',
+    trainers: state.trainers
+      .filter(x => !x.archived)
+      .map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }))
   };
-  if(props.isAdmin){
-    props.trainers = state.trainers
-      .fetch(x => !x.archived)
-      .map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
+
+  if(!props.isAdmin){
+    var user = state.trainers.find(x=>x.id === state.auth.user.id);
+    let clients = !props.model.clients.value ? user.clients : user.clients.concat(props.model.clients.value);
+    props.clients = props.clients.filter(x=> clients.some(c=>x.value === c));
   }
-  return props
+
+  return props;
 };
 
 export default connect(mapStateToProps,
