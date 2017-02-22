@@ -111,8 +111,6 @@ class TrainerForm extends Component {
                                 data={model.role}
                  />
                 </div>
-              </div>
-              <div>
                 <div className="form__section__header">
                   <label className="form__section__header__label">Trainer's Clients</label>
                 </div>

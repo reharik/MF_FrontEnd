@@ -17,6 +17,15 @@
 
 
 }
+
+.reactSelect__hiddenInput {
+  background-color: transparent;
+  width: 1px;
+  height: 0;
+  border: none;
+  margin-top: -1PX;
+}
+
 .reactSelect__inputWrapper {
     display: flex;
 }
@@ -56,7 +65,7 @@
     width: 100%;
     border: 1px solid #aaa;
     margin-top: 2px;
-    max-height: 275px;
+    max-height: 175px;
     overflow-x: hidden;
     overflow-y: auto;
     background-color: #fff;

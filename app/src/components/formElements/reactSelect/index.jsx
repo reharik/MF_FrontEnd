@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import OptionList from './options/index.jsx';
 import Token from './token/index.jsx';
-import {includes, difference, filter, noop, identity, isArray, isUndefined, isEmpty} from 'lodash';
+import {includes, differenceWith, filter, noop, identity, isArray, isUndefined, isEmpty} from 'lodash';
 import {contains} from 'underscore.string';
 import keyCodes from './utils/keyCodes';
 
@@ -178,8 +178,8 @@ class TokenAutocomplete extends React.Component {
     const isAlreadySelected = includes(this.state.values, newValue);
     const shouldAddValue = !!newValue && !isAlreadySelected;
 
+    let stateValues;
     if (shouldAddValue) {
-      let stateValues;
       let fieldValues;
       if(this.props.simulateSelect) {
 
@@ -193,12 +193,16 @@ class TokenAutocomplete extends React.Component {
       }
 
       this.props.onChange({target:{ name:this.props.name, value:fieldValues}}, stateValues, newValue);
-      const valueArray = isArray(stateValues) ? stateValues: [stateValues];
+    }
+
+      let valueArray = isArray(stateValues) ? stateValues: [stateValues];
+      if(!stateValues){
+        valueArray = [];
+      }
       this.setState({
         values: valueArray,
         inputValue: ''
       });
-    }
 
       this.blur();
   };
@@ -213,40 +217,27 @@ class TokenAutocomplete extends React.Component {
       if (this.props.simulateSelect) {
         availableOptions = this.props.options;
       } else {
-        availableOptions = difference(this.props.options, this.state.values);
+        availableOptions = differenceWith(this.props.options, this.state.values, (x,y) => x.value === y.value );
       }
       //filter
       availableOptions = filter(availableOptions, option => {
-        return contains(option.display.toLowerCase(), this.state.inputValue.toLowerCase());
+        return contains(option.display.toLowerCase(), this.state.inputValue.toLowerCase())
+// this matches on value too which is good for states, not really for anything else
+          || contains(option.value.toLowerCase(), this.state.inputValue.toLowerCase());
       })
         .map(x=> ({...x, filter:this.state.inputValue}));
 
     }
-    if (this.shouldAllowCustomValue() &&
-        !isEmpty(this.state.inputValue) &&
-        !includes(availableOptions, this.state.inputValue)) {
-      availableOptions.unshift(this.props.parseCustom(this.state.inputValue));
-    }
-
     return availableOptions;
-
-  }
-
-  shouldAllowCustomValue = () => {
-    return !this.props.limitToOptions && !this.props.simulateSelect;
   }
 
   shouldShowOptions = () => {
     return this.isTresholdReached() && this.state.focused;
   }
 
-  shouldShowInput = () => {
-    return this.props.filterOptions && (!this.props.simulateSelect || !this.state.values);
-  }
-
-  shouldShowFakePlaceholder = () => {
-    return !this.shouldShowInput() && this.state.values.length <= 0;
-  }
+  shouldShowHiddenInput = () => {
+    return this.props.simulateSelect && this.state.values.length > 0;
+  };
 
   isTresholdReached = () => {
     return this.state.inputValue.length >= this.props.treshold;
@@ -281,41 +272,26 @@ class TokenAutocomplete extends React.Component {
           handleRemove={this.deleteValue}/>
       );
     });
-  }
+  };
 
   renderProcessing = () => {
     return this.props.processing ? <div ref="processing" className="reactSelect__processing" /> : null;
   };
 
-  renderFakePlaceholder = () => {
-    return this.shouldShowFakePlaceholder()
-      ?
+  renderInput = () =>
       (<input
-        onFocus={this.focus}
-        onChange={this.onInputChange}
-        value={this.state.inputValue}
-        placeholder={this.props.placeholder}
-        className="reactSelect__input"
-        ref="input"/>)
-      : null;
-  };
-
-  renderInput = () => {
-    return this.shouldShowInput()
-      ? (<input
           onFocus={this.focus}
           onChange={this.onInputChange}
           value={this.state.inputValue}
           placeholder={this.props.placeholder}
-          className="reactSelect__input"
-          ref="input"/>)
-      : this.renderFakePlaceholder();
-  };
+          className={ this.shouldShowHiddenInput() ? "reactSelect__hiddenInput" : "reactSelect__input" }
+          ref="input"/>);
 
   renderDropdownIndicator = () => {
-    return this.props.simulateSelect
-      ? <div ref="dropdownIndicator" className="reactSelect__dropdownIndicator" />
-      : null;
+    return
+    // this.props.simulateSelect
+    (<div ref="dropdownIndicator" className="reactSelect__dropdownIndicator" />)
+  //     : null;
   };
 
   render() {
