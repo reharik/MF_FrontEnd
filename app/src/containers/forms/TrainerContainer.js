@@ -12,13 +12,7 @@ const {notifClear} = notifActions;
 
 const mapStateToProps = (state, props) => {
   const clients = state.clients
-    .filter(x => {
-      console.log('==========x.archived=========');
-      console.log(x.archived);
-      console.log('==========END x.archived=========');
-
-      return !x.archived
-    })
+    .filter(x => !x.archived )
     .map(x => ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
   const jsonModel = formJsonSchema(state.schema.definitions.trainer);
   jsonModel.confirmPassword = {...jsonModel.password};

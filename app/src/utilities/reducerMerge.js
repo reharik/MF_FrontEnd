@@ -5,12 +5,20 @@ const singleReducer = (map = new Map(), item = {}) => {
 };
 
 export default (currentItems = [], newItems) => {
+  if(!newItems || newItems.length<=0){
+    return currentItems;
+  }
+
   // if you are passing a single make it an array
   newItems = Array.isArray(newItems) ? newItems : [newItems];
 
+  if(currentItems.length <= 0){
+    return newItems;
+  }
+
   // create a new map by using the obj id for key and obj for value
   let m = new Map();
-  for(let obj of currentItems) {
+  for (let obj of currentItems) {
     if (obj && obj.id) {
       m.set(obj.id, obj);
     }
