@@ -46,7 +46,7 @@
     "redux-datatable": "reharik/redux-datatable",
     "redux-infinite-scroll": "^1.0.9",
     "redux-logger": "^2.6.1",
-    "redux-notifications": "github:reharik/re-notif",
+    "redux-notifications": "reharik/re-notif",
     "redux-saga": "^0.14.3",
     "redux-task-calendar": "reharik/redux-task-calendar",
     "redux-thunk": "^2.0.1",
