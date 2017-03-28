@@ -7,7 +7,7 @@ import {Form} from 'freakin-react-forms';
 import { syncApptTypeAndTime } from './../../utilities/appointmentTimes';
 
 class UpdateAppointmentForm extends Component {
-
+  containerName = 'ApointmentInfo';
   componentWillMount() {
     this.loadData();
   }
@@ -53,6 +53,8 @@ class UpdateAppointmentForm extends Component {
       this.props.updateAppointment(result.fieldValues);
       this.props.cancel();
     }
+    this.props.notifications(result.errors, this.containerName);
+
     return result;
   };
 
@@ -63,8 +65,9 @@ class UpdateAppointmentForm extends Component {
                          submitHandler={this.submitHandler}
                          overrideSubmit={true}
                          sectionHeader="Appointment Info"
-                         formName="ApointmentInfo"
+                         formName={containerName}
                          footer={AppointmentFooter}
+                         notifications={this.props.notifications}
                          params={{copy:this.props.copy,
                          deleteAppointment:this.props.deleteAppointment,
                          appointmentId: this.props.model.id.value,

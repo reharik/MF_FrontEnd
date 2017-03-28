@@ -11,6 +11,8 @@ import { updateTrainerInfo,
   updateTrainersClients,
   fetchTrainerAction } from './../../modules/trainerModule';
 import { fetchClientsAction } from './../../modules/clientModule';
+import notifications from './../../modules/notificationModule';
+
 import {actions as notifActions} from 'redux-notifications';
 const {notifClear} = notifActions;
 

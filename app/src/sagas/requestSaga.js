@@ -1,5 +1,7 @@
 import {REQ_AJAX_STATE, SUCCESS_AJAX_STATE, FAILURE_AJAX_STATE} from './../modules/ajaxStateModule'
-import { takeEvery, call, put } from 'redux-saga/effects';
+import { notifications }  from './../modules/notificationModule';
+
+import { takeEvery, call, put, delay } from 'redux-saga/effects';
 import { logoutUser } from './../modules'
 
 const standardSuccessResponse = (action, payload) => {
@@ -16,26 +18,29 @@ export function requestStates(entity, reducerName) {
   return {
     REQUEST: `methodFit/${reducerName.toLowerCase()}/${entity.toUpperCase()}_REQUEST`,
     SUCCESS: `methodFit/${reducerName.toLowerCase()}/${entity.toUpperCase()}_SUCCESS`,
-    FAILURE: `methodFit/${reducerName.toLowerCase()}/${entity.toUpperCase()}_FAILURE`
+    FAILURE: `methodFit/${reducerName.toLowerCase()}/${entity.toUpperCase()}_FAILURE`,
+    PREFIX:  `methodFit/${reducerName.toLowerCase()}/${entity.toUpperCase()}`
   }
 }
 
 var ajaxState = function(action) {
-  const actionPrefix = action.type.substr(0, action.type.lastIndexOf('_'));
-
   const request = () => {
     if (action.startAjaxState) {
-      return put({type: REQ_AJAX_STATE, actionPrefix});
+      return put({type: REQ_AJAX_STATE, actionPrefix: action.states.PREFIX});
     }
   };
+
   const success = () => {
     if (action.startAjaxState) {
-      return put({type:SUCCESS_AJAX_STATE, actionPrefix});
+      return put({type:SUCCESS_AJAX_STATE, actionPrefix: action.states.PREFIX});
     }
   };
-  const failure = (errors) => {
+  const failure = (payload) => {
     if (action.startAjaxState) {
-      return put({type:FAILURE_AJAX_STATE, actionPrefix, errors});
+      if(payload && payload.errors){
+        put(notifications(payload.errors, action.containerName))
+      }
+      return put({type:FAILURE_AJAX_STATE, actionPrefix: action.states.PREFIX});
     }
   };
   return {
@@ -54,7 +59,8 @@ function* request(action) {
     response = yield call(fetch, action.url, action.params);
 
     if(response.status === 401) {
-      return yield put(logoutUser());
+      yield put(logoutUser());
+      throw new Error("Invalid credentials. Please try to login again");
     }
     const success = action.successFunction ? action.successFunction : standardSuccessResponse;
     if(response.status === 204) {
@@ -76,9 +82,8 @@ function* request(action) {
     yield ajaxStateFunctions.success();
 
   } catch (err) {
-
     const failure = action.failureFunction ? action.failureFunction : standardFailureResponse;
-    yield ajaxStateFunctions.failure(payload.errors);
+    yield ajaxStateFunctions.failure(payload);
     yield put(failure(action, payload || response, err));
   }
 }

@@ -6,9 +6,11 @@ import DisplayFor from './../formElements/elementsFor/DisplayFor';
 import { syncApptTypeAndTime } from './../../utilities/appointmentTimes';
 
 class AppointmentForm extends Component {
+  containerName = 'appointmentForm';
+
   componentWillMount() {
     // this.props.notifClear('appointmentForm');
-    const fields = Form.buildModel('appointmentForm',this.props.model, {onChange: this.changeHandler});
+    const fields = Form.buildModel(this.containerName,this.props.model, {onChange: this.changeHandler});
     this.setState({fields, formIsValid: false})
   }
 
@@ -21,10 +23,12 @@ class AppointmentForm extends Component {
       this.props.scheduleAppointment(result.fieldValues);
       this.props.cancel()
     }
+    this.props.notifications(result.errors, this.containerName);
   };
 
   changeHandler = (e) => {
     const result = Form.onChangeHandler(this.state.fields)(e);
+    this.props.notifications(result.errors, this.containerName, e.target.name);
     this.setState(result);
   };
 
@@ -61,7 +65,7 @@ class AppointmentForm extends Component {
     const model = this.state.fields;
     return (
       <div className='form'>
-        <Notifs containerName="appointmentForm"/>
+        <Notifs containerName={this.containerName}/>
         <div className="content-inner">
           <form onSubmit={this.onSubmitHandler}
                 className="mf__modal__form__content" >

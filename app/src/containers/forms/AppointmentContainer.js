@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import AppointmentForm from '../../components/forms/AppointmentForm';
 import { scheduleAppointment } from './../../modules/appointmentModule';
+import { notifications }  from './../../modules/notificationModule';
 import appointmentTypes from './../../constants/appointmentTypes';
 import { generateAllTimes } from './../../utilities/appointmentTimes';
 import { appointmentModel, copyAppointmentModel } from './../../selectors/appointmentModelSelector';
@@ -39,5 +40,6 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(mapStateToProps,
   { scheduleAppointment,
+    notifications,
     notifClear}
   )(AppointmentForm);

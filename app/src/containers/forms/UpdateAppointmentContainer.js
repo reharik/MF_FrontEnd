@@ -6,6 +6,7 @@ import appointmentTypes from './../../constants/appointmentTypes';
 import { generateAllTimes } from './../../utilities/appointmentTimes';
 import { updateAppointmentModel } from './../../selectors/appointmentModelSelector';
 import {actions as notifActions} from 'redux-notifications';
+import notifications from './../../modules/notificationModule';
 const {notifClear} = notifActions;
 
 const mapStateToProps = (state, ownProps) => {

@@ -24,16 +24,18 @@ class ClientForm extends Component {
     if(result.formIsValid){
       this.props.addClient(result.fieldValues);
     }
+    this.props.notifications(result.errors, this.containerName);
     this.setState(result);
   };
 
   changeHandler = (e) => {
     const result = Form.onChangeHandler(this.state.fields)(e);
+    this.props.notifications(result.errors, this.containerName, e.target.name);
     this.setState(result);
   };
 
   formReset = () => {
-    const fields = Form.buildModel('clientForm', this.props.model, {onChange: this.changeHandler})
+    const fields = Form.buildModel('clientForm', this.props.model, {onChange: this.changeHandler});
     this.setState({fields, formIsValid: false})
   };
 

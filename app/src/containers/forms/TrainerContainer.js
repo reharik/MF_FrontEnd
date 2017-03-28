@@ -8,6 +8,7 @@ import { hireTrainer, fetchTrainerAction, HIRE_TRAINER } from './../../modules/t
 import { fetchClientsAction } from './../../modules/clientModule';
 import roles from './../../constants/roles';
 import {actions as notifActions} from 'redux-notifications';
+import { notifications }  from './../../modules/notificationModule';
 const {notifClear} = notifActions;
 
 const mapStateToProps = (state, props) => {
@@ -32,4 +33,5 @@ const mapStateToProps = (state, props) => {
 export default connect(mapStateToProps, { hireTrainer,
   fetchTrainerAction,
   fetchClientsAction,
+  notifications,
   notifClear})(TrainerForm);

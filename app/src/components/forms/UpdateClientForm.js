@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Form} from 'freakin-react-forms';
 import ContentHeader from '../ContentHeader';
 import EditableFor from './../formElements/elementsFor/EditableFor';
-import EditableDisplay from '../../containers/forms/EditableDisplayContainer';
+import EditableDisplay from './editableDisplay/EditableDisplay';
 import {browserHistory} from 'react-router';
 
 
@@ -39,7 +39,8 @@ class UpdateClientForm extends Component {
             <EditableDisplay model={this.props.model}
                              submitHandler={this.props.updateClientInfo}
                              sectionHeader="Client Info"
-                             formName="ClientInfo">
+                             formName="ClientInfo"
+            notifications={this.props.notifications}>
               <div className="editableDisplay__content__form__row">
                 <EditableFor data="firstName"/>
                 <EditableFor data="lastName"/>
@@ -51,7 +52,8 @@ class UpdateClientForm extends Component {
             <EditableDisplay model={this.props.model}
                              submitHandler={this.props.updateClientContact}
                              sectionHeader="Client Contact"
-                             formName="ClientContact">
+                             formName="ClientContact"
+                             notifications={this.props.notifications}>
               <div className="editableDisplay__content__form__row">
                 <EditableFor data="mobilePhone"/>
                 <EditableFor data="secondaryPhone"/>
@@ -63,7 +65,8 @@ class UpdateClientForm extends Component {
             <EditableDisplay model={this.props.model}
                              submitHandler={this.props.updateClientAddress}
                              sectionHeader="Client Address"
-                             formName="ClientAddress">
+                             formName="ClientAddress"
+                             notifications={this.props.notifications}>
               <div className="editableDisplay__content__form__row">
                 <EditableFor data="street1"/>
                 <EditableFor data="street2"/>
@@ -80,7 +83,8 @@ class UpdateClientForm extends Component {
             <EditableDisplay model={this.props.model}
                              submitHandler={this.props.updateClientSource}
                              sectionHeader="Source Info"
-                             formName="ClientSource">
+                             formName="ClientSource"
+                             notifications={this.props.notifications}>
               <div className="editableDisplay__content__form__row">
                 <EditableFor data="source" selectOptions={this.props.sources}/>
                 <EditableFor data="startDate"/>

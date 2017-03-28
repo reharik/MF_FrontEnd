@@ -222,6 +222,7 @@ export function addClient(data) {
     url: config.apiBase + 'client/addClient',
     insertedItem: client,
     successFunction,
+    containerName: 'clientForm',
     params: {
       method: 'POST',
       credentials: 'include',

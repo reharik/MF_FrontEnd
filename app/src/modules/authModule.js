@@ -3,6 +3,8 @@ import configValues from './../utilities/configValues';
 import selectn from 'selectn';
 export const LOGIN = requestStates('login', 'auth');
 export const LOGOUT = requestStates('logout', 'auth');
+import {actions as notifActions} from 'redux-notifications';
+const {notifSend} = notifActions;
 
 const initialState = {
     user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : '',
@@ -17,9 +19,6 @@ export default (state = initialState, action = {}) => {
 
       localStorage.setItem('id_token', user.id);
       localStorage.setItem('user', JSON.stringify(user));
-      console.log('==========user=========');
-      console.log(user);
-      console.log('==========END user=========');
       return {
         user: user,
         isAuthenticated: true,
@@ -50,12 +49,25 @@ export function logoutUser() {
   };
 }
 
+const failureFunction = (action, response, payload) => {
+  return notifSend({
+    id: 'ajaxError',
+    containerName: 'signIn',
+    formName: 'signIn',
+    message: payload.message,
+    kind: 'danger'
+  });
+};
+
+
 export function loginUser(data) {
   return {
     type: LOGIN.REQUEST,
     states: LOGIN,
     url: configValues.apiBase + 'auth',
     startAjaxState: true,
+    failureFunction,
+    containerName: 'signIn',
     params: {
       method: 'POST',
       credentials: 'include',

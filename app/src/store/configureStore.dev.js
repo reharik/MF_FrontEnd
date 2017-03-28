@@ -5,7 +5,7 @@ import DevTools from '../containers/DevTools';
 //thunk used for notif
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga'
-import requestSaga from './../sagas/requestSaga';
+import rootSaga from './../sagas/rootSaga'
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -19,7 +19,7 @@ export default function configureStore(initialState) {
     )
   );
 
-  sagaMiddleware.run(requestSaga);
+  sagaMiddleware.run(rootSaga);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

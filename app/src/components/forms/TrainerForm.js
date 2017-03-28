@@ -4,7 +4,7 @@ import {Form} from 'freakin-react-forms';
 import ContentHeader from '../ContentHeader';
 import SubmissionFor from '../../containers/forms/SubmissionForContainer';
 import {browserHistory} from 'react-router';
-import AjaxState from './../AjaxStateComponent';
+import AjaxState from './../../containers/AjaxStateContainer';
 
 class TrainerForm extends Component {
   componentWillMount() {
@@ -26,16 +26,19 @@ class TrainerForm extends Component {
     if(result.formIsValid){
       this.props.hireTrainer(result.fieldValues);
     }
+    this.props.notifications(result.errors, this.containerName);
     this.setState(result);
   };
 
   changeHandler = (e) => {
     const result = Form.onChangeHandler(this.state.fields)(e);
+    this.props.notifications(result.errors, this.containerName, e.target.name);
     this.setState(result);
   };
 
   formReset = () => {
     const fields = Form.buildModel('trainerForm',this.props.model, {onChange: this.changeHandler});
+    this.props.notifications([], this.containerName);
     this.setState({fields, formIsValid: false})
   };
 
@@ -43,7 +46,7 @@ class TrainerForm extends Component {
     const model = this.state.fields;
     return (
       <div className='form'>
-        <AjaxState state={this.props.ajaxState} />
+        <AjaxState />
         <ContentHeader >
           <div className="form__header">
             <div className="form__header__left">

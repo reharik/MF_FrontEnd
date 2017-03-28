@@ -2,28 +2,26 @@ import React, {Component} from 'react';
 import SubmissionFor from '../../containers/forms/SubmissionForContainer';
 import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
-import AjaxState, {handleNewState} from './../AjaxStateComponent';
+import AjaxState from './../../containers/AjaxStateContainer';
 import {LOGIN} from '../../modules/authModule';
 
 class SignInForm extends Component {
+  containerName = 'signIn';
+
   componentWillMount() {
-    const fields = Form.buildModel('signIn',this.props.fields, {onChange: this.changeHandler});
+    const fields = Form.buildModel(this.containerName, this.props.fields, {onChange: this.changeHandler});
     this.setState({fields, formIsValid: false})
   }
 
   componentDidMount() {
-    console.log('==========this.state.fields.userName=========');
-    console.log(this.state.fields.userName);
-    console.log('==========END this.state.fields.userName=========');
-
     this.state.fields.userName.ref.focus();
   }
-  componentWillReceiveProps(newProps) {
-    const result = handleNewState(this.props.ajaxState, newProps.ajaxState, LOGIN, this.state.fields, "signIn");
-    if(result.update){
-      this.setState({ajaxState: result.ajaxState, fields: result.fields});
-    }
-  }
+  // componentWillReceiveProps(newProps) {
+  //   const result = handleNewState(this.props.ajaxState, newProps.ajaxState, LOGIN, this.state.fields, "signIn");
+  //   if(result.update){
+  //     this.setState({ajaxState: result.ajaxState, fields: result.fields});
+  //   }
+  // }
 
   onSubmitHandler = (e) => {
     e.preventDefault();
@@ -31,12 +29,14 @@ class SignInForm extends Component {
     if(result.formIsValid){
       this.props.loginUser(result.fieldValues);
     }
+    this.props.notifications(result.errors, this.containerName);
     this.setState(result);
   };
 
   changeHandler = (e) => {
     e.preventDefault();
     const result = Form.onChangeHandler(this.state.fields)(e);
+    this.props.notifications(result.errors, this.containerName, e.target.name);
     this.setState(result);
   };
 
@@ -45,10 +45,9 @@ class SignInForm extends Component {
     if (!model) {
       return null;
     }
-
     return (
       <div className="signIn">
-        <AjaxState state={this.state.ajaxState} />
+        <AjaxState prefix={LOGIN.PREFIX} />
         <div className="signIn__outer">
           <div className="signIn__header"></div>
           <div className="signIn__content">

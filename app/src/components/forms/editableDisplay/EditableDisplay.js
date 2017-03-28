@@ -23,7 +23,7 @@ class EditableDisplay extends Component {
   toggleEdit = (e,rollBack) => {
     e.preventDefault();
     if (rollBack) {
-      this.props.notifClear && this.props.notifClear(this.props.formName);
+      this.props.notifications([], this.props.formName);
       const fields = Form.buildModel(this.props.formName, this.props.model, {onChange: this.changeHandler});
       this.setState({fields, editing: !this.state.editing});
     }else {
@@ -70,6 +70,7 @@ class EditableDisplay extends Component {
 
   changeHandler = (e) => {
     const result = Form.onChangeHandler(this.state.fields)(e);
+    this.props.notifications(result.errors, this.props.formName, e.target.name);
     this.setState(result);
   };
 
@@ -85,6 +86,7 @@ class EditableDisplay extends Component {
         this.props.submitHandler(result.fieldValues);
       }
     }
+    this.props.notifications(result.errors, this.props.formName);
 
     this.setState({...result, editing: !result.formIsValid});
   };
