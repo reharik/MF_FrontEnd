@@ -11,7 +11,7 @@ import { updateTrainerInfo,
   updateTrainersClients,
   fetchTrainerAction } from './../../modules/trainerModule';
 import { fetchClientsAction } from './../../modules/clientModule';
-import notifications from './../../modules/notificationModule';
+import {notifications} from './../../modules/notificationModule';
 
 import {actions as notifActions} from 'redux-notifications';
 const {notifClear} = notifActions;
@@ -26,7 +26,12 @@ const mapStateToProps = (state, ownProps) => {
   model.confirmPassword = {...model.password};
   model.confirmPassword.name  = 'confirmPassword';
   model.confirmPassword.rules = [{rule:'equalTo', compareField:'password'}];
-
+console.log(`==========model=========`);
+console.log(model);
+console.log(`==========END model=========`);
+console.log(`==========states=========`);
+console.log(states);
+console.log(`==========END states=========`);
   return {
     model,
     states,
@@ -42,4 +47,5 @@ export default connect(mapStateToProps, { updateTrainerInfo,
   updateTrainersClients,
   fetchTrainerAction,
   fetchClientsAction,
+  notifications,
   notifClear})(UpdateTrainerForm);
