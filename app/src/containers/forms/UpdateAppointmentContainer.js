@@ -6,10 +6,15 @@ import appointmentTypes from './../../constants/appointmentTypes';
 import { generateAllTimes } from './../../utilities/appointmentTimes';
 import { updateAppointmentModel } from './../../selectors/appointmentModelSelector';
 import {actions as notifActions} from 'redux-notifications';
-import notifications from './../../modules/notificationModule';
+import {notifications} from './../../modules/notificationModule';
 const {notifClear} = notifActions;
 
 const mapStateToProps = (state, ownProps) => {
+  console.log('==========notifications=========');
+  console.log(notifications);
+  console.log('==========END notifications=========');
+
+
   const clients = state.clients
     .filter(x => !x.archived)
     .map(x=> ({value: x.id, display: `${x.contact.lastName} ${x.contact.firstName}`}));
@@ -39,6 +44,7 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(mapStateToProps,
   { updateAppointment,
     fetchAppointmentAction,
+    notifications,
     notifClear,
   deleteAppointment}
   )(UpdateAppointmentForm);

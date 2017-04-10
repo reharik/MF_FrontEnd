@@ -59,13 +59,17 @@ class UpdateAppointmentForm extends Component {
   };
 
   render() {
+    console.log('==========this.props.notifications=========');
+    console.log(this.props.notifications);
+    console.log('==========END this.props.notifications=========');
+    
     return (
       <div className='form'>
         <EditableDisplay model={this.props.model}
                          submitHandler={this.submitHandler}
                          overrideSubmit={true}
                          sectionHeader="Appointment Info"
-                         formName={containerName}
+                         formName={this.containerName}
                          footer={AppointmentFooter}
                          notifications={this.props.notifications}
                          params={{copy:this.props.copy,

@@ -55,7 +55,18 @@ class MFCalendar extends Component {
     });
   };
 
+  permissionToSetAppointment(date,time,isAdmin) {
+    return !!(moment(date).isAfter(moment(), 'day')
+    || moment(date).isSame(moment(), 'day')
+    && moment(time, 'h:mm A').isAfter(moment().subtract(2, 'hours')));
+  }
+
   openSpaceClickedEvent = (day, time, calendarName) => {
+    if(!this.permissionToSetAppointment(day,time,this.props.isAdmin)){
+      // showPopup;
+      return
+    }
+
     const formattedTime = moment(time,'h:mm A').format('hh:mm A');
     this.setState({
       isOpen: true,

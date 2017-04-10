@@ -69,6 +69,10 @@ class EditableDisplay extends Component {
   };
 
   changeHandler = (e) => {
+    console.log('==========this.props=========');
+    console.log(this.props);
+    console.log('==========END this.props=========');
+    
     const result = Form.onChangeHandler(this.state.fields)(e);
     this.props.notifications(result.errors, this.props.formName, e.target.name);
     this.setState(result);
