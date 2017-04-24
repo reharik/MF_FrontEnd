@@ -6,10 +6,10 @@ import SubmissionFor from '../../containers/forms/SubmissionForContainer';
 import DisplayFor from './../formElements/elementsFor/DisplayFor';
 import {browserHistory} from 'react-router';
 
-class PurchaseSessionForm extends Component {
+class PurchaseForm extends Component {
   componentWillMount() {
     this.loadData();
-    const fields = Form.buildModel('purchaseSessionForm', this.props.model, {onChange: this.changeHandler});
+    const fields = Form.buildModel('purchaseForm', this.props.model, {onChange: this.changeHandler});
     this.setState({
       fields,
       formIsValid: false
@@ -29,7 +29,7 @@ class PurchaseSessionForm extends Component {
     if (result.formIsValid) {
       const fieldValues = {...result.fieldValues, ...this.purchasePrice(this.state.fields)};
       let finalResult = {...result, fieldValues: fieldValues};
-      this.props.purchaseSessions(finalResult.fieldValues);
+      this.props.purchases(finalResult.fieldValues);
       this.setState(finalResult);
     } else {
       this.setState(result);
@@ -44,7 +44,7 @@ class PurchaseSessionForm extends Component {
   };
 
   formReset = () => {
-    const fields = Form.buildModel('PurchaseSessionForm', this.props.model, {onChange: this.changeHandler});
+    const fields = Form.buildModel('PurchaseForm', this.props.model, {onChange: this.changeHandler});
     this.setState({fields, formIsValid: false})
   };
 
@@ -90,7 +90,7 @@ class PurchaseSessionForm extends Component {
             </div>
           </div>
         </ContentHeader>
-        <Notifs containerName="PurchaseSessionForm"/>
+        <Notifs containerName="PurchaseForm"/>
         <div className="form-scroll-inner">
           <div className="content-inner">
 
@@ -163,4 +163,4 @@ class PurchaseSessionForm extends Component {
   };
 }
 
-export default PurchaseSessionForm;
+export default PurchaseForm;

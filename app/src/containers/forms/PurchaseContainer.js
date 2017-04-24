@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
-import PurchaseSessionForm from '../../components/forms/PurchaseSessionForm';
+import PurchaseForm from '../../components/forms/PurchaseForm';
 import formJsonSchema from '../../utilities/formJsonSchema';
-import { purchaseSessions } from './../../modules/purchaseSessionModule';
+import { purchases } from './../../modules/purchaseModule';
 import { notifications }  from './../../modules/notificationModule';
 import {fetchClientAction } from './../../modules/clientModule'
 
 const mapStateToProps = (state, props) => {
-  const model = formJsonSchema(state.schema.definitions.purchaseSession);
+  const model = formJsonSchema(state.schema.definitions.purchase);
   let client = state.clients.find(x=>x.id === props.params.clientId) || {contact:{}};
 
    const invModel = {
@@ -37,6 +37,6 @@ const mapStateToProps = (state, props) => {
   }
 };
 
-export default connect(mapStateToProps, { purchaseSessions,
+export default connect(mapStateToProps, { purchases,
   notifications,
-  fetchClientAction})(PurchaseSessionForm);
+  fetchClientAction})(PurchaseForm);

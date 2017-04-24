@@ -3,6 +3,7 @@ import schema from './schemaModule';
 import menu from './menuModule';
 import trainers from './trainerModule';
 import clients from './clientModule';
+import purchases from './purchaseModule';
 import ajaxState from './ajaxStateModule';
 import toggleTrainerListForCalendar from './toggleTrainerListForCalendarModule';
 
