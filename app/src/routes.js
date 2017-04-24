@@ -9,6 +9,7 @@ import TrainerContainer from './containers/forms/TrainerContainer';
 import UpdateTrainerContainer from './containers/forms/UpdateTrainerContainer';
 import ClientContainer from './containers/forms/ClientContainer';
 import UpdateClientContainer from './containers/forms/UpdateClientContainer';
+import PurchaseSessionContainer from './containers/forms/PurchaseSessionContainer';
 
 const routes = (
   <Route path="/" component={AppContainer}>
@@ -20,5 +21,6 @@ const routes = (
         <Route path="/clients" component={ClientList} />
         <Route path="/client" component={ClientContainer} />
         <Route path="/client(/:clientId)" component={UpdateClientContainer} />
+        <Route path="/purchasesession(/:clientId)" component={PurchaseSessionContainer} />
   </Route>);
 module.exports = routes;

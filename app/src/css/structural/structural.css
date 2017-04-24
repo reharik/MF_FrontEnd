@@ -93,3 +93,9 @@ a {
   display:flex;
   height:100%;
 }
+
+.flexColumn {
+  display: flex;
+  flex-flow: row nowrap;
+  width:100%;
+}

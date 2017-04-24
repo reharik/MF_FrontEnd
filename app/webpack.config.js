@@ -39,7 +39,7 @@ const webpackConfig = {
     }
   },
 
-  devtool: 'eval', //javascript sourcemaps
+  devtool: 'eval-source-map', //javascript sourcemaps
 
   entry: {
     app: ['babel-polyfill',

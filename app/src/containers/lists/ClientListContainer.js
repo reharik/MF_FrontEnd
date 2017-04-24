@@ -40,6 +40,13 @@ const columns = (archiveClient) => [
     width: '10%',
   },
   {
+    property:({column, row}) => {
+      return CellLink('purchasesession')({value: '$$$', row})
+    },
+    display: '$',
+    width: '10%'
+  },
+  {
     property: 'id',
     hidden : true
   }
