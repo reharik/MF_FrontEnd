@@ -18,11 +18,11 @@ const columns = () => [
   }
 ];
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
   const gridConfig = {
     tableName: 'purchaseList',
     dataSource: 'purchase',
-    fetchDataAction: getPurchases,
+    fetchDataAction: () => getPurchases(props.params.clientId)
   };
   return {
     gridConfig,

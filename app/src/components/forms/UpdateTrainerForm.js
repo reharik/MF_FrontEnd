@@ -20,9 +20,6 @@ class UpdateTrainerForm extends Component {
   }
 
   render() {
-    console.log(`==========this.props.notifications=========`);
-    console.log(this.props.notifications);
-    console.log(`==========END this.props.notifications=========`);
     return (
       <div className='form'>
         <ContentHeader >

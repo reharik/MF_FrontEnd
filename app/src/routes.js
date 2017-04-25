@@ -23,6 +23,6 @@ const routes = (
         <Route path="/client" component={ClientContainer} />
         <Route path="/client(/:clientId)" component={UpdateClientContainer} />
         <Route path="/purchase(/:clientId)" component={PurchaseContainer} />
-        <Route path="/purchases" component={PurchaseListContainer} />
+        <Route path="/purchases(/:clientId)" component={PurchaseListContainer} />
   </Route>);
 module.exports = routes;

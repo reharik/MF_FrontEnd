@@ -25,7 +25,7 @@ export function purchases(data) {
   return {
     type: PURCHASE_SESSIONS.REQUEST,
     states: PURCHASE_SESSIONS,
-    url: config.apiBase + 'sessions/purchase',
+    url: config.apiBase + 'purchase/purchase',
     successFunction,
     containerName: 'purchaseForm',
     params: {
@@ -41,7 +41,7 @@ export function getPurchases(id) {
   return {
     type: GET_PURCHASE_SESSIONS.REQUEST,
     states: GET_PURCHASE_SESSIONS,
-    url: `${config.apiBase}sessions/purchase/${id}`,
+    url: `${config.apiBase}purchaselist/fetchpurchases/${id}`,
     params: {
       method: 'GET',
       credentials: 'include'

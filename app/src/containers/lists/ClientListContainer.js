@@ -41,7 +41,7 @@ const columns = (archiveClient) => [
   },
   {
     property:({column, row}) => {
-      return CellLink('purchase')({value: '$$$', row})
+      return CellLink(`purchases`)({value: '$$$', row})
     },
     display: '$',
     width: '10%'

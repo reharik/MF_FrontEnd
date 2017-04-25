@@ -5,6 +5,7 @@ import ContentHeader from '../ContentHeader';
 import SubmissionFor from '../../containers/forms/SubmissionForContainer';
 import DisplayFor from './../formElements/elementsFor/DisplayFor';
 import {browserHistory} from 'react-router';
+import HiddenFor from './../formElements/elementsFor/HiddenFor';
 
 class PurchaseForm extends Component {
   componentWillMount() {
@@ -70,7 +71,6 @@ class PurchaseForm extends Component {
 
   render() {
     const model = this.state.fields;
-
     return (
       <div className='form'>
         <ContentHeader >
@@ -100,6 +100,7 @@ class PurchaseForm extends Component {
                 <div style={{marginRight:"150px"}}>
                   <div className="form__section__header">
                     <label className="form__section__header__label">Client Purchase</label>
+                    <HiddenFor data={model.clientId} />
                   </div>
                   <div className="form__section__row">
                     <SubmissionFor data={model.fullHour}/>
