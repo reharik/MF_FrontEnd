@@ -69,7 +69,7 @@ function* request(action) {
       return;
     }
 
-    payload = yield response.json();
+    payload = yield response.headers.get('content-type').includes('json') ? response.json() : undefined;
 
     if (!response.ok) {
       throw new Error(response);
@@ -80,6 +80,10 @@ function* request(action) {
 
     yield put(success(action, payload));
     yield ajaxStateFunctions.success();
+
+    if (action.subsequentAction) {
+      yield put(action.subsequentAction);
+    }
 
   } catch (err) {
     const failure = action.failureFunction ? action.failureFunction : standardFailureResponse;

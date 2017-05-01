@@ -3,7 +3,7 @@ import schema from './schemaModule';
 import menu from './menuModule';
 import trainers from './trainerModule';
 import clients from './clientModule';
-import purchases from './purchaseModule';
+import purchase from './purchaseModule';
 import ajaxState from './ajaxStateModule';
 import toggleTrainerListForCalendar from './toggleTrainerListForCalendarModule';
 
@@ -14,13 +14,14 @@ export {scheduleAppointment,
         fetchAppointmentsAction,
   updateTaskViaDND} from './appointmentModule';
 
-export default { 
-  auth, 
-  menu, 
-  schema, 
-  trainers, 
+export default {
+  auth,
+  menu,
+  schema,
+  trainers,
   clients,
   toggleTrainerListForCalendar,
-  ajaxState
+  ajaxState,
+  purchase
 };
 

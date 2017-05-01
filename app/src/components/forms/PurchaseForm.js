@@ -29,8 +29,16 @@ class PurchaseForm extends Component {
     this.props.notifications(result.errors, this.containerName);
     if (result.formIsValid) {
       const fieldValues = {...result.fieldValues, ...this.purchasePrice(this.state.fields)};
+      Object.keys(result.fields).forEach(x => {
+
+        if(result.fields[x].type === 'number' && (!fieldValues[x] )){
+          fieldValues[x] = 0;
+        }
+      });
+
       let finalResult = {...result, fieldValues: fieldValues};
-      this.props.purchases(finalResult.fieldValues);
+
+      this.props.purchase(finalResult.fieldValues);
       this.setState(finalResult);
     } else {
       this.setState(result);
@@ -76,9 +84,6 @@ class PurchaseForm extends Component {
         <ContentHeader >
           <div className="form__header">
             <div className="form__header__left">
-
-              <button className="contentHeader__button__new" title="New"
-                      onClick={() => browserHistory.push('/client')}/>
             </div>
             <div className="form__header__center">
               <div className="form__header__center__title">
