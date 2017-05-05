@@ -62,9 +62,19 @@ function mapStateToProps(state) {
   return {
     gridConfig,
     columns,
-    clients: state.clients
+    clients: state.clients.sort((a, b) => {
+      const _a = a.contact.lastName.toLowerCase();
+      const _b = b.contact.lastName.toLowerCase();
+      if ( _a > _b) {
+        return 1
+      }
+      if (_a < _b ) {
+        return -1
+      }
+      return 0;
+    })
 
-  };
+  }
 }
 
 export default connect(mapStateToProps, {archiveClient})(ClientList);

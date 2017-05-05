@@ -3,9 +3,8 @@ import {Notifs} from 'redux-notifications';
 import {Form} from 'freakin-react-forms';
 import ContentHeader from '../ContentHeader';
 import SubmissionFor from '../../containers/forms/SubmissionForContainer';
-import DisplayFor from './../formElements/elementsFor/DisplayFor';
-import {browserHistory} from 'react-router';
 import HiddenFor from './../formElements/elementsFor/HiddenFor';
+import ClientInventory from './../ClientInventory';
 
 class PurchaseForm extends Component {
   componentWillMount() {
@@ -100,7 +99,7 @@ class PurchaseForm extends Component {
           <div className="content-inner">
 
             <form onSubmit={this.onSubmitHandler} className="form__content">
-              <div className="flexColumn">
+              <div className="flexRow">
 
                 <div style={{marginRight:"150px"}}>
                   <div className="form__section__header">
@@ -144,20 +143,7 @@ class PurchaseForm extends Component {
                   </div>
                 </div>
                 <div>
-                  <div className="form__section__header">
-                    <label className="form__section__header__label">Current Client Inventory</label>
-                    <hr />
-                    <div className="form__section__row">
-                      <DisplayFor data={this.props.invModel.fullHour} />
-                    </div>
-                    <div className="form__section__row">
-                      <DisplayFor data={this.props.invModel.halfHour} />
-                    </div>
-                    <div className="form__section__row">
-                      <DisplayFor data={this.props.invModel.pair} />
-                    </div>
-
-                  </div>
+                  <ClientInventory inventory={this.props.client.inventory} />
                 </div>
               </div>
 

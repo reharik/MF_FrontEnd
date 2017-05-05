@@ -94,8 +94,19 @@ a {
   height:100%;
 }
 
-.flexColumn {
+
+/* ------------- flex ----------- */
+.flexRow {
   display: flex;
   flex-flow: row nowrap;
   width:100%;
 }
+
+.flexColumn {
+  display: flex;
+  flex-flow: column nowrap;
+  width:100%;
+}
+
+
+/* ------------- end flex ----------- */

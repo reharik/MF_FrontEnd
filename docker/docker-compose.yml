@@ -1,7 +1,9 @@
 version: "2"
 services:
   mf_frontend:
-    image: mf_frontend
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
     volumes:
       - ./../app:/home/current/app
     command: npm start #top -b #
@@ -9,7 +11,7 @@ services:
     environment:
       APPLICATION_NAME: mf_frontend
     ports:
-      - "8080:8080"
+      - "8666:8080"
 
 #  frontend_test:
 #    image: wk_frontend

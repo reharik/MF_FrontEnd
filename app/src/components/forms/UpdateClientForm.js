@@ -4,6 +4,7 @@ import ContentHeader from '../ContentHeader';
 import EditableFor from './../formElements/elementsFor/EditableFor';
 import EditableDisplay from './editableDisplay/EditableDisplay';
 import {browserHistory} from 'react-router';
+import ClientInventory from './../ClientInventory'
 
 
 class UpdateClientForm extends Component {
@@ -12,8 +13,8 @@ class UpdateClientForm extends Component {
   }
 
   loadData() {
-    if (this.props.params.clientId) {
-      this.props.fetchClientAction(this.props.params.clientId);
+    if (this.props.clientId) {
+      this.props.fetchClientAction(this.props.clientId);
     }
   }
 
@@ -36,67 +37,74 @@ class UpdateClientForm extends Component {
         </ContentHeader>
         <div className="form-scroll-inner">
           <div className="content-inner">
-            <EditableDisplay model={this.props.model}
-                             submitHandler={this.props.updateClientInfo}
-                             sectionHeader="Client Info"
-                             formName="ClientInfo"
-            notifications={this.props.notifications}>
-              <div className="editableDisplay__content__form__row">
-                <EditableFor data="firstName"/>
-                <EditableFor data="lastName"/>
+            <div className="flexRow">
+              <div style={{"width":"500px"}}>
+                <EditableDisplay model={this.props.model}
+                                 submitHandler={this.props.updateClientInfo}
+                                 sectionHeader="Client Info"
+                                 formName="ClientInfo"
+                                 notifications={this.props.notifications}>
+                  <div className="editableDisplay__content__form__row">
+                    <EditableFor data="firstName"/>
+                    <EditableFor data="lastName"/>
+                  </div>
+                  <div className="editableDisplay__content__form__row">
+                    <EditableFor data="birthDate"/>
+                  </div>
+                </EditableDisplay>
+                <EditableDisplay model={this.props.model}
+                                 submitHandler={this.props.updateClientContact}
+                                 sectionHeader="Client Contact"
+                                 formName="ClientContact"
+                                 notifications={this.props.notifications}>
+                  <div className="editableDisplay__content__form__row">
+                    <EditableFor data="mobilePhone"/>
+                    <EditableFor data="secondaryPhone"/>
+                  </div>
+                  <div className="editableDisplay__content__form__row__single">
+                    <EditableFor data="email"/>
+                  </div>
+                </EditableDisplay>
+                <EditableDisplay model={this.props.model}
+                                 submitHandler={this.props.updateClientAddress}
+                                 sectionHeader="Client Address"
+                                 formName="ClientAddress"
+                                 notifications={this.props.notifications}>
+                  <div className="editableDisplay__content__form__row">
+                    <EditableFor data="street1"/>
+                    <EditableFor data="street2"/>
+                  </div>
+                  <div className="editableDisplay__content__form__row">
+                    <EditableFor data="city" containerStyle="editableDisplay__content__form__row__address__city"/>
+                    <EditableFor selectOptions={this.props.states}
+                                 data="state"
+                                 containerStyle="editableDisplay__content__form__row__address__state"
+                    />
+                    <EditableFor data="zipCode" containerStyle="editableDisplay__content__form__row__address__zip"/>
+                  </div>
+                </EditableDisplay>
+                <EditableDisplay model={this.props.model}
+                                 submitHandler={this.props.updateClientSource}
+                                 sectionHeader="Source Info"
+                                 formName="ClientSource"
+                                 notifications={this.props.notifications}>
+                  <div className="editableDisplay__content__form__row">
+                    <EditableFor data="source" selectOptions={this.props.sources}/>
+                    <EditableFor data="startDate"/>
+                  </div>
+                  <div className="editableDisplay__content__form__row">
+                    <EditableFor data="sourceNotes"/>
+                  </div>
+                </EditableDisplay>
               </div>
-              <div className="editableDisplay__content__form__row">
-                <EditableFor data="birthDate"/>
+              <div>
+                <ClientInventory inventory={this.props.inventory} />
               </div>
-            </EditableDisplay>
-            <EditableDisplay model={this.props.model}
-                             submitHandler={this.props.updateClientContact}
-                             sectionHeader="Client Contact"
-                             formName="ClientContact"
-                             notifications={this.props.notifications}>
-              <div className="editableDisplay__content__form__row">
-                <EditableFor data="mobilePhone"/>
-                <EditableFor data="secondaryPhone"/>
-              </div>
-              <div className="editableDisplay__content__form__row__single">
-                <EditableFor data="email"/>
-              </div>
-            </EditableDisplay>
-            <EditableDisplay model={this.props.model}
-                             submitHandler={this.props.updateClientAddress}
-                             sectionHeader="Client Address"
-                             formName="ClientAddress"
-                             notifications={this.props.notifications}>
-              <div className="editableDisplay__content__form__row">
-                <EditableFor data="street1"/>
-                <EditableFor data="street2"/>
-              </div>
-              <div className="editableDisplay__content__form__row">
-                <EditableFor data="city" containerStyle="editableDisplay__content__form__row__address__city"/>
-                <EditableFor selectOptions={this.props.states}
-                             data="state"
-                             containerStyle="editableDisplay__content__form__row__address__state"
-                />
-                <EditableFor data="zipCode" containerStyle="editableDisplay__content__form__row__address__zip"/>
-              </div>
-            </EditableDisplay>
-            <EditableDisplay model={this.props.model}
-                             submitHandler={this.props.updateClientSource}
-                             sectionHeader="Source Info"
-                             formName="ClientSource"
-                             notifications={this.props.notifications}>
-              <div className="editableDisplay__content__form__row">
-                <EditableFor data="source" selectOptions={this.props.sources}/>
-                <EditableFor data="startDate"/>
-              </div>
-              <div className="editableDisplay__content__form__row">
-                <EditableFor data="sourceNotes"/>
-              </div>
-            </EditableDisplay>
+            </div>
           </div>
         </div>
       </div>);
   }
-};
+}
 
 export default UpdateClientForm;

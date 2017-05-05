@@ -1,7 +1,7 @@
 import {merge} from 'lodash';
 
 let config = {
-  apiBase: 'http://localhost:3000/',
+  apiBase: 'http://localhost:3666/',
   //bunch of default values here;
 };
 

@@ -38,12 +38,14 @@ class UpdateClientFormContainer extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  const client = state.clients.filter(x=>x.id === props.params.clientId)[0];
+  const client = state.clients.find(x=>x.id === props.params.clientId);
   const model = formJsonSchema(state.schema.definitions.client, client);
+
   return {
     model,
     states,
-    sources
+    sources,
+    inventory: client ? client.inventory : null
   }
 };
 
