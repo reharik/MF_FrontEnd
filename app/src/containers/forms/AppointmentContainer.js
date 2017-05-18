@@ -12,7 +12,7 @@ const {notifClear} = notifActions;
 const mapStateToProps = (state, ownProps) => {
   const clients = state.clients
     .filter(x => !x.archived)
-    .map(x=> ({ value:x.id , display: `${x.contact.lastName} ${x.contact.firstName}` }));
+    .map(x=> ({ value: x.id, display: `${x.contact.lastName} ${x.contact.firstName}` }));
 
   // please put this shit in a config somewhere
   const times = generateAllTimes(15, 7, 7);

@@ -56,7 +56,8 @@ class MFCalendar extends Component {
   };
 
   permissionToSetAppointment(date,time,isAdmin) {
-    return !!(moment(date).isAfter(moment(), 'day')
+    return isAdmin
+    || (moment(date).isAfter(moment(), 'day')
     || moment(date).isSame(moment(), 'day')
     && moment(time, 'h:mm A').isAfter(moment().subtract(2, 'hours')));
   }
